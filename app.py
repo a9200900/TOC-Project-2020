@@ -10,31 +10,29 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage
 from fsm import TocMachine
 from utils import send_text_message
 
+
 load_dotenv()
 
 
 machine = TocMachine(
-    states=["user", "state1", "state2"],
+    states=["intro", "start", "state_fight"],
     transitions=[
         {
-            "trigger": "to_state1",
-            "source": "user",
-            "dest": "state1",
-            
+            "trigger": "to_start",
+            "source": "intro",
+            "dest": "start",
         },
         {
-            "trigger": "to_state2",
-            "source": "user",
-            "dest": "state2",
-            
+            "trigger": "to_state_fight",
+            "source": "start",
+            "dest": "state_fight",  
         },
-        {"trigger": "go_back",
-         "source": ["state1", "state2"],
-          "dest": "user" ,
-          
+        {"trigger": "go_back_intro",
+         "source": "start",
+          "dest": "intro" ,
         },
     ],
-    initial="user",
+    initial="intro",
     auto_transitions=False,
     show_conditions=True,
 )
@@ -106,12 +104,14 @@ def webhook_handler():
             continue
         print(f"\nFSM STATE: {machine.state}")
         print(f"REQUEST BODY: \n{body}")
-        if event.message.text == "1":
-            machine.to_state1(event)
-        if event.message.text == "2":
-            machine.to_state2(event)
-        if event.message.text == "go back":
-            machine.go_back(event)
+        
+        if event.message.text == "人物介紹":
+            machine.introduce(event)
+        if event.message.text == "返回":
+            machine.go_back_intro(event)
+        
+        if event.message.text == "開始冒險":
+            machine.to_start(event)
 
         #response = machine.advance(event)
         #if response == False:

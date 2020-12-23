@@ -47,3 +47,16 @@ class TocMachine(GraphMachine):
         reply_token = event.reply_token
         send_text_message(reply_token, "Trigger user")
 
+    def on_enter_intro(self , event):
+
+        reply_token = event.reply_token
+        send_text_message(reply_token, "無盡天使:歡迎來到這個世界，你一定是上帝派來拯救我們的勇者，請你幫助我們打到大魔王『斯巴拉斯卡．羅迪耶爾』!")
+
+    def introduce(self , event):
+        reply_token = event.reply_token
+        send_text_message(reply_token, "現在是魔王曆128年,自從上一位勇者犧牲已經100多年了，沒有人能夠與現在的魔王抗衡，希望勇者您能幫助我們打到魔王!")
+
+    def on_enter_start(self , event):
+
+        reply_token = event.reply_token
+        send_text_message(reply_token, "即將踏上旅途")
