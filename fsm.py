@@ -5,6 +5,8 @@ from utils import send_text_message
 from linebot.models import (MessageEvent, TextMessage, TextSendMessage,TemplateSendMessage,ButtonsTemplate,MessageTemplateAction)
 from linebot import LineBotApi, WebhookParser
 
+channel_access_token = os.getenv("LINE_CHANNEL_ACCESS_TOKEN", None)
+line_bot_api = LineBotApi(channel_access_token)
 
 class TocMachine(GraphMachine):
     def __init__(self, **machine_configs):
@@ -65,9 +67,30 @@ class TocMachine(GraphMachine):
         
 
     def on_enter_start(self , event):
-
-        reply_token = event.reply_token
-        send_text_message(reply_token, "即將踏上旅途\n輸入 戰鬥 可開始戰鬥\n輸入 返回 可回到介紹畫面")
+        line_bot_api.reply_message(
+                        event.reply_token,
+                        TemplateSendMessage(
+                            alt_text ='Buttons template',
+                            template = ButtonsTemplate(
+                                title = '選項',
+                                text = '踏上旅程，在前方是未知的道路!',
+                                actions=[
+                                    MessageTemplateAction(
+                                        label = '戰鬥',
+                                        text = '戰鬥'
+                                    ),
+                                    MessageTemplateAction(
+                                        label = '商店',
+                                        text = '商店'
+                                    ),
+                                    MessageTemplateAction(
+                                        label = '返回',
+                                        text = '返回'
+                                    )
+                                ]
+                            )
+                        )
+                    )
 
     def on_enter_state_fight(self , event):
         reply_token = event.reply_token
@@ -77,9 +100,7 @@ class TocMachine(GraphMachine):
         reply_token = event.reply_token
         send_text_message(reply_token, "戰鬥結束")
 
-    def line_buttons(self,event):
-        channel_access_token = os.getenv("LINE_CHANNEL_ACCESS_TOKEN", None)
-        line_bot_api = LineBotApi(channel_access_token)
+    def line_buttons_intro(self,event):
         line_bot_api.reply_message(
                         event.reply_token,
                         TemplateSendMessage(
