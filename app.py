@@ -31,6 +31,10 @@ machine = TocMachine(
          "source": "start",
           "dest": "intro" ,
         },
+        {"trigger": "go_back_start",
+         "source": "state_fight",
+          "dest": "start" ,
+        },
     ],
     initial="intro",
     auto_transitions=False,
@@ -112,7 +116,7 @@ def webhook_handler():
                 machine.go_back_intro(event)
         if machine.state == "state_fight":
             if event.message.text == "返回":
-                machine.go_back_intro(event)
+                machine.go_back_start(event)
         if event.message.text == "開始冒險":
             machine.to_start(event)
         if event.message.text == "戰鬥":

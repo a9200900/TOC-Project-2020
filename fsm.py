@@ -64,3 +64,7 @@ class TocMachine(GraphMachine):
     def on_enter_state_fight(self , event):
         reply_token = event.reply_token
         send_text_message(reply_token, "戰鬥開始")
+
+    def on_exit_state_fight(self , event):
+        reply_token = event.reply_token
+        send_text_message(reply_token, "戰鬥結束")
