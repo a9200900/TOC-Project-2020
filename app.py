@@ -107,11 +107,17 @@ def webhook_handler():
         
         if event.message.text == "人物介紹":
             machine.introduce(event)
-        if event.message.text == "返回":
-            machine.go_back_intro(event)
-        
+        if machine.state == "start":
+            event.message.text == "返回":
+                machine.go_back_intro(event)
+        if machine.state == "state_fight":
+            event.message.text == "返回":
+                machine.go_back_intro(event)
         if event.message.text == "開始冒險":
             machine.to_start(event)
+        if event.message.text == "戰鬥":
+            machine.to_state_fight(event)
+
 
         #response = machine.advance(event)
         #if response == False:

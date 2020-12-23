@@ -50,7 +50,7 @@ class TocMachine(GraphMachine):
     def on_enter_intro(self , event):
 
         reply_token = event.reply_token
-        send_text_message(reply_token, "無盡天使:歡迎來到這個世界，你一定是上帝派來拯救我們的勇者，請你幫助我們打到大魔王『斯巴拉斯卡．羅迪耶爾』!")
+        send_text_message(reply_token, "無盡天使:歡迎來到這個世界，你一定是上帝派來拯救我們的勇者，請你幫助我們打到大魔王『斯巴拉斯．魔迪耶爾』!")
 
     def introduce(self , event):
         reply_token = event.reply_token
@@ -60,3 +60,7 @@ class TocMachine(GraphMachine):
 
         reply_token = event.reply_token
         send_text_message(reply_token, "即將踏上旅途")
+
+    def on_enter_state_fight(self , event):
+        reply_token = event.reply_token
+        send_text_message(reply_token, "戰鬥開始")
