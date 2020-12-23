@@ -85,8 +85,8 @@ class TocMachine(GraphMachine):
                     )
 
     def on_exit_state_fight(self , event):
-        reply_token = event.reply_token
-        send_text_message(reply_token, "戰鬥結束")
+        # reply_token = event.reply_token
+        # send_text_message(reply_token, "戰鬥結束")
 
     def line_buttons_intro(self,event):
         line_bot_api.reply_message(
