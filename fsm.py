@@ -12,45 +12,6 @@ class TocMachine(GraphMachine):
     def __init__(self, **machine_configs):
         self.machine = GraphMachine(model=self, **machine_configs)
 
-    def is_going_to_state1(self, event):
-        text = event.message.text
-        return text.lower() == "go to state1"
-
-    def is_going_to_state2(self, event):
-        text = event.message.text
-        return text.lower() == "go to state2"
-
-    def on_enter_state1(self, event):
-        print("I'm entering state1")
-
-        reply_token = event.reply_token
-        send_text_message(reply_token, "Trigger state1")
-        #self.go_back()
-
-    def on_exit_state1(self,event):
-        print("Leaving state1")
-        reply_token = event.reply_token
-        send_text_message(reply_token, "Leaving state1")
-
-    def on_enter_state2(self, event):
-        print("I'm entering state2")
-
-        reply_token = event.reply_token
-        send_text_message(reply_token, "Trigger state2")
-        #self.go_back()
-
-    def on_exit_state2(self,event):
-        print("Leaving state2")
-        reply_token = event.reply_token
-        send_text_message(reply_token, "Leaving state2")
-
-    def leaving_or_not(self , event):
-        text = event.message.text
-        return text.lower() == "go back"
-
-    def on_enter_user(self , event):
-        reply_token = event.reply_token
-        send_text_message(reply_token, "Trigger user")
 
     def on_enter_intro(self , event):
 
@@ -93,8 +54,35 @@ class TocMachine(GraphMachine):
                     )
 
     def on_enter_state_fight(self , event):
-        reply_token = event.reply_token
-        send_text_message(reply_token, "戰鬥開始")
+        
+        line_bot_api.reply_message(
+                        event.reply_token,
+                        TemplateSendMessage(
+                            alt_text ='Buttons template',
+                            template = ButtonsTemplate(
+                                title = '選項',
+                                text = '遭遇怪物，立刻攻擊!',
+                                actions=[
+                                    MessageTemplateAction(
+                                        label = '攻擊1',
+                                        text = '攻擊1'
+                                    ),
+                                    MessageTemplateAction(
+                                        label = '攻擊2',
+                                        text = '攻擊2'
+                                    ),
+                                    MessageTemplateAction(
+                                        label = '道具',
+                                        text = '道具'
+                                    ),
+                                    MessageTemplateAction(
+                                        label = '返回',
+                                        text = '返回'
+                                    )
+                                ]
+                            )
+                        )
+                    )
 
     def on_exit_state_fight(self , event):
         reply_token = event.reply_token
