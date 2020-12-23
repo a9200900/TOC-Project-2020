@@ -106,11 +106,11 @@ def webhook_handler():
             continue
         print(f"\nFSM STATE: {machine.state}")
         print(f"REQUEST BODY: \n{body}")
-        if event.message.text == "1"
+        if event.message.text == "1":
             machine.to_state1(event)
-        if event.message.text == "2"
+        if event.message.text == "2":
             machine.to_state2(event)
-        if event.message.text == "go back"
+        if event.message.text == "go back":
             machine.go_back(event)
 
         #response = machine.advance(event)
