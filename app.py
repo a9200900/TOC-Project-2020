@@ -125,7 +125,9 @@ def webhook_handler():
         if machine.state == "start":
             if event.message.text == "返回":
                 machine.go_back_intro(event)
-
+        if machine.state == "start":
+            if event.message.text == "戰鬥":
+                machine.to_state_fight(event)
 
         #fight state
         if machine.state == "state_fight":
