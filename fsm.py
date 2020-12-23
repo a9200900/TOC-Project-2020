@@ -24,8 +24,8 @@ class TocMachine(GraphMachine):
 
     def on_exit_state1(self,event):
         print("Leaving state1")
-        #reply_token = event.reply_token
-        #send_text_message(reply_token, "Leaving state1")
+        reply_token = event.reply_token
+        send_text_message(reply_token, "Leaving state1")
 
     def on_enter_state2(self, event):
         print("I'm entering state2")
@@ -36,8 +36,8 @@ class TocMachine(GraphMachine):
 
     def on_exit_state2(self,event):
         print("Leaving state2")
-        #reply_token = event.reply_token
-        #send_text_message(reply_token, "Leaving state2")
+        reply_token = event.reply_token
+        send_text_message(reply_token, "Leaving state2")
 
     def leaving_or_not(self , event):
         text = event.message.text
