@@ -84,9 +84,9 @@ class TocMachine(GraphMachine):
                         )
                     )
 
-    # def on_exit_state_fight(self , event):
-    #      reply_token = event.reply_token
-    #      send_text_message(reply_token, "戰鬥結束")
+    def on_exit_state_fight(self , event):
+        reply_token = event.reply_token
+        send_text_message(reply_token, "戰鬥結束")
 
     def line_buttons_intro(self,event):
         line_bot_api.reply_message(
@@ -104,6 +104,31 @@ class TocMachine(GraphMachine):
                                     MessageTemplateAction(
                                         label = '開始冒險',
                                         text = '開始冒險'
+                                    )
+                                ]
+                            )
+                        )
+                    )
+    def on_enter_state_store(self , event):
+        line_bot_api.reply_message(
+                        event.reply_token,
+                        TemplateSendMessage(
+                            alt_text ='Buttons template',
+                            template = ButtonsTemplate(
+                                title = '選項',
+                                text = '這裡充滿神祕的商品，想要甚麼就拿走吧',
+                                actions=[
+                                    MessageTemplateAction(
+                                        label = '藥水',
+                                        text = '藥水'
+                                    ),
+                                    MessageTemplateAction(
+                                        label = '刀',
+                                        text = '刀'
+                                    ),
+                                    MessageTemplateAction(
+                                        label = '返回',
+                                        text = '返回'
                                     )
                                 ]
                             )
