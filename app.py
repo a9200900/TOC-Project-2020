@@ -15,7 +15,7 @@ load_dotenv()
 
 
 machine = TocMachine(
-    states=["intro", "start", "state_fight"],
+    states=["intro", "start", "state_fight". "state_store"],
     transitions=[
         {
             "trigger": "to_start",
@@ -31,8 +31,16 @@ machine = TocMachine(
          "source": "start",
           "dest": "intro" ,
         },
-        {"trigger": "go_back_start",
+        {"trigger": "go_back_start_fight",
          "source": "state_fight",
+          "dest": "start" ,
+        },
+        {"trigger": "to_state_store",
+         "source": "start",
+          "dest": "state_store" ,
+        },
+        {"trigger": "go_back_start_store",
+         "source": "state_store",
           "dest": "start" ,
         },
     ],
@@ -128,11 +136,19 @@ def webhook_handler():
         if machine.state == "start":
             if event.message.text == "戰鬥":
                 machine.to_state_fight(event)
+        if machine.state == "start":
+            if event.message.text == "商店":
+                machine.to_state_store(event)
 
         #fight state
         if machine.state == "state_fight":
             if event.message.text == "返回":
-                machine.go_back_start(event)
+                machine.go_back_start_fight(event)
+
+        #store state
+        if machine.state == "state_store":
+            if event.message.text == "返回":
+                machine.go_back_start_store(event)
 
 
         #response = machine.advance(event)
