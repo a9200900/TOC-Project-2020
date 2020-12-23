@@ -56,10 +56,18 @@ class TocMachine(GraphMachine):
         reply_token = event.reply_token
         send_text_message(reply_token, "現在是魔王曆128年,自從上一位勇者犧牲已經100多年了，沒有人能夠與現在的魔王抗衡，希望勇者您能幫助我們打到魔王!")
 
+    def orientation(self , event):
+        reply_token = event.reply_token
+        send_text_message(reply_token, "歡迎進入世界。")
+        send_text_message(reply_token, "輸入 人物介紹 可了解基本背景\n 
+                                        輸入 開始冒險 可開始偉大的旅程")
+
     def on_enter_start(self , event):
 
         reply_token = event.reply_token
-        send_text_message(reply_token, "即將踏上旅途")
+        send_text_message(reply_token, "即將踏上旅途\n
+                                        輸入 戰鬥 可開始戰鬥\n
+                                        輸入 返回 可回到介紹畫面")
 
     def on_enter_state_fight(self , event):
         reply_token = event.reply_token
