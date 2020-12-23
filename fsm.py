@@ -43,3 +43,7 @@ class TocMachine(GraphMachine):
         text = event.message.text
         return text.lower() == "go back"
 
+    def on_enter_user(self , event):
+        reply_token = event.reply_token
+        send_text_message(reply_token, "Trigger user")
+
