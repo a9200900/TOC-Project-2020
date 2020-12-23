@@ -73,7 +73,7 @@ def callback():
 
     # if event is MessageEvent and message is TextMessage, then echo text
     for event in events:
-        if not isinstance(event, MessageEvent):
+        if isinstance(event, MessageEvent):
             if machine.state == "intro":
                 if event.message.text == "進入":
                     line_bot_api.reply_message(
