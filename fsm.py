@@ -59,15 +59,12 @@ class TocMachine(GraphMachine):
     def orientation(self , event):
         reply_token = event.reply_token
         send_text_message(reply_token, "歡迎進入世界。")
-        send_text_message(reply_token, "輸入 人物介紹 可了解基本背景\n 
-                                        輸入 開始冒險 可開始偉大的旅程")
+        send_text_message(reply_token, "輸入 人物介紹 可了解基本背景\n輸入 開始冒險 可開始偉大的旅程")
 
     def on_enter_start(self , event):
 
         reply_token = event.reply_token
-        send_text_message(reply_token, "即將踏上旅途\n
-                                        輸入 戰鬥 可開始戰鬥\n
-                                        輸入 返回 可回到介紹畫面")
+        send_text_message(reply_token, "即將踏上旅途\n輸入 戰鬥 可開始戰鬥\n輸入 返回 可回到介紹畫面")
 
     def on_enter_state_fight(self , event):
         reply_token = event.reply_token
