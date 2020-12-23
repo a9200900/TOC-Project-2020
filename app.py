@@ -101,6 +101,28 @@ def webhook_handler():
     # if event is MessageEvent and message is TextMessage, then echo text
     for event in events:
         if not isinstance(event, MessageEvent):
+            if machine.state == "intro":
+                if event.message.text == "進入":
+                    line_bot_api.reply_message(
+                        event.reply_token,
+                        TemplateSendMessage(
+                            alt_text ='Buttoms template',
+                            template = ButtomTemplate(
+                                title = '選項',
+                                text = '無盡天使:歡迎來到這個世界，你一定是上帝派來拯救我們的勇者，請你幫助我們打到大魔王『斯巴拉斯．魔迪耶爾』!',
+                                actions=[
+                                    MessageTemplateAction(
+                                        label = '人物介紹',
+                                        text = '人物介紹'
+                                    ),
+                                    MessageTemplateAction(
+                                        label = '開始冒險',
+                                        text = '開始冒險'
+                                    )
+                                ]
+                            )
+                        )
+                    )
             continue
         if not isinstance(event.message, TextMessage):
             continue
@@ -113,9 +135,9 @@ def webhook_handler():
         if machine.state == "intro":
             if event.message.text == "人物介紹":
                 machine.introduce(event)
-        if machine.state == "intro":
-            if event.message.text == "進入":
-                machine.orientation(event)
+        # if machine.state == "intro":
+        #     if event.message.text == "進入":
+        #         machine.orientation(event)
         if event.message.text == "開始冒險":
             machine.to_start(event)
         
