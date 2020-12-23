@@ -15,7 +15,7 @@ load_dotenv()
 
 
 machine = TocMachine(
-    states=["intro", "start", "state_fight". "state_store"],
+    states=["intro", "start", "state_fight", "state_store"],
     transitions=[
         {
             "trigger": "to_start",
