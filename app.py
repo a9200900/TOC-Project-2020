@@ -125,7 +125,7 @@ def webhook_handler():
             #             )
             #         )
 
-            #continue
+            continue
         if not isinstance(event.message, TextMessage):
             continue
         if not isinstance(event.message.text, str):
@@ -137,9 +137,9 @@ def webhook_handler():
         if machine.state == "intro":
             if event.message.text == "人物介紹":
                 machine.introduce(event)
-        # if machine.state == "intro":
-        #     if event.message.text == "進入":
-        #         machine.orientation(event)
+        if machine.state == "intro":
+            if event.message.text == "進入":
+                machine.line_buttons(event)
         if event.message.text == "開始冒險":
             machine.to_start(event)
         
