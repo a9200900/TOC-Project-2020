@@ -171,13 +171,17 @@ class TocMachine(GraphMachine):
         h = str(health)
         a = str(attack)
         d = str(defense)
+        l = str(level)
         line = '-----------------------\n'
         reply_token = event.reply_token
-        send_text_message(reply_token,'名字: '+name+'\n'+
+        send_text_message(reply_token,  '角色資訊:'+
+                                        line+
+                                        '名字: '+name+'\n'+
                                         '職業: '+occupation+'\n'+
-                                        '等級: '+level +'\n'+
+                                        '等級: '+l +'\n'+
                                         '生命值: '+h+'\n'+
-                                        '攻擊力: '+a) 
+                                        '攻擊力: '+a+'\n'+
+                                        '防禦力' + d) 
 
     def on_enter_build(self , event):
         line_bot_api.reply_message(
@@ -339,3 +343,29 @@ class TocMachine(GraphMachine):
                 flag = True
 
         return flag
+
+
+
+
+    line_bot_api.reply_message(
+            event.reply_token,[
+            TemplateSendMessage(
+                alt_text ='Buttons template',
+                    template = ButtonsTemplate(
+                        title = '秘密',
+                        text = story,
+                        actions=[
+                            MessageTemplateAction(
+                                label='果然呢',
+                                text = 'em'
+                            ),
+                            MessageTemplateAction(
+                                label='早就覺得她很奇怪',
+                                text = 'dead'
+                            )
+                        ]
+                )
+            ),
+            TextSendMessage(text="這樣說人家秘密真的好嗎\n輸入 阻止班長")
+            ]
+        )
