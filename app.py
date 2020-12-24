@@ -225,7 +225,7 @@ def webhook_handler():
         #start state
         if machine.state == "start":
             if event.message.text == "地圖":
-                machine.to_map(event)
+                machine.to_state_map(event)
         if machine.state == "start":
             if event.message.text == "前進":
                 machine.to_state_fight(event)
