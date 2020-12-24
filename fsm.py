@@ -198,14 +198,18 @@ class TocMachine(GraphMachine):
      
         
     def item(self , event):
-        global backpack
+        global backpack,attribute
         item_in_backpack = ""
         item_equip = ""
         line = '-----------------------\n'
-        for i in range(len(backpack)):
-            item_in_backpack += backpack[i]+"\n" 
-        for i in range(len(equipment)):
-            item_equip += equipment[i] + "\n"
+        for i in backpack:
+            for j in attribute:
+                if i == j[0]:
+                    item_in_backpack += i+" +" + j[1] + " +" + j[2] + " +"+ j[3] + "\n" 
+        for i in equipment:
+            for j in attribute:
+                if i == j[0]:
+                    item_equip += i+" +" + j[1] + " +" + j[2] + " +"+ j[3] + "\n" 
 
 
         reply_token = event.reply_token
