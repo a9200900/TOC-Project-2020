@@ -560,7 +560,7 @@ class TocMachine(GraphMachine):
                         
                     )
     def show_result(self,event):
-        global monster_now,monster,map_now_count,health,attack,defense,exp,level,occupation.drops
+        global monster_now,monster,map_now_count,health,attack,defense,exp,level,occupation,drops
         tmp_level = level
         upgrade = ""
         exp += monster_now[4]
