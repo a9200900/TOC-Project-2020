@@ -29,10 +29,10 @@ class TocMachine(GraphMachine):
 
     def on_enter_start(self , event):
         global occupation,health,attack,defense
-        occupation =  "狂戰士"
-        health = 12
-        attack = 3
-        defense = 2
+        # occupation =  "狂戰士"
+        # health = 12
+        # attack = 3
+        # defense = 2
         
         line_bot_api.reply_message(
                         event.reply_token,
