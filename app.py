@@ -254,7 +254,12 @@ def webhook_handler():
         if machine.state == "state_fight":
             if event.message.text == "當前狀態":
                 machine.situation(event)
-
+        if machine.state == "state_fight":
+            if event.message.text == "攻擊":
+                if machine.attacking(event)=="死亡":
+                    machine.go_back_start_fight(event)
+                else:
+                    machine.situation(event)
         #store state
         if machine.state == "state_store":
             if event.message.text == "返回":
