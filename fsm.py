@@ -272,9 +272,46 @@ class TocMachine(GraphMachine):
                             )
                         )
                     )
+    def show_choose_occupation(self,event):
+        line_bot_api.reply_message(
+                        event.reply_token,
+                        TemplateSendMessage(
+                            alt_text ='Buttons template',
+                            template = ButtonsTemplate(
+                                title = '選擇職業',
+                                text = '無盡天使:請選擇想要遊玩的職業，每個職業都有其強大的力量。',
+                                actions=[
+                                    MessageTemplateAction(
+                                        label = '狂戰士',
+                                        text = '狂戰士'
+                                    ),
+                                    MessageTemplateAction(
+                                        label = '黑暗法師',
+                                        text = '黑暗法師'
+                                    ),
+                                    MessageTemplateAction(
+                                        label = '精靈射手',
+                                        text = '精靈射手'
+                                    ),
+                                    MessageTemplateAction(
+                                        label = '職業介紹',
+                                        text = '職業介紹'
+                                    )
+                                ]
+                            )
+                        )
+                    )
     def occupation_intro(self ,event):
+        line = '-----------------------\n'
         reply_token = event.reply_token
         send_text_message(reply_token, "無盡天使:角色職業總共分為三大類,\n"+
-                                        "狂戰士: 具有強大防禦力以及血量的維京人戰士，能夠穩定的輸出且續戰力驚人。\n使用武器為:刀、劍類\n"+
-                                        "黑暗法師: 掌握魔法力量的法師，來自地下神秘組織，試圖用魔法掌控世界的走向。攻擊力相當高，防禦則相對薄弱。\n使用武器為:法仗\n"+
+                                        line+
+                                        "狂戰士: 具有強大防禦力以及血量的維京人戰士，能夠穩定的輸出且續戰力驚人。\n使用武器為:刀、劍類\n\n"+
+                                        "黑暗法師: 掌握魔法力量的法師，來自地下神秘組織，試圖用魔法掌控世界的走向。攻擊力相當高，防禦則相對薄弱。\n使用武器為:法仗\n\n"+
                                         "精靈射手: 來自據有長生不老之力的古老精靈族，世世代代傳承著驚人的弓術及戰鬥技巧，屬性方面相當的平衡。\n使用武器為:弓劍")
+
+    def set_occupation(self,event):
+        global occupation
+        occupation = event.message.text
+        reply_token = event.reply_token
+        send_text_message(reply_token, "無盡天使: 你選擇的職業是 "+occupation +"，馬上展開你的冒險吧!\n輸入 返回 回到角色選單")
