@@ -214,7 +214,7 @@ class TocMachine(GraphMachine):
     def on_enter_enter_name(self ,event):
         reply_token = event.reply_token
         send_text_message(reply_token, "無盡天使:請告訴我您的大名。")
-    def on_exit_enter_name(self,event):
+    def show_build(self,event):
         line_bot_api.reply_message(
                         event.reply_token,
                         TemplateSendMessage(
