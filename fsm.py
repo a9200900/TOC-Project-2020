@@ -15,7 +15,8 @@ defense = 0
 level = 1
 backpack = []
 equipment = []
-attribute = [["普通大劍" , "1" ,"2","3"] ,["短仗","2","3","4"] ,["短弓","3","4","5"] ]
+attribute = [["普通大劍" , "0" ,"1","1"] ,["短仗","0","1","1"] ,["短弓","0","1","1"] ,["破舊的大衣","1","0","1"],["初級魔法袍","1","0","1"]
+,["簡陋的衣裝","1","0","1"]] 
 moster = ["哥布林","巫女","盜賊","墮落的勇者","史萊姆"]
 map = []
 
@@ -187,10 +188,12 @@ class TocMachine(GraphMachine):
     def check_character(self , event):
         global occupation,name,health,attack,defense,level,attribute,backpack
         for i in attribute:
-            if backpack[0] == i[0]:
-                health += int(i[1])
-                attack += int(i[2])
-                defense += int(i[3])
+            for j in equipment:
+                if j == i[0]:
+                    health += int(i[1])
+                    attack += int(i[2])
+                    defense += int(i[3])
+            
             
      
         
@@ -354,8 +357,8 @@ class TocMachine(GraphMachine):
             health = 12
             attack = 2
             defense = 3
-            backpack = ["普通大劍" , "破舊的大衣"]
-            equipment = ["普通大劍" , "破舊的大衣"]
+            backpack = ["普通大劍" , "破舊的大衣"]  
+            equipment = ["普通大劍" , "破舊的大衣"] 
         if occupation == "黑暗法師":
             health = 9
             attack = 3
