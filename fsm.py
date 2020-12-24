@@ -18,7 +18,9 @@ equipment = []
 attribute = [["普通大劍" , "0" ,"1","1"] ,["短仗","0","1","1"] ,["短弓","0","1","1"] ,["破舊的大衣","1","0","1"],["初級魔法袍","1","0","1"]
 ,["簡陋的衣裝","1","0","1"]] 
 moster = ["哥布林","巫女","盜賊","墮落的勇者","史萊姆"]
-map = ["幽靜小路","被詛咒的沼澤","山洞"]
+map = ["新手鎮","幽靜小路","被詛咒的沼澤","山洞"]
+map_now = ""
+map_now_count = 0
 
 
 class TocMachine(GraphMachine):
@@ -86,6 +88,7 @@ class TocMachine(GraphMachine):
                     )
 
     def on_enter_state_fight(self , event):
+        
         
         line_bot_api.reply_message(
                         event.reply_token,
@@ -194,8 +197,7 @@ class TocMachine(GraphMachine):
                     attack += int(i[2])
                     defense += int(i[3])
             
-
-        
+    
     def item(self , event):
         global backpack,attribute
         item_in_backpack = ""
@@ -221,7 +223,7 @@ class TocMachine(GraphMachine):
 
         reply_token = event.reply_token
         send_text_message(reply_token,  '背包:\n'+
-                                        "名稱   " + "生命" +"攻擊"+"防禦\n"+
+                                        "名稱   " + "生命" +" 攻擊"+" 防禦\n"+
                                         item_in_backpack+
                                         line+
                                         "裝備中:\n"+
@@ -399,10 +401,20 @@ class TocMachine(GraphMachine):
 
 
     def on_enter_map(self,event):
-        global map
+        global map,map_now
         path = ""
         line = '-----------------------\n'
         for i in map:
             path += i + " ==> "
         reply_token = event.reply_token
-        send_text_message(reply_token, "路線為: \n"+ path +"\n"+line+"輸入 返回 回到選單" ) 
+        send_text_message(reply_token, "路線為: \n"+ path +"\n"+
+                                        line+
+                                        "當前位置為: \n"+ map_now +"\n"+
+                                        line+
+                                        "輸入 返回 回到選單" ) 
+
+    def forward(self,event):
+        global map_now_count,map,map_now
+        map_now_count += 1
+        map_now = map[map_now_count]
+        

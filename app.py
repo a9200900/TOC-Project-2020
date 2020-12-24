@@ -228,7 +228,7 @@ def webhook_handler():
                 machine.to_state_map(event)
         if machine.state == "start":
             if event.message.text == "前進":
-                machine.to_state_fight(event)
+                machine.forward(event)
         if machine.state == "start":
             if event.message.text == "背包":
                 machine.item(event)
