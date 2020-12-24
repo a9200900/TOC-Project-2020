@@ -18,7 +18,7 @@ equipment = []
 attribute = [["普通大劍" , "0" ,"1","1"] ,["短仗","0","1","1"] ,["短弓","0","1","1"] ,["破舊的大衣","1","0","1"],["初級魔法袍","1","0","1"]
 ,["簡陋的衣裝","1","0","1"]] 
 moster = ["哥布林","巫女","盜賊","墮落的勇者","史萊姆"]
-map = []
+map = ["幽靜小路","被詛咒的沼澤","山洞"]
 
 
 class TocMachine(GraphMachine):
@@ -73,12 +73,12 @@ class TocMachine(GraphMachine):
                                         text = '背包'
                                     ),
                                     MessageTemplateAction(
-                                        label = '角色資訊',
-                                        text = '角色資訊'
+                                        label = '地圖',
+                                        text = '地圖'
                                     ),
                                     MessageTemplateAction(
-                                        label = '返回',
-                                        text = '返回'
+                                        label = '角色資訊',
+                                        text = '角色資訊'
                                     )
                                 ]
                             )
@@ -194,8 +194,7 @@ class TocMachine(GraphMachine):
                     attack += int(i[2])
                     defense += int(i[3])
             
-            
-     
+
         
     def item(self , event):
         global backpack,attribute
@@ -398,3 +397,12 @@ class TocMachine(GraphMachine):
 
         return flag
 
+
+    def on_enter_map(self,event):
+        global map
+        path = ""
+        line = '-----------------------\n'
+        for i in map:
+            path += i + " ==> "
+        reply_token = event.reply_token
+        send_text_message(reply_token, "路線為: \n"+ path +"\n"+line+"輸入 返回 回到選單" ) 
