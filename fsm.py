@@ -214,6 +214,31 @@ class TocMachine(GraphMachine):
     def on_enter_enter_name(self ,event):
         reply_token = event.reply_token
         send_text_message(reply_token, "無盡天使:請告訴我您的大名。")
+    def on_exit_enter_name(self,event):
+        line_bot_api.reply_message(
+                        event.reply_token,
+                        TemplateSendMessage(
+                            alt_text ='Buttons template',
+                            template = ButtonsTemplate(
+                                title = '建立角色',
+                                text = '無盡天使:請依序輸入您的大名，以及想要遊玩的職業。',
+                                actions=[
+                                    MessageTemplateAction(
+                                        label = '設定名稱',
+                                        text = '設定名稱'
+                                    ),
+                                    MessageTemplateAction(
+                                        label = '選擇職業',
+                                        text = '選擇職業'
+                                    ),
+                                    MessageTemplateAction(
+                                        label = '返回',
+                                        text = '返回'
+                                    )
+                                ]
+                            )
+                        )
+                    )
     def set_name(self, event):
         global name
         name = event.message.text
