@@ -549,7 +549,7 @@ class TocMachine(GraphMachine):
                             )
                         ),
                             TextSendMessage(text="你對怪物造成了 "+str(attack - int(monster_now[3])) +" 傷害!\n"+
-                                                 "怪物並沒有死亡，並且對你造成了 "+(int(monster_now[2])-defense)+" 傷害" )
+                                                 "怪物並沒有死亡，並且對你造成了 "+str(int(monster_now[2])-defense)+" 傷害" )
                         ]
                         
                     )
