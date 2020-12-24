@@ -32,16 +32,6 @@ class TocMachine(GraphMachine):
         send_text_message(reply_token, "無盡天使:歡迎來到這個世界，你一定是上帝派來拯救我們的勇者，請你幫助我們打到大魔王『斯巴拉斯．魔迪耶爾』!")   
 
     def on_enter_start(self , event):
-        global occupation,health,attack,defense
-        occupation =  '狂戰士'
-        health = 12
-        attack = 3
-        defense = 2
-        
-        h = str(health)
-        a = str(attack)
-        d = str(defense)
-        line = '-----------------------\n'
         
         line_bot_api.reply_message(
                         event.reply_token,
@@ -49,7 +39,7 @@ class TocMachine(GraphMachine):
                             alt_text ='Buttons template',
                             template = ButtonsTemplate(
                                 title = '選項',
-                                text = '踏上旅程，在前方是未知的道路!\n角色資訊\n'+'無盡天使:歡迎來到這個世界，你一定是上帝派來拯救我們的勇者，請你幫助我們打到大魔王『斯巴拉斯．魔迪耶爾』!',
+                                text = '踏上旅程，在前方是未知的道路!',
                                 actions=[
                                     MessageTemplateAction(
                                         label = '戰鬥',
@@ -58,6 +48,10 @@ class TocMachine(GraphMachine):
                                     MessageTemplateAction(
                                         label = '商店',
                                         text = '商店'
+                                    ),
+                                    MessageTemplateAction(
+                                        label = '角色資訊',
+                                        text = '角色資訊'
                                     ),
                                     MessageTemplateAction(
                                         label = '返回',
@@ -149,3 +143,21 @@ class TocMachine(GraphMachine):
                             )
                         )
                     )
+    def character(self , event):
+        global occupation,health,attack,defense
+        occupation =  '狂戰士'
+        health = 12
+        attack = 3
+        defense = 2
+        
+        h = str(health)
+        a = str(attack)
+        d = str(defense)
+        line = '-----------------------\n'
+        reply_token = event.reply_token
+        send_text_message(reply_token, "角色資訊\n"+
+                                        line+
+                                        h+'\n'+
+                                        a+'\n'+
+                                        d+'\n') 
+

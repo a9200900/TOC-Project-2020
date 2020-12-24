@@ -140,6 +140,9 @@ def webhook_handler():
         if machine.state == "start":
             if event.message.text == "商店":
                 machine.to_state_store(event)
+        if machine.state == "start":
+            if event.message.text == "角色資訊":
+                machine.character(event)
 
         #fight state
         if machine.state == "state_fight":
