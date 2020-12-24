@@ -400,7 +400,7 @@ class TocMachine(GraphMachine):
         return flag
 
 
-    def on_enter_map(self,event):
+    def on_enter_state_map(self,event):
         global map,map_now
         path = ""
         line = '-----------------------\n'
