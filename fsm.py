@@ -498,10 +498,10 @@ class TocMachine(GraphMachine):
                                 ]
                             )
                         ),
-                            TextSendMessage(text="當前怪物為: "+monster_now[monster_now_count][0]+"\n"+
-                                                "生命值: "+monster_now[monster_now_count][1]+"\n"+
-                                                "攻擊力: "+monster_now[monster_now_count][2]+"\n"+
-                                                "防禦力: "+monster_now[monster_now_count][3]+"\n"+
+                            TextSendMessage(text="當前怪物為: "+monster_now[0]+"\n"+
+                                                "生命值: "+monster_now[1]+"\n"+
+                                                "攻擊力: "+monster_now[2]+"\n"+
+                                                "防禦力: "+monster_now[3]+"\n"+
                                                 line+
                                                 "你的狀態: \n"+
                                                 "生命值: "+str(health)+"\n"+
