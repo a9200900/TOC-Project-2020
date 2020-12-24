@@ -7,7 +7,7 @@ from linebot import LineBotApi, WebhookParser
 
 channel_access_token = os.getenv("LINE_CHANNEL_ACCESS_TOKEN", None)
 line_bot_api = LineBotApi(channel_access_token)
-occupation = ""
+occupation = ''
 health = 0
 attack = 0
 defense = 0
@@ -33,7 +33,7 @@ class TocMachine(GraphMachine):
 
     def on_enter_start(self , event):
         global occupation,health,attack,defense
-        occupation =  "狂戰士"
+        occupation =  '狂戰士'
         health = 12
         attack = 3
         defense = 2
@@ -44,7 +44,7 @@ class TocMachine(GraphMachine):
                             alt_text ='Buttons template',
                             template = ButtonsTemplate(
                                 title = '選項',
-                                text = "踏上旅程，在前方是未知的道路!\n"+"職業:"+occupation+"\n"+"生命:"+str(health)+"\n"+"攻擊力:"+str(attack)+"\n"+"防禦力:"+set(defense)+"\n",
+                                text = '踏上旅程，在前方是未知的道路!\n'+'職業:'+occupation+'\n'+'生命:'+str(health)+'\n'+'攻擊力:'+str(attack)+'\n'+'防禦力:'+set(defense)+'\n',
                                 actions=[
                                     MessageTemplateAction(
                                         label = '戰鬥',
