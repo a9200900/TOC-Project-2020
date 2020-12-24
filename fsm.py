@@ -506,7 +506,7 @@ class TocMachine(GraphMachine):
                                                  "你的狀態: \n"+
                                                  "生命值: "+str(health)+"\n"+
                                                  "攻擊力: "+str(attack)+"\n"+
-                                                 "防禦力: "+str(defense))
+                                                 "防禦力: "+str(defense)+"\n")
                         ]
                         
                     )
