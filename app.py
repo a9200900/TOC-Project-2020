@@ -180,6 +180,8 @@ def webhook_handler():
             if event.message.text == "完成":
                 if machine.check_build(event):
                     machine.to_start(event)
+                else:
+                    send_text_message(event.reply_token, "尚未完成輸入角色名稱以及職業。")
         if machine.state == "build":
             if event.message.text == "返回":
                 machine.go_back_intro(event)
@@ -197,8 +199,12 @@ def webhook_handler():
         #occupation state
         if machine.state == "choose_occupation":
             if event.message.text == "職業介紹":
+                send_text_message(event.reply_token, "無盡天使:角色職業總共分為三大類,\n"+
+                                        line+
+                                        "狂戰士: 具有強大防禦力以及血量的維京人戰士，能夠穩定的輸出且續戰力驚人。\n使用武器為:刀、劍類\n\n"+
+                                        "黑暗法師: 掌握魔法力量的法師，來自地下神秘組織，試圖用魔法掌控世界的走向。攻擊力相當高，防禦則相對薄弱。\n使用武器為:法仗\n\n"+
+                                        "精靈射手: 來自據有長生不老之力的古老精靈族，世世代代傳承著驚人的弓術及戰鬥技巧，屬性方面相當的平衡。\n使用武器為:弓劍")
                 machine.show_choose_occupation(event)
-                machine.occupation_intro(event)
         if machine.state == "choose_occupation":
             if event.message.text == "狂戰士":
                 machine.set_occupation(event)
