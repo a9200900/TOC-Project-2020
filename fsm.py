@@ -14,7 +14,6 @@ attack = 0
 defense = 0
 level = 1
 backpack = []
-equipment = []
 moster = ["哥布林","巫女","盜賊","墮落的勇者","史萊姆"]
 map = []
 
@@ -187,10 +186,13 @@ class TocMachine(GraphMachine):
         global backpack
 
         line = '-----------------------\n'
+        for i in backpack:
+            equipment += i+" \n" 
+
         reply_token = event.reply_token
         send_text_message(reply_token,  '背包:\n'+
                                         line+
-                                        backpack[0]) 
+                                        equipment) 
     def on_enter_build(self , event):
         line_bot_api.reply_message(
                         event.reply_token,
