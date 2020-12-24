@@ -15,12 +15,42 @@ load_dotenv()
 
 
 machine = TocMachine(
-    states=["intro", "start", "state_fight", "state_store"],
+    states=["intro","build","enter_name","choose_occupation", "start", "state_fight", "state_store"],
     transitions=[
         {
-            "trigger": "to_start",
+            "trigger": "to_build",
             "source": "intro",
+            "dest": "build",
+        },
+        {
+            "trigger": "to_start",
+            "source": "build",
             "dest": "start",
+        },
+        {
+            "trigger": "to_enter_name",
+            "source": "build",
+            "dest": "enter_name",
+        },
+        {
+            "trigger": "to_choose_occupation",
+            "source": "build",
+            "dest": "choose_occupation",
+        },
+        {
+            "trigger": "go_back_build_name",
+            "source": "enter_name",
+            "dest": "build",
+        },
+        {
+            "trigger": "go_back_build_occupation",
+            "source": "choose_occupation",
+            "dest": "build",
+        },
+        {
+            "trigger": "go_back_build",
+            "source": "start",
+            "dest": "build",
         },
         {
             "trigger": "to_state_fight",
@@ -28,7 +58,7 @@ machine = TocMachine(
             "dest": "state_fight",  
         },
         {"trigger": "go_back_intro",
-         "source": "start",
+         "source": "build",
           "dest": "intro" ,
         },
         {"trigger": "go_back_start_fight",
@@ -120,20 +150,45 @@ def webhook_handler():
         
         # intro state
         if machine.state == "intro":
+            if event.message.text == "進入":
+                machine.line_buttons_intro(event)
+        if machine.state == "intro":
             if event.message.text == "人物介紹":
                 machine.introduce(event)
                 machine.line_buttons_intro(event)
-        if machine.state == "intro":
-            if event.message.text == "進入":
-                machine.line_buttons_intro(event)
         if event.message.text == "開始冒險":
-            machine.to_start(event)
+            machine.to_build(event)
+
+        #build state
+        if machine.state == "build":
+            if event.message.text == "設定名稱":
+                machine.to_enter_name(event)
+        if machine.state == "build":
+            if event.message.text == "選擇職業":
+                machine.to_choose_occupation(event)
+        if machine.state == "build":
+            if event.message.text == "返回":
+                machine.go_back_intro(event)
+        
+        #name state
+        if machine.state == "enter_name":  
+            if event.message.text != "":
+                machine.set_name(event)
+                machine.set_name_complete(event)
+                machine.go_back_build_name(event)
+        #occupation state
+        if machine.state == "choose_occupation":
+            if if event.message.text == "返回":
+                machine.go_back_build_occupation(event)
+        # if machine.state == "choose_occupation":
+        #     if if event.message.text == "職業介紹":
+        #         machine.
         
 
         #start state
         if machine.state == "start":
             if event.message.text == "返回":
-                machine.go_back_intro(event)
+                machine.go_back_build(event)
         if machine.state == "start":
             if event.message.text == "戰鬥":
                 machine.to_state_fight(event)
