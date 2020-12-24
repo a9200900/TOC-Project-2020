@@ -177,8 +177,7 @@ class TocMachine(GraphMachine):
                                         "職業: "+occupation+'\n'+
                                         "等級: "+level +'\n'+
                                         "生命值: "+h+'\n'+
-                                        "攻擊力: "+a+'\n'+
-                                        "防禦力: "+d) 
+                                        "攻擊力: "+a) 
 
     def on_enter_build(self , event):
         line_bot_api.reply_message(
@@ -316,15 +315,17 @@ class TocMachine(GraphMachine):
             health = 12
             attack = 2
             defense = 3
-            
+            backpack = ["普通大劍" , "破舊的大衣"]
         if occupation == "黑暗法師":
             health = 9
             attack = 3
             defense = 2
+            backpack = ["短仗" , "初級魔法袍"]
         if occupation == "精靈射手":
             health = 10
             attack = 3
             defense = 3
+            backpack = ["短弓" , "簡陋的衣裝"]
 
         line = '-----------------------\n'
         reply_token = event.reply_token
