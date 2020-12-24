@@ -18,8 +18,8 @@ backpack = []
 equipment = []
 attribute = [["普通大劍" , "0" ,"1","1"] ,["短杖","0","1","1"] ,["短弓","0","1","1"] ,["破舊的大衣","1","0","1"],["初級魔法袍","1","0","1"]
 ,["簡陋的衣裝","1","0","1"]] 
-monster = [["哥布林","6","2","1","2"],["巫女","8","3","1","3"],["盜賊","9","3","1","5"],["墮落的勇者","12","3","2","5"],["史萊姆","20","2","2","5"]]
-monster_url = [["哥布林","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E5%93%A5%E5%B8%83%E6%9E%97.png"]]
+monster = [["哥布林","6","2","1","2"],["女巫","8","3","1","3"],["盜賊","9","3","1","5"],["墮落的勇者","12","3","2","5"],["史萊姆","20","2","2","5"]]
+monster_url = [["哥布林","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E5%93%A5%E5%B8%83%E6%9E%97.png"],["女巫","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E5%A5%B3%E5%B7%AB.png"]]
 monster_now = []
 monster_now_url=""
 monster_now_count = 0
@@ -586,7 +586,7 @@ class TocMachine(GraphMachine):
             if occupation =="精靈射手":
                 backpack.append(drops[2][1])
 
-        if monster_now[0]=="巫女":
+        if monster_now[0]=="女巫":
             if occupation =="狂戰士":
                 backpack.append(drops[0][2])
             if occupation =="黑暗法師":
