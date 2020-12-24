@@ -201,15 +201,23 @@ class TocMachine(GraphMachine):
         global backpack,attribute
         item_in_backpack = ""
         item_equip = ""
+        space_length=""
+        spa_length=""
         line = '-----------------------\n'
         for i in backpack:
             for j in attribute:
                 if i == j[0]:
-                    item_in_backpack += i+" +" + j[1] + " +" + j[2] + " +"+ j[3] + "\n" 
+                    item_length = len(i)
+                    for k in range(5 - item_length):
+                        space_length += " "
+                    item_in_backpack += i+ space_length +"+" + j[1] + " +" + j[2] + " +"+ j[3] + "\n" 
         for i in equipment:
             for j in attribute:
                 if i == j[0]:
-                    item_equip += i+" +" + j[1] + " +" + j[2] + " +"+ j[3] + "\n" 
+                    equip_length = len(i)
+                    for k in range(5-equip_length):
+                        spa_length += " "
+                    item_equip += i+ spa_length +"+" + j[1] + " +" + j[2] + " +"+ j[3] + "\n" 
 
 
         reply_token = event.reply_token
