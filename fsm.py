@@ -189,6 +189,7 @@ class TocMachine(GraphMachine):
         a = str(attack)
         d = str(defense)
         l = str(level)
+        e= str(exp)
         line = '-----------------------\n'
         reply_token = event.reply_token
         send_text_message(reply_token,  '角色資訊:\n'+
@@ -196,7 +197,7 @@ class TocMachine(GraphMachine):
                                         '名字  : '+name+'\n'+
                                         '職業  : '+occupation+'\n'+
                                         '等級  : '+l +'\n'+
-                                        '經驗值: '+exp+'\n'+
+                                        '經驗值: '+e+'\n'+
                                         '生命值: '+h+'\n'+
                                         '攻擊力: '+a+'\n'+
                                         '防禦力:' + d) 
@@ -429,9 +430,19 @@ class TocMachine(GraphMachine):
                                         "輸入 返回 回到選單" ) 
 
     def forward(self,event):
-        global map_now_count,map,map_now
+        global map_now_count,map,map_now,attribute,equipment,health_equip,attack_equip,defense_equip,health,attack,defense,health_body,attack_body,defense_body
         map_now_count += 1
         map_now = map[map_now_count][0]
+
+        for i in attribute:
+            for j in equipment:
+                if j == i[0]:
+                    health_equip = int(i[1])
+                    attack_equip = int(i[2])
+                    defense_equip = int(i[3])
+        health = health_body + health_equip
+        attack = attack_body + attack_equip
+        defense = defense_body +defense_equip 
         
 
     def check_map(self,event):
