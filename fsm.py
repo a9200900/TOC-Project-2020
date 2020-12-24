@@ -63,12 +63,12 @@ class TocMachine(GraphMachine):
                                 text = '踏上旅程，在前方是未知的道路!',
                                 actions=[
                                     MessageTemplateAction(
-                                        label = '戰鬥',
-                                        text = '戰鬥'
+                                        label = '前進',
+                                        text = '前進'
                                     ),
                                     MessageTemplateAction(
-                                        label = '商店',
-                                        text = '商店'
+                                        label = '背包',
+                                        text = '背包'
                                     ),
                                     MessageTemplateAction(
                                         label = '角色資訊',
@@ -174,15 +174,28 @@ class TocMachine(GraphMachine):
         l = str(level)
         line = '-----------------------\n'
         reply_token = event.reply_token
-        send_text_message(reply_token,  '角色資訊:'+
+        send_text_message(reply_token,  '角色資訊:\n'+
                                         line+
-                                        '名字: '+name+'\n'+
-                                        '職業: '+occupation+'\n'+
-                                        '等級: '+l +'\n'+
+                                        '名字  : '+name+'\n'+
+                                        '職業  : '+occupation+'\n'+
+                                        '等級  : '+l +'\n'+
                                         '生命值: '+h+'\n'+
                                         '攻擊力: '+a+'\n'+
-                                        '防禦力' + d) 
+                                        '防禦力:' + d) 
 
+    def item(self , event):
+        global occupation,name,health,attack,defense,level,backpack
+
+        
+        h = str(health)
+        a = str(attack)
+        d = str(defense)
+        l = str(level)
+        line = '-----------------------\n'
+        reply_token = event.reply_token
+        send_text_message(reply_token,  '背包:\n'+
+                                        line+
+                                        backpack) 
     def on_enter_build(self , event):
         line_bot_api.reply_message(
                         event.reply_token,
@@ -218,7 +231,7 @@ class TocMachine(GraphMachine):
         send_text_message(reply_token, "無盡天使:請告訴我您的大名。")
     def show_build(self,event):
         line_bot_api.reply_message(
-                        event.reply_token,[
+                        event.reply_token,
                         TemplateSendMessage(
                             alt_text ='Buttons template',
                             template = ButtonsTemplate(
@@ -243,8 +256,7 @@ class TocMachine(GraphMachine):
                                     )
                                 ]
                             )
-                        ),
-                        TextSendMessage(text="尚未完成角色名稱和選擇職業。")]
+                        )
                     )
     def set_name(self, event):
         global name

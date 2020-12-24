@@ -181,7 +181,7 @@ def webhook_handler():
                 if machine.check_build(event):
                     machine.to_start(event)
                 else:
-                    machine.show_build(event)
+                    send_text_message(reply_token,"尚未完成角色名稱和選擇職業。")
         if machine.state == "build":
             if event.message.text == "返回":
                 machine.go_back_intro(event)
@@ -219,11 +219,11 @@ def webhook_handler():
             if event.message.text == "返回":
                 machine.go_back_build_start(event)
         if machine.state == "start":
-            if event.message.text == "戰鬥":
-                machine.to_state_fight(event)
+            if event.message.text == "前進":
+                #machine.to_state_fight(event)
         if machine.state == "start":
-            if event.message.text == "商店":
-                machine.to_state_store(event)
+            if event.message.text == "背包":
+                
         if machine.state == "start":
             if event.message.text == "角色資訊":
                 machine.character(event)
