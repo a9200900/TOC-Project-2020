@@ -2,7 +2,7 @@ from transitions.extensions import GraphMachine
 import os
 
 from utils import send_text_message
-from linebot.models import (MessageEvent, TextMessage, TextSendMessage,TemplateSendMessage,ButtonsTemplate,MessageTemplateAction)
+from linebot.models import (MessageEvent, TextMessage, TextSendMessage,TemplateSendMessage,ButtonsTemplate,MessageTemplateAction,ImageSendMessage)
 from linebot import LineBotApi, WebhookParser
 
 channel_access_token = os.getenv("LINE_CHANNEL_ACCESS_TOKEN", None)
