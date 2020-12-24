@@ -229,6 +229,7 @@ def webhook_handler():
         if machine.state == "start":
             if event.message.text == "前進":
                 machine.forward(event)
+                machine.check_map(event)
         if machine.state == "start":
             if event.message.text == "背包":
                 machine.item(event)

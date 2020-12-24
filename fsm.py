@@ -18,8 +18,8 @@ equipment = []
 attribute = [["普通大劍" , "0" ,"1","1"] ,["短仗","0","1","1"] ,["短弓","0","1","1"] ,["破舊的大衣","1","0","1"],["初級魔法袍","1","0","1"]
 ,["簡陋的衣裝","1","0","1"]] 
 moster = ["哥布林","巫女","盜賊","墮落的勇者","史萊姆"]
-map = ["新手鎮","幽靜小路","被詛咒的沼澤","山洞"]
-map_now = ""
+map = [["新手鎮","休息"],["幽靜小路","戰鬥"],["被詛咒的沼澤","戰鬥"],["山洞","戰鬥"],["市集","商店"]]
+map_now = "新手鎮"
 map_now_count = 0
 
 
@@ -405,7 +405,7 @@ class TocMachine(GraphMachine):
         path = ""
         line = '-----------------------\n'
         for i in map:
-            path += i + " ==> "
+            path += i[0] + " ==> "
         reply_token = event.reply_token
         send_text_message(reply_token, "路線為: \n"+ path +"\n"+
                                         line+
@@ -416,5 +416,15 @@ class TocMachine(GraphMachine):
     def forward(self,event):
         global map_now_count,map,map_now
         map_now_count += 1
-        map_now = map[map_now_count]
+        map_now = map[map_now_count][0]
         
+
+    def check_map(self,event):
+        global map_now_count,map,map_now
+        if map[map_now_count][1] == "戰鬥":
+            reply_token = event.reply_token
+            send_text_message(reply_token, "發現怪物,戰鬥開始!")    
+
+        if map[map_now_count][1] == "商店":
+            reply_token = event.reply_token
+            send_text_message(reply_token, "遇到商人,可購買商品。")   
