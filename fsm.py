@@ -40,11 +40,11 @@ class TocMachine(GraphMachine):
                             alt_text ='Buttons template',
                             template = ButtonsTemplate(
                                 title = '選項',
-                                text = '踏上旅程，在前方是未知的道路!\n'+
-                                        '職業:'+occupation+'\n'+
-                                        '生命:'+health+'\n'+
-                                        '攻擊力:'+attack+'\n'+
-                                        '防禦力:'+defense+'\n',
+                                text = "踏上旅程，在前方是未知的道路!\n"+
+                                        "職業:"+occupation+"\n"+
+                                        "生命:"+health+"\n"+
+                                        "攻擊力:"+attack+"\n"+
+                                        "防禦力:"+defense+"\n",
                                 actions=[
                                     MessageTemplateAction(
                                         label = '戰鬥',
