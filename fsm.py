@@ -15,6 +15,7 @@ defense = 0
 level = 1
 backpack = []
 equipment = []
+attribute = [["普通大劍" , "1" ,"2","3"] ,["短仗","2","3","4"] ,["短弓","3","4","5"] ]
 moster = ["哥布林","巫女","盜賊","墮落的勇者","史萊姆"]
 map = []
 
@@ -183,6 +184,16 @@ class TocMachine(GraphMachine):
                                         '攻擊力: '+a+'\n'+
                                         '防禦力:' + d) 
 
+    def check_character(self , event):
+        global occupation,name,health,attack,defense,level,attribute,backpack
+        for i in attribute:
+            if backpack[0] == i[0]:
+                health += i[1]
+                attack += i[2]
+                defense += i[3]
+            
+     
+        
     def item(self , event):
         global backpack
         item_in_backpack = ""
@@ -196,7 +207,6 @@ class TocMachine(GraphMachine):
 
         reply_token = event.reply_token
         send_text_message(reply_token,  '背包:\n'+
-                                        line+
                                         item_in_backpack+
                                         line+
                                         "裝備中:\n"+

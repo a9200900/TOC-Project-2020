@@ -226,6 +226,7 @@ def webhook_handler():
                 machine.item(event)
         if machine.state == "start":
             if event.message.text == "角色資訊":
+                machine.check_character(event)
                 machine.character(event)
 
         #fight state
