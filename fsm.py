@@ -14,6 +14,7 @@ attack = 0
 defense = 0
 level = 1
 backpack = []
+equipment = []
 moster = ["哥布林","巫女","盜賊","墮落的勇者","史萊姆"]
 map = []
 
@@ -185,14 +186,21 @@ class TocMachine(GraphMachine):
     def item(self , event):
         global backpack
         item_in_backpack = ""
+        item_equip = ""
         line = '-----------------------\n'
         for i in range(len(backpack)):
             item_in_backpack += backpack[i]+"\n" 
+        for i in range(len(equipment)):
+            item_equip += equipment[i] + "\n"
+
 
         reply_token = event.reply_token
         send_text_message(reply_token,  '背包:\n'+
                                         line+
-                                        item_in_backpack) 
+                                        item_in_backpack+
+                                        line+
+                                        "裝備中:\n"+
+                                        item_equip) 
     def on_enter_build(self , event):
         line_bot_api.reply_message(
                         event.reply_token,
@@ -330,23 +338,26 @@ class TocMachine(GraphMachine):
                     )
 
     def set_occupation(self,event):
-        global occupation,attack,health,defense,backpack
+        global occupation,attack,health,defense,backpack,equipment
         occupation = event.message.text
         if occupation == "狂戰士":
             health = 12
             attack = 2
             defense = 3
             backpack = ["普通大劍" , "破舊的大衣"]
+            equipment = ["普通大劍" , "破舊的大衣"]
         if occupation == "黑暗法師":
             health = 9
             attack = 3
             defense = 2
             backpack = ["短仗" , "初級魔法袍"]
+            equipment = ["短仗" , "初級魔法袍"]
         if occupation == "精靈射手":
             health = 10
             attack = 3
             defense = 3
             backpack = ["短弓" , "簡陋的衣裝"]
+            equipment = ["短弓" , "簡陋的衣裝"]
 
         line = '-----------------------\n'
         reply_token = event.reply_token
