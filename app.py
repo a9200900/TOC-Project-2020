@@ -209,6 +209,12 @@ def webhook_handler():
             if event.message.text == "狂戰士":
                 machine.set_occupation(event)
         if machine.state == "choose_occupation":
+            if event.message.text == "黑暗法師":
+                machine.set_occupation(event)
+        if machine.state == "choose_occupation":
+            if event.message.text == "精靈射手":
+                machine.set_occupation(event)
+        if machine.state == "choose_occupation":
             if event.message.text == "返回":
                 machine.go_back_build_occupation(event)
         

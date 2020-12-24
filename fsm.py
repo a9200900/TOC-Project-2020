@@ -165,10 +165,7 @@ class TocMachine(GraphMachine):
                     )
     def character(self , event):
         global occupation,health,attack,defense
-        occupation =  '狂戰士'
-        health = 12
-        attack = 3
-        defense = 2
+
         
         h = str(health)
         a = str(attack)
@@ -311,8 +308,21 @@ class TocMachine(GraphMachine):
                     )
 
     def set_occupation(self,event):
-        global occupation
+        global occupation,attack,health,defense
         occupation = event.message.text
+        if occupation == "狂戰士":
+            health = 12
+            attack = 2
+            defense = 3
+        if occupation == "黑暗法師":
+            health = 9
+            attack = 3
+            defense = 2
+        if occupation == "精靈射手":
+            health = 10
+            attack = 3
+            defense = 3
+
         reply_token = event.reply_token
         send_text_message(reply_token, "無盡天使: 你選擇的職業是 "+occupation +"，馬上展開你的冒險吧!\n輸入 返回 回到角色選單")
 
