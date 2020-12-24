@@ -122,6 +122,7 @@ def webhook_handler():
         if machine.state == "intro":
             if event.message.text == "人物介紹":
                 machine.introduce(event)
+                machine.line_buttons_intro(event)
         if machine.state == "intro":
             if event.message.text == "進入":
                 machine.line_buttons_intro(event)
