@@ -469,6 +469,7 @@ class TocMachine(GraphMachine):
         
     def situation(self,event):
         global monster_now,monster,map_now_count,health,attack,defense
+        
         line = '-----------------------\n'
         line_bot_api.reply_message(
                         event.reply_token,[
