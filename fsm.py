@@ -251,7 +251,7 @@ class TocMachine(GraphMachine):
                             alt_text ='Buttons template',
                             template = ButtonsTemplate(
                                 title = '建立角色',
-                                text = '無盡天使:請依序輸入您的大名，以及想要遊玩的職業。',
+                                text = '無盡天使:請依序輸入您的大名，以及想要遊玩的職業。輸入完成後點擊完成，開始冒險。',
                                 actions=[
                                     MessageTemplateAction(
                                         label = '設定名稱',
@@ -284,7 +284,7 @@ class TocMachine(GraphMachine):
                             alt_text ='Buttons template',
                             template = ButtonsTemplate(
                                 title = '建立角色',
-                                text = '無盡天使:請依序輸入您的大名，以及想要遊玩的職業。',
+                                text = '無盡天使:請依序輸入您的大名，以及想要遊玩的職業。輸入完成後點擊完成，開始冒險。',
                                 actions=[
                                     MessageTemplateAction(
                                         label = '設定名稱',
@@ -447,6 +447,7 @@ class TocMachine(GraphMachine):
 
     def check_map(self,event):
         global map_now_count,map,map_now,monster,monster_now,monster_now_count,monster_url,monster_now_url
+        monster_now_count +=1
         monster_now = monster[monster_now_count]
         for i in monster_url:
             if monster_now[0] == i[0]:
