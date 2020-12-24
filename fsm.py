@@ -38,13 +38,17 @@ class TocMachine(GraphMachine):
         attack = 3
         defense = 2
         
+        h = str(health)
+        a = str(attack)
+        d = str(defense)
+        
         line_bot_api.reply_message(
                         event.reply_token,
                         TemplateSendMessage(
                             alt_text ='Buttons template',
                             template = ButtonsTemplate(
                                 title = '選項',
-                                text = '踏上旅程，在前方是未知的道路!\n'+'職業:'+occupation+'\n'+'生命:'+str(health)+'\n'+'攻擊力:'+str(attack)+'\n'+'防禦力:'+set(defense)+'\n',
+                                text = '踏上旅程，在前方是未知的道路!\n'+'職業:'+occupation+'\n'+'生命:'+h+'\n'+'攻擊力:'+a+'\n'+'防禦力:'+d+'\n',
                                 actions=[
                                     MessageTemplateAction(
                                         label = '戰鬥',
