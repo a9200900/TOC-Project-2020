@@ -187,12 +187,12 @@ class TocMachine(GraphMachine):
 
         line = '-----------------------\n'
         for i in backpack:
-            equipment += i+" \n" 
+            item_in_backpack += i+" \n" 
 
         reply_token = event.reply_token
         send_text_message(reply_token,  '背包:\n'+
                                         line+
-                                        equipment) 
+                                        item_in_backpack) 
     def on_enter_build(self , event):
         line_bot_api.reply_message(
                         event.reply_token,
