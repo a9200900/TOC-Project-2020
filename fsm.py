@@ -13,9 +13,10 @@ health = 0
 attack = 0
 defense = 0
 level = 1
+exp = 0
 backpack = []
 equipment = []
-attribute = [["普通大劍" , "0" ,"1","1"] ,["短仗","0","1","1"] ,["短弓","0","1","1"] ,["破舊的大衣","1","0","1"],["初級魔法袍","1","0","1"]
+attribute = [["普通大劍" , "0" ,"1","1"] ,["短杖","0","1","1"] ,["短弓","0","1","1"] ,["破舊的大衣","1","0","1"],["初級魔法袍","1","0","1"]
 ,["簡陋的衣裝","1","0","1"]] 
 monster = [["哥布林","6","2","1","2"],["巫女","8","3","1","3"],["盜賊","9","3","1","5"],["墮落的勇者","12","3","2","5"],["史萊姆","20","2","2","5"]]
 monster_now = []
@@ -23,6 +24,7 @@ monster_now_count = 0
 map = [["新手鎮","休息"],["幽靜小路","戰鬥"],["被詛咒的沼澤","戰鬥"],["山洞","戰鬥"],["市集","商店"]]
 map_now = "新手鎮"
 map_now_count = -1
+drops = [["狂戰士","鋒利的彎刀","鎖子甲"] , ["黑暗法師","精緻魔杖","上等法袍"] , ["精靈射手","骨製彎曲弓","上等絲綢服"]]
 
 
 class TocMachine(GraphMachine):
@@ -379,8 +381,8 @@ class TocMachine(GraphMachine):
             health = 9
             attack = 3
             defense = 2
-            backpack = ["短仗" , "初級魔法袍"]
-            equipment = ["短仗" , "初級魔法袍"]
+            backpack = ["短杖" , "初級魔法袍"]
+            equipment = ["短杖" , "初級魔法袍"]
         if occupation == "精靈射手":
             health = 10
             attack = 3
@@ -452,6 +454,7 @@ class TocMachine(GraphMachine):
                             )
                         ),
                             TextSendMessage(text="遭遇怪物，立刻攻擊!")
+                            
                         ]
                         
                     )
@@ -497,7 +500,7 @@ class TocMachine(GraphMachine):
                                     )
                                 ]
                             )
-                        ),
+                        ),  ImageSendMessage(original_content_url="https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E5%93%A5%E5%B8%83%E6%9E%97.png"),
                             TextSendMessage(text="當前怪物為: "+monster_now[0]+"\n"+
                                                 "生命值: "+monster_now[1]+"\n"+
                                                 "攻擊力: "+monster_now[2]+"\n"+
@@ -521,6 +524,9 @@ class TocMachine(GraphMachine):
     def show_attacking(self,event):
         global monster_now,monster,map_now_count,health,attack,defense
         line = '-----------------------\n'
+        damage = int(monster_now[2]) - defense
+        if damage <= 0:
+            damage =0
         line_bot_api.reply_message(
                         event.reply_token,[
                         TemplateSendMessage(
@@ -549,7 +555,67 @@ class TocMachine(GraphMachine):
                             )
                         ),
                             TextSendMessage(text="你對怪物造成了 "+str(attack - int(monster_now[3])) +" 傷害!\n"+
-                                                 "怪物並沒有死亡，並且對你造成了 "+str(int(monster_now[2])-defense)+" 傷害" )
+                                                 "怪物並沒有死亡，並且對你造成了 "+str(damage)+" 傷害" )
+                        ]
+                        
+                    )
+    def show_result(self,event):
+        global monster_now,monster,map_now_count,health,attack,defense,exp,level,occupation.drops
+        
+        exp += monster_now[4]
+        if exp >5 :
+            level = 1
+            if exp >10:
+                level = 2
+                if exp >20:
+                    level = 3
+        
+
+        if monster_now[0]=="哥布林":
+            if occupation =="狂戰士":
+                backpack.append(drops[0][1])
+            if occupation =="黑暗法師":
+                backpack.append(drops[1][1])
+            if occupation =="精靈射手":
+                backpack.append(drops[2][1])
+
+        if monster_now[0]=="巫女":
+            if occupation =="狂戰士":
+                backpack.append(drops[0][2])
+            if occupation =="黑暗法師":
+                backpack.append(drops[1][2])
+            if occupation =="精靈射手":
+                backpack.append(drops[2][2])
+        
+        line_bot_api.reply_message(
+                        event.reply_token,[
+                        TemplateSendMessage(
+                            alt_text ='Buttons template',
+                            template = ButtonsTemplate(
+                                title = '選擇',
+                                text = '踏上旅程，在前方是未知的道路!',
+                                actions=[
+                                    MessageTemplateAction(
+                                        label = '前進',
+                                        text = '前進'
+                                    ),
+                                    MessageTemplateAction(
+                                        label = '背包',
+                                        text = '背包'
+                                    ),
+                                    MessageTemplateAction(
+                                        label = '地圖',
+                                        text = '地圖'
+                                    ),
+                                    MessageTemplateAction(
+                                        label = '角色資訊',
+                                        text = '角色資訊'
+                                    )
+                                ]
+                            )
+                        ),
+                            TextSendMessage(text="你打敗了"+monster_now[0]+"\n"+
+                                                 "獲得"+monster_now[4]+"經驗值")
                         ]
                         
                     )
