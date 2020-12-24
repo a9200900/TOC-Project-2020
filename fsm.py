@@ -330,7 +330,7 @@ class TocMachine(GraphMachine):
                     )
 
     def set_occupation(self,event):
-        global occupation,attack,health,defense,backpack,equipment
+        global occupation,attack,health,defense,backpack
         occupation = event.message.text
         if occupation == "狂戰士":
             health = 12
