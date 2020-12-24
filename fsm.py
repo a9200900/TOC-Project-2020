@@ -29,10 +29,10 @@ class TocMachine(GraphMachine):
 
     def on_enter_start(self , event):
         global occupation 
-        occupation = = "狂戰士"
+        occupation =  "狂戰士"
         global health 
         health = 12
-        global 
+        global attack
         attack = 3
         global defense 
         defense = 2
