@@ -218,7 +218,7 @@ class TocMachine(GraphMachine):
         send_text_message(reply_token, "無盡天使:請告訴我您的大名。")
     def show_build(self,event):
         line_bot_api.reply_message(
-                        event.reply_token,
+                        event.reply_token,[
                         TemplateSendMessage(
                             alt_text ='Buttons template',
                             template = ButtonsTemplate(
@@ -243,7 +243,8 @@ class TocMachine(GraphMachine):
                                     )
                                 ]
                             )
-                        )
+                        ),
+                        TextSendMessage(text="尚未完成角色名稱和選擇職業。")]
                     )
     def set_name(self, event):
         global name
@@ -284,7 +285,7 @@ class TocMachine(GraphMachine):
                     )
     def show_choose_occupation(self,event):
         line_bot_api.reply_message(
-                        event.reply_token,
+                        event.reply_token,[
                         TemplateSendMessage(
                             alt_text ='Buttons template',
                             template = ButtonsTemplate(
@@ -309,7 +310,14 @@ class TocMachine(GraphMachine):
                                     )
                                 ]
                             )
-                        )
+                        ),
+                            TextSendMessage(text="無盡天使:角色職業總共分為三大類,\n"+
+                                        '-----------------------\n'+
+                                        "狂戰士: 具有強大防禦力以及血量的維京人戰士，能夠穩定的輸出且續戰力驚人。\n使用武器為:刀、劍類\n\n"+
+                                        "黑暗法師: 掌握魔法力量的法師，來自地下神秘組織，試圖用魔法掌控世界的走向。攻擊力相當高，防禦則相對薄弱。\n使用武器為:法仗\n\n"+
+                                        "精靈射手: 來自據有長生不老之力的古老精靈族，世世代代傳承著驚人的弓術及戰鬥技巧，屬性方面相當的平衡。\n使用武器為:弓劍")
+                        ]
+                        
                     )
 
     def set_occupation(self,event):
@@ -344,28 +352,3 @@ class TocMachine(GraphMachine):
 
         return flag
 
-
-
-
-    line_bot_api.reply_message(
-            event.reply_token,[
-            TemplateSendMessage(
-                alt_text ='Buttons template',
-                    template = ButtonsTemplate(
-                        title = '秘密',
-                        text = story,
-                        actions=[
-                            MessageTemplateAction(
-                                label='果然呢',
-                                text = 'em'
-                            ),
-                            MessageTemplateAction(
-                                label='早就覺得她很奇怪',
-                                text = 'dead'
-                            )
-                        ]
-                )
-            ),
-            TextSendMessage(text="這樣說人家秘密真的好嗎\n輸入 阻止班長")
-            ]
-        )
