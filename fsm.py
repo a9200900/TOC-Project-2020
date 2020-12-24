@@ -500,7 +500,7 @@ class TocMachine(GraphMachine):
                                     )
                                 ]
                             )
-                        ),  ImageSendMessage(original_content_url="https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E5%93%A5%E5%B8%83%E6%9E%97.png"),
+                        ),  ImageSendMessage(original_content_url="https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E5%93%A5%E5%B8%83%E6%9E%97.png",preview_image_url="https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E5%93%A5%E5%B8%83%E6%9E%97.png"),
                             TextSendMessage(text="當前怪物為: "+monster_now[0]+"\n"+
                                                 "生命值: "+monster_now[1]+"\n"+
                                                 "攻擊力: "+monster_now[2]+"\n"+
