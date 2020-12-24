@@ -184,10 +184,10 @@ class TocMachine(GraphMachine):
 
     def item(self , event):
         global backpack
-
+        item_in_backpack = ""
         line = '-----------------------\n'
-        for i in backpack:
-            item_in_backpack += i+" \n" 
+        for i in range(len(backpack)):
+            item_in_backpack += backpack[i]+"\n" 
 
         reply_token = event.reply_token
         send_text_message(reply_token,  '背包:\n'+
