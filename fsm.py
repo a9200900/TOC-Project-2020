@@ -184,13 +184,13 @@ class TocMachine(GraphMachine):
                                         '防禦力:' + d) 
 
     def item(self , event):
-        global occupation,name,health,attack,defense,level,backpack
+        global backpack
 
         line = '-----------------------\n'
         reply_token = event.reply_token
         send_text_message(reply_token,  '背包:\n'+
                                         line+
-                                        backpack) 
+                                        backpack[0]) 
     def on_enter_build(self , event):
         line_bot_api.reply_message(
                         event.reply_token,

@@ -181,7 +181,7 @@ def webhook_handler():
                 if machine.check_build(event):
                     machine.to_start(event)
                 else:
-                    send_text_message(reply_token,"尚未完成角色名稱和選擇職業。")
+                    send_text_message(event.reply_token,"尚未完成角色名稱和選擇職業。")
         if machine.state == "build":
             if event.message.text == "返回":
                 machine.go_back_intro(event)
