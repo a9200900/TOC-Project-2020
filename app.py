@@ -15,7 +15,7 @@ load_dotenv()
 
 
 machine = TocMachine(
-    states=["intro","build","enter_name","choose_occupation", "start", "state_fight", "state_store"],
+    states=["intro","build","enter_name","choose_occupation","occupation_intro", "start", "state_fight", "state_store"],
     transitions=[
         {
             "trigger": "to_build",
@@ -35,6 +35,16 @@ machine = TocMachine(
         {
             "trigger": "to_choose_occupation",
             "source": "build",
+            "dest": "choose_occupation",
+        },
+        {
+            "trigger": "to_occupation_intro",
+            "source": "choose_occupation",
+            "dest": "occupation_intro",
+        },
+        {
+            "trigger": "go_back_choose_occupation",
+            "source": "occupation_intro",
             "dest": "choose_occupation",
         },
         {
@@ -181,9 +191,10 @@ def webhook_handler():
         if machine.state == "choose_occupation":
             if event.message.text == "返回":
                 machine.go_back_build_occupation(event)
-        # if machine.state == "choose_occupation":
-        #     if if event.message.text == "職業介紹":
-        #         machine.
+        if machine.state == "choose_occupation":
+            if if event.message.text == "職業介紹":
+                machine.occupation_intro(event)
+                machine.on_enter_choose_occupation(event)
         
 
         #start state
