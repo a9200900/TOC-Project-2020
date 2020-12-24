@@ -29,9 +29,6 @@ class TocMachine(GraphMachine):
 
     def on_enter_intro(self , event):
 
-        reply_token = event.reply_token
-        send_text_message(reply_token, "無盡天使:歡迎來到這個世界，你一定是上帝派來拯救我們的勇者，請你幫助我們打到大魔王『斯巴拉斯．魔迪耶爾』!")
-
         line_bot_api.reply_message(
                         event.reply_token,
                         TemplateSendMessage(
@@ -245,7 +242,7 @@ class TocMachine(GraphMachine):
     def set_name_complete(self , event):
         global name
         reply_token = event.reply_token
-        send_text_message(reply_token, "無盡天使: "+name +" 勇者大人，歡迎你的到來!\n請輸入 返回 回到角色選單")
+        send_text_message(reply_token, "無盡天使: "+name +"勇者大人，歡迎你的到來!\n輸入 返回 回到角色選單")
     def on_enter_choose_occupation(self,event):
         line_bot_api.reply_message(
                         event.reply_token,
@@ -270,10 +267,6 @@ class TocMachine(GraphMachine):
                                     MessageTemplateAction(
                                         label = '職業介紹',
                                         text = '職業介紹'
-                                    ),
-                                    MessageTemplateAction(
-                                        label = '返回',
-                                        text = '返回'
                                     )
                                 ]
                             )
