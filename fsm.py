@@ -447,7 +447,6 @@ class TocMachine(GraphMachine):
 
     def check_map(self,event):
         global map_now_count,map,map_now,monster,monster_now,monster_now_count,monster_url,monster_now_url
-        monster_now_count += 1
         monster_now = monster[monster_now_count]
         for i in monster_url:
             if monster_now[0] == i[0]:
