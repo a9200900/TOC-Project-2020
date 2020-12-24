@@ -222,6 +222,7 @@ class TocMachine(GraphMachine):
 
         reply_token = event.reply_token
         send_text_message(reply_token,  '背包:\n'+
+                                        "名稱   " + "生命" +"攻擊"+"防禦\n"+
                                         item_in_backpack+
                                         line+
                                         "裝備中:\n"+
