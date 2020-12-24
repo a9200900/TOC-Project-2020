@@ -157,7 +157,8 @@ class TocMachine(GraphMachine):
         reply_token = event.reply_token
         send_text_message(reply_token, "角色資訊\n"+
                                         line+
-                                        h+'\n'+
-                                        a+'\n'+
-                                        d+'\n') 
+                                        "職業: "+occupation+'\n'+
+                                        "生命值: "+h+'\n'+
+                                        "攻擊力: "+a+'\n'+
+                                        "防禦力: "+d+'\n') 
 
