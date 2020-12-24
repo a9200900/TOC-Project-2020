@@ -164,7 +164,7 @@ def webhook_handler():
                 machine.line_buttons_intro(event)
         if machine.state == "intro":
             if event.message.text == "人物介紹":
-                line_bot_api.reply_message(event.reply_token, "無盡天使:現在是魔王曆128年,自從上一位勇者犧牲已經100多年了，沒有人能夠與現在的魔王抗衡，希望勇者您能幫助我們打到魔王!")
+                send_text_message(event.reply_token, "無盡天使:現在是魔王曆128年,自從上一位勇者犧牲已經100多年了，沒有人能夠與現在的魔王抗衡，希望勇者您能幫助我們打到魔王!")
                 machine.line_buttons_intro(event)
         if event.message.text == "開始冒險":
             machine.to_build(event)
@@ -181,7 +181,7 @@ def webhook_handler():
                 if machine.check_build(event):
                     machine.to_start(event)
                 else:
-                    line_bot_api.reply_message(event.reply_token,"尚未完成角色名稱和選擇職業。")
+                    send_text_message(event.reply_token, "尚未完成角色名稱和選擇職業。")
                     machine.show_build(event)
         if machine.state == "build":
             if event.message.text == "返回":
