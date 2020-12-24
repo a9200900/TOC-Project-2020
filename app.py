@@ -182,7 +182,7 @@ def webhook_handler():
         
         #name state
         if machine.state == "enter_name":  
-            if event.message.text != "":
+            if event.message.text != "返回":
                 machine.set_name(event)
                 machine.set_name_complete(event)
         if machine.state == "enter_name":
