@@ -21,6 +21,10 @@ class TocMachine(GraphMachine):
     def __init__(self, **machine_configs):
         self.machine = GraphMachine(model=self, **machine_configs)
 
+    def introduce(self , event):
+
+        reply_token = event.reply_token
+        send_text_message(reply_token, "現在是魔王曆128年,自從上一位勇者犧牲已經100多年了，沒有人能夠與現在的魔王抗衡，希望勇者您能幫助我們打到魔王!") 
 
     def on_enter_intro(self , event):
 
@@ -29,10 +33,10 @@ class TocMachine(GraphMachine):
 
     def on_enter_start(self , event):
         global occupation,health,attack,defense
-        # occupation =  "狂戰士"
-        # health = 12
-        # attack = 3
-        # defense = 2
+         occupation =  "狂戰士"
+         health = 12
+         attack = 3
+         defense = 2
         
         line_bot_api.reply_message(
                         event.reply_token,
