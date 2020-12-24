@@ -173,11 +173,11 @@ class TocMachine(GraphMachine):
         d = str(defense)
         line = '-----------------------\n'
         reply_token = event.reply_token
-        send_text_message(reply_token,"名字: "+name+'\n'+
-                                        "職業: "+occupation+'\n'+
-                                        "等級: "+level +'\n'+
-                                        "生命值: "+h+'\n'+
-                                        "攻擊力: "+a) 
+        send_text_message(reply_token,'名字: '+name+'\n'+
+                                        '職業: '+occupation+'\n'+
+                                        '等級: '+level +'\n'+
+                                        '生命值: '+h+'\n'+
+                                        '攻擊力: '+a) 
 
     def on_enter_build(self , event):
         line_bot_api.reply_message(
