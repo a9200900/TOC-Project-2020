@@ -186,11 +186,6 @@ class TocMachine(GraphMachine):
     def item(self , event):
         global occupation,name,health,attack,defense,level,backpack
 
-        
-        h = str(health)
-        a = str(attack)
-        d = str(defense)
-        l = str(level)
         line = '-----------------------\n'
         reply_token = event.reply_token
         send_text_message(reply_token,  '背包:\n'+

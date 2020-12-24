@@ -223,7 +223,7 @@ def webhook_handler():
                 machine.to_state_fight(event)
         if machine.state == "start":
             if event.message.text == "背包":
-                machine.to_state_fight(event)
+                machine.item(event)
         if machine.state == "start":
             if event.message.text == "角色資訊":
                 machine.character(event)
