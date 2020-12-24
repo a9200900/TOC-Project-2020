@@ -422,8 +422,37 @@ class TocMachine(GraphMachine):
     def check_map(self,event):
         global map_now_count,map,map_now
         if map[map_now_count][1] == "戰鬥":
-            reply_token = event.reply_token
-            send_text_message(reply_token, "發現怪物,戰鬥開始!")
+            line_bot_api.reply_message(
+                        event.reply_token,[
+                        TemplateSendMessage(
+                            alt_text ='Buttons template',
+                            template = ButtonsTemplate(
+                                title = '對決',
+                                text = '遭遇怪物，立刻攻擊!',
+                                actions=[
+                                    MessageTemplateAction(
+                                        label = '攻擊',
+                                        text = '攻擊'
+                                    ),
+                                    MessageTemplateAction(
+                                        label = '攻擊2',
+                                        text = '攻擊2'
+                                    ),
+                                    MessageTemplateAction(
+                                        label = '道具',
+                                        text = '道具'
+                                    ),
+                                    MessageTemplateAction(
+                                        label = '狀態',
+                                        text = '狀態'
+                                    )
+                                ]
+                            )
+                        ),
+                            TextSendMessage(text="遭遇怪物，立刻攻擊!")
+                        ]
+                        
+                    )
             return "戰鬥"    
 
         if map[map_now_count][1] == "商店":
