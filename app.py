@@ -178,7 +178,7 @@ def webhook_handler():
                 machine.to_choose_occupation(event)
         if machine.state == "build":
             if event.message.text == "完成":
-                if machine.check_build(event)
+                if machine.check_build(event):
                     machine.to_start(event)
         if machine.state == "build":
             if event.message.text == "返回":
