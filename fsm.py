@@ -19,7 +19,9 @@ equipment = []
 attribute = [["普通大劍" , "0" ,"1","1"] ,["短杖","0","1","1"] ,["短弓","0","1","1"] ,["破舊的大衣","1","0","1"],["初級魔法袍","1","0","1"]
 ,["簡陋的衣裝","1","0","1"]] 
 monster = [["哥布林","6","2","1","2"],["巫女","8","3","1","3"],["盜賊","9","3","1","5"],["墮落的勇者","12","3","2","5"],["史萊姆","20","2","2","5"]]
+monster_url = [["哥布林","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E5%93%A5%E5%B8%83%E6%9E%97.png"]]
 monster_now = []
+monster_now_url=[]
 monster_now_count = 0
 map = [["新手鎮","休息"],["幽靜小路","戰鬥"],["被詛咒的沼澤","戰鬥"],["山洞","戰鬥"],["市集","商店"]]
 map_now = "新手鎮"
@@ -424,7 +426,13 @@ class TocMachine(GraphMachine):
         
 
     def check_map(self,event):
-        global map_now_count,map,map_now
+        global map_now_count,map,map_now,monster,monster_now,monster_now_count,monster_url,monster_now_url
+        monster_now_count += 1
+        monster_now = monster[monster_now_count]
+        for i in monster_url:
+            if monster_now[0] == i[0]:
+                monster_now_url = i[1]
+
         if map[map_now_count][1] == "戰鬥":
             line_bot_api.reply_message(
                         event.reply_token,[
@@ -453,7 +461,8 @@ class TocMachine(GraphMachine):
                                 ]
                             )
                         ),
-                            TextSendMessage(text="遭遇怪物，立刻攻擊!")
+                            TextSendMessage(text="遭遇怪物，立刻攻擊!"),
+                            ImageSendMessage(original_content_url=monster_now_url,preview_image_url=monster_now_url)
                             
                         ]
                         
@@ -464,11 +473,6 @@ class TocMachine(GraphMachine):
             reply_token = event.reply_token
             send_text_message(reply_token, "遇到商人,可購買商品。") 
             return "商店"  
-
-    def check_monster(self,event):
-        global monster,monster_now,monster_now_count
-        monster_now_count += 1
-        monster_now = monster[monster_now_count]
 
         
     def situation(self,event):
@@ -500,7 +504,7 @@ class TocMachine(GraphMachine):
                                     )
                                 ]
                             )
-                        ),  ImageSendMessage(original_content_url="https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E5%93%A5%E5%B8%83%E6%9E%97.png",preview_image_url="https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E5%93%A5%E5%B8%83%E6%9E%97.png"),
+                        ),  
                             TextSendMessage(text="當前怪物為: "+monster_now[0]+"\n"+
                                                 "生命值: "+monster_now[1]+"\n"+
                                                 "攻擊力: "+monster_now[2]+"\n"+
