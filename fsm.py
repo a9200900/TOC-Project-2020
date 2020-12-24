@@ -30,7 +30,29 @@ class TocMachine(GraphMachine):
     def on_enter_intro(self , event):
 
         reply_token = event.reply_token
-        send_text_message(reply_token, "無盡天使:歡迎來到這個世界，你一定是上帝派來拯救我們的勇者，請你幫助我們打到大魔王『斯巴拉斯．魔迪耶爾』!")   
+        send_text_message(reply_token, "無盡天使:歡迎來到這個世界，你一定是上帝派來拯救我們的勇者，請你幫助我們打到大魔王『斯巴拉斯．魔迪耶爾』!")
+
+        line_bot_api.reply_message(
+                        event.reply_token,
+                        TemplateSendMessage(
+                            alt_text ='Buttons template',
+                            template = ButtonsTemplate(
+                                title = '選項',
+                                text = '無盡天使:歡迎來到這個世界，你一定是上帝派來拯救我們的勇者，請你幫助我們打到大魔王『斯巴拉斯．魔迪耶爾』!',
+                                actions=[
+                                    MessageTemplateAction(
+                                        label = '人物介紹',
+                                        text = '人物介紹'
+                                    ),
+                                    MessageTemplateAction(
+                                        label = '開始冒險',
+                                        text = '開始冒險'
+                                    )
+                                ]
+                            )
+                        )
+                    )
+
 
     def on_enter_start(self , event):
         

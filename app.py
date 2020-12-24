@@ -48,7 +48,7 @@ machine = TocMachine(
             "dest": "build",
         },
         {
-            "trigger": "go_back_build",
+            "trigger": "go_back_build_start",
             "source": "start",
             "dest": "build",
         },
@@ -176,6 +176,7 @@ def webhook_handler():
                 machine.set_name(event)
                 machine.set_name_complete(event)
                 machine.go_back_build_name(event)
+                machine.on_enter_build(event)
         #occupation state
         if machine.state == "choose_occupation":
             if event.message.text == "返回":
@@ -188,7 +189,7 @@ def webhook_handler():
         #start state
         if machine.state == "start":
             if event.message.text == "返回":
-                machine.go_back_build(event)
+                machine.go_back_build_start(event)
         if machine.state == "start":
             if event.message.text == "戰鬥":
                 machine.to_state_fight(event)
