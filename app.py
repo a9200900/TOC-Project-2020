@@ -220,10 +220,10 @@ def webhook_handler():
                 machine.go_back_build_start(event)
         if machine.state == "start":
             if event.message.text == "前進":
-                #machine.to_state_fight(event)
+                machine.to_state_fight(event)
         if machine.state == "start":
             if event.message.text == "背包":
-                
+                machine.to_state_fight(event)
         if machine.state == "start":
             if event.message.text == "角色資訊":
                 machine.character(event)
