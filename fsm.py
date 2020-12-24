@@ -9,9 +9,9 @@ channel_access_token = os.getenv("LINE_CHANNEL_ACCESS_TOKEN", None)
 line_bot_api = LineBotApi(channel_access_token)
 name = ''
 occupation = ''
-health = 0
-attack = 0
-defense = 0
+health = 0 ,health_body=0,health_equip=0
+attack = 0 ,attak_body=0,attack_equip=0
+defense = 0,defense_body =0,defense_equip=0
 level = 1
 exp = 0
 backpack = []
@@ -22,7 +22,7 @@ monster = [["哥布林","6","2","1","2"],["女巫","8","3","1","3"],["盜賊","9
 monster_url = [["哥布林","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E5%93%A5%E5%B8%83%E6%9E%97.png"],["女巫","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E5%A5%B3%E5%B7%AB.png"]]
 monster_now = []
 monster_now_url=""
-monster_now_count = 0
+monster_now_count = -1
 map = [["新手鎮","休息"],["幽靜小路","戰鬥"],["被詛咒的沼澤","戰鬥"],["山洞","戰鬥"],["市集","商店"]]
 map_now = "新手鎮"
 map_now_count = -1
@@ -176,7 +176,7 @@ class TocMachine(GraphMachine):
                         )
                     )
     def character(self , event):
-        global occupation,name,health,attack,defense,level
+        global occupation,name,health,attack,defense,level,exp
 
         
         h = str(health)
@@ -190,19 +190,22 @@ class TocMachine(GraphMachine):
                                         '名字  : '+name+'\n'+
                                         '職業  : '+occupation+'\n'+
                                         '等級  : '+l +'\n'+
+                                        '經驗值: '+exp+'\n'+
                                         '生命值: '+h+'\n'+
                                         '攻擊力: '+a+'\n'+
                                         '防禦力:' + d) 
 
     def check_character(self , event):
-        global occupation,name,health,attack,defense,level,attribute,backpack
+        global occupation,name,health,attack,defense,level,attribute,backpack,health_equip,attack_equip,defense_equip,health_body,attack_body,defense_body
         for i in attribute:
             for j in equipment:
                 if j == i[0]:
-                    health += int(i[1])
-                    attack += int(i[2])
-                    defense += int(i[3])
-            
+                    health_equip = int(i[1])
+                    attack_equip = int(i[2])
+                    defense_equip = int(i[3])
+        health = health_body + health_equip
+        attack = attack_body + attack_equip
+        defense = defense_body +defense_equip          
     
     def item(self , event):
         global backpack,attribute
@@ -371,24 +374,24 @@ class TocMachine(GraphMachine):
                     )
 
     def set_occupation(self,event):
-        global occupation,attack,health,defense,backpack,equipment
+        global occupation,attack_body,health_body,defense_body,backpack,equipment
         occupation = event.message.text
         if occupation == "狂戰士":
-            health = 12
-            attack = 2
-            defense = 3
+            health_body = 12
+            attack_body = 2
+            defense_body = 3
             backpack = ["普通大劍" , "破舊的大衣"]  
             equipment = ["普通大劍" , "破舊的大衣"] 
         if occupation == "黑暗法師":
-            health = 9
-            attack = 3
-            defense = 2
+            health_body = 9
+            attack_body = 3
+            defense_body = 2
             backpack = ["短杖" , "初級魔法袍"]
             equipment = ["短杖" , "初級魔法袍"]
         if occupation == "精靈射手":
-            health = 10
-            attack = 3
-            defense = 3
+            health_body = 10
+            attack_body = 3
+            defense_body = 3
             backpack = ["短弓" , "簡陋的衣裝"]
             equipment = ["短弓" , "簡陋的衣裝"]
 
@@ -461,7 +464,7 @@ class TocMachine(GraphMachine):
                                 ]
                             )
                         ),
-                            TextSendMessage(text="遭遇怪物，立刻攻擊!"),
+                            TextSendMessage(text="遇到了"+monster_now[0]+"，立刻攻擊!"),
                             ImageSendMessage(original_content_url=monster_now_url,preview_image_url=monster_now_url)
                             
                         ]
