@@ -257,6 +257,7 @@ def webhook_handler():
         if machine.state == "state_fight":
             if event.message.text == "攻擊":
                 if machine.attacking(event)=="死亡":
+                    machine.show_result(event)
                     machine.go_back_start_fight(event)
                 else:
                     machine.show_attacking(event)

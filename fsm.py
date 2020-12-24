@@ -432,7 +432,7 @@ class TocMachine(GraphMachine):
                             alt_text ='Buttons template',
                             template = ButtonsTemplate(
                                 title = '對決',
-                                text = '遭遇怪物，立刻攻擊!',
+                                text = '可先查看當前狀態已了解對手，在決定下一步怎麼辦。',
                                 actions=[
                                     MessageTemplateAction(
                                         label = '攻擊',
@@ -480,7 +480,7 @@ class TocMachine(GraphMachine):
                             alt_text ='Buttons template',
                             template = ButtonsTemplate(
                                 title = '對決',
-                                text = '遭遇怪物，立刻攻擊!',
+                                text = '可先查看當前狀態已了解對手，在決定下一步怎麼辦。',
                                 actions=[
                                     MessageTemplateAction(
                                         label = '攻擊',
@@ -533,7 +533,7 @@ class TocMachine(GraphMachine):
                             alt_text ='Buttons template',
                             template = ButtonsTemplate(
                                 title = '對決',
-                                text = '遭遇怪物，立刻攻擊!',
+                                text = '可先查看當前狀態已了解對手，在決定下一步怎麼辦。',
                                 actions=[
                                     MessageTemplateAction(
                                         label = '攻擊',
@@ -562,7 +562,7 @@ class TocMachine(GraphMachine):
     def show_result(self,event):
         global monster_now,monster,map_now_count,health,attack,defense,exp,level,occupation,drops
         tmp_level = level
-        upgrade = ""
+        upgrade_text =""
         exp += monster_now[4]
         if exp >5 :
             level = 1
@@ -571,7 +571,7 @@ class TocMachine(GraphMachine):
                 if exp >20:
                     level = 3
         if tmp_level != level:  ##升等
-            upgrade = "升等"
+            upgrade_text = "\n並且等級提升了一等。"
         
 
         if monster_now[0]=="哥布林":
@@ -616,11 +616,10 @@ class TocMachine(GraphMachine):
                                     )
                                 ]
                             )
-                        ),
-                            if upgrade == "升等":
-                                TextSendMessage(text="你打敗了"+monster_now[0]+"\n"+"獲得"+monster_now[4]+"經驗值\n並且等級提升了!")
-                            else:
-                                TextSendMessage(text="你打敗了"+monster_now[0]+"\n"+"獲得"+monster_now[4]+"經驗值")
+                        ),TextSendMessage(text="你打敗了"+monster_now[0]+"\n"+"獲得"+monster_now[4]+"經驗值" +upgrade_text)
+                            
                         ]
                         
                     )
+
+
