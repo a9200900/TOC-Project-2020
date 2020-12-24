@@ -561,7 +561,8 @@ class TocMachine(GraphMachine):
                     )
     def show_result(self,event):
         global monster_now,monster,map_now_count,health,attack,defense,exp,level,occupation.drops
-        
+        tmp_level = level
+        upgrade = ""
         exp += monster_now[4]
         if exp >5 :
             level = 1
@@ -569,6 +570,8 @@ class TocMachine(GraphMachine):
                 level = 2
                 if exp >20:
                     level = 3
+        if tmp_level != level:  ##升等
+            upgrade = "升等"
         
 
         if monster_now[0]=="哥布林":
@@ -614,8 +617,10 @@ class TocMachine(GraphMachine):
                                 ]
                             )
                         ),
-                            TextSendMessage(text="你打敗了"+monster_now[0]+"\n"+
-                                                 "獲得"+monster_now[4]+"經驗值")
+                            if upgrade == "升等":
+                                TextSendMessage(text="你打敗了"+monster_now[0]+"\n"+"獲得"+monster_now[4]+"經驗值\n並且等級提升了!")
+                            else:
+                                TextSendMessage(text="你打敗了"+monster_now[0]+"\n"+"獲得"+monster_now[4]+"經驗值")
                         ]
                         
                     )
