@@ -245,7 +245,7 @@ class TocMachine(GraphMachine):
     def set_name_complete(self , event):
         global name
         reply_token = event.reply_token
-        send_text_message(reply_token, "無盡天使: "+name +" 勇者大人，歡迎你的到來!")
+        send_text_message(reply_token, "無盡天使: "+name +" 勇者大人，歡迎你的到來!\n請輸入 返回 回到角色選單")
     def on_enter_choose_occupation(self,event):
         line_bot_api.reply_message(
                         event.reply_token,

@@ -185,8 +185,10 @@ def webhook_handler():
             if event.message.text != "":
                 machine.set_name(event)
                 machine.set_name_complete(event)
-                machine.go_back_build_name(event)
+        if machine.state == "enter_name":
+            if event.message.text == "返回":
                 machine.show_build(event)
+                machine.go_back_build_name(event)
         #occupation state
         if machine.state == "choose_occupation":
             if event.message.text == "返回":
@@ -194,7 +196,7 @@ def webhook_handler():
         if machine.state == "choose_occupation":
             if event.message.text == "職業介紹":
                 machine.occupation_intro(event)
-                machine.on_enter_choose_occupation(event)
+                
         
 
         #start state
