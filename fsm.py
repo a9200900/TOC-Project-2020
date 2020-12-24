@@ -200,6 +200,10 @@ class TocMachine(GraphMachine):
                                         text = '選擇職業'
                                     ),
                                     MessageTemplateAction(
+                                        label = '完成',
+                                        text = '完成'
+                                    ),
+                                    MessageTemplateAction(
                                         label = '返回',
                                         text = '返回'
                                     )
@@ -227,6 +231,10 @@ class TocMachine(GraphMachine):
                                     MessageTemplateAction(
                                         label = '選擇職業',
                                         text = '選擇職業'
+                                    ),
+                                    MessageTemplateAction(
+                                        label = '完成',
+                                        text = '完成'
                                     ),
                                     MessageTemplateAction(
                                         label = '返回',
@@ -315,3 +323,12 @@ class TocMachine(GraphMachine):
         occupation = event.message.text
         reply_token = event.reply_token
         send_text_message(reply_token, "無盡天使: 你選擇的職業是 "+occupation +"，馬上展開你的冒險吧!\n輸入 返回 回到角色選單")
+
+    def check_build(self,event):
+        flag = False
+        global occupation,name
+        if occupation !="" :
+            if name != "" :
+                flag = True
+
+        return flag
