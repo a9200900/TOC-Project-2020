@@ -173,8 +173,7 @@ class TocMachine(GraphMachine):
         d = str(defense)
         line = '-----------------------\n'
         reply_token = event.reply_token
-        send_text_message(reply_token, line+
-                                        "名字: "+name+'\n'+
+        send_text_message(reply_token,"名字: "+name+'\n'+
                                         "職業: "+occupation+'\n'+
                                         "等級: "+level +'\n'+
                                         "生命值: "+h+'\n'+
@@ -311,12 +310,13 @@ class TocMachine(GraphMachine):
                     )
 
     def set_occupation(self,event):
-        global occupation,attack,health,defense
+        global occupation,attack,health,defense,backpack,equipment
         occupation = event.message.text
         if occupation == "狂戰士":
             health = 12
             attack = 2
             defense = 3
+            
         if occupation == "黑暗法師":
             health = 9
             attack = 3
