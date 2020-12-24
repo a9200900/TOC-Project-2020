@@ -230,6 +230,7 @@ def webhook_handler():
             if event.message.text == "前進":
                 machine.forward(event)
                 if machine.check_map(event) == "戰鬥":
+                    machine.check_monster(event)
                     machine.to_state_fight(event)
                 elif machine.check_map(event) == "商店":
                     machine.to_state_store(event)
@@ -250,6 +251,9 @@ def webhook_handler():
         if machine.state == "state_fight":
             if event.message.text == "返回":
                 machine.go_back_start_fight(event)
+        if machine.state == "state_fight":
+            if event.message.text == "當前狀態":
+                machine.situation(event)
 
         #store state
         if machine.state == "state_store":

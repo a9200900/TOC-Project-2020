@@ -17,7 +17,9 @@ backpack = []
 equipment = []
 attribute = [["普通大劍" , "0" ,"1","1"] ,["短仗","0","1","1"] ,["短弓","0","1","1"] ,["破舊的大衣","1","0","1"],["初級魔法袍","1","0","1"]
 ,["簡陋的衣裝","1","0","1"]] 
-moster = [["哥布林","6","2","1","2"],["巫女","8","3","1","3"],["盜賊","9","3","1","5"],["墮落的勇者","12","3","2","5"],["史萊姆","20","2","2","5"]]
+monster = [["哥布林","6","2","1","2"],["巫女","8","3","1","3"],["盜賊","9","3","1","5"],["墮落的勇者","12","3","2","5"],["史萊姆","20","2","2","5"]]
+monster_now = ""
+monster_now_count = 0
 map = [["新手鎮","休息"],["幽靜小路","戰鬥"],["被詛咒的沼澤","戰鬥"],["山洞","戰鬥"],["市集","商店"]]
 map_now = "新手鎮"
 map_now_count = 0
@@ -443,8 +445,8 @@ class TocMachine(GraphMachine):
                                         text = '道具'
                                     ),
                                     MessageTemplateAction(
-                                        label = '狀態',
-                                        text = '狀態'
+                                        label = '當前狀態',
+                                        text = '當前狀態'
                                     )
                                 ]
                             )
@@ -459,3 +461,51 @@ class TocMachine(GraphMachine):
             reply_token = event.reply_token
             send_text_message(reply_token, "遇到商人,可購買商品。") 
             return "商店"  
+
+    def check_monster(self,event):
+        global monster,monster_now,monster_now_count
+        monster_now = monster[monster_now_count][0]
+        monster_now_count += 1
+        
+    def situation(self,event):
+        global monster_now,monster,map_now_count,health,attack,defense
+        line = '-----------------------\n'
+        line_bot_api.reply_message(
+                        event.reply_token,[
+                        TemplateSendMessage(
+                            alt_text ='Buttons template',
+                            template = ButtonsTemplate(
+                                title = '對決',
+                                text = '遭遇怪物，立刻攻擊!',
+                                actions=[
+                                    MessageTemplateAction(
+                                        label = '攻擊',
+                                        text = '攻擊'
+                                    ),
+                                    MessageTemplateAction(
+                                        label = '攻擊2',
+                                        text = '攻擊2'
+                                    ),
+                                    MessageTemplateAction(
+                                        label = '道具',
+                                        text = '道具'
+                                    ),
+                                    MessageTemplateAction(
+                                        label = '當前狀態',
+                                        text = '當前狀態'
+                                    )
+                                ]
+                            )
+                        ),
+                            TextSendMessage(text="當前怪物為: "+monster_now+"\n"+
+                                                 "生命值: "+monster[monster_now_count][1]+"\n"+
+                                                 "攻擊力: "+monster[monster_now_count][2]+"\n"+
+                                                 "防禦力: "+monster[monster_now_count][3]+"\n"+
+                                                 line+
+                                                 "你的狀態: \n"+
+                                                 "生命值: "+str(health)+"\n"+
+                                                 "攻擊力: "+str(attack)+"\n"+
+                                                 "防禦力: "+str(defense))
+                        ]
+                        
+                    )
