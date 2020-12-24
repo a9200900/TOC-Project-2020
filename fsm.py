@@ -9,9 +9,15 @@ channel_access_token = os.getenv("LINE_CHANNEL_ACCESS_TOKEN", None)
 line_bot_api = LineBotApi(channel_access_token)
 name = ''
 occupation = ''
-health = 0 ,health_body=0,health_equip=0
-attack = 0 ,attak_body=0,attack_equip=0
-defense = 0,defense_body =0,defense_equip=0
+health = 0 
+health_body=0
+health_equip=0
+attack = 0 
+attak_body=0
+attack_equip=0
+defense = 0
+defense_body =0
+defense_equip=0
 level = 1
 exp = 0
 backpack = []
