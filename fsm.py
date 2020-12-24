@@ -13,7 +13,7 @@ attack = 0
 defense = 0
 backpack = []
 equipment = []
-moster = []
+moster = ["哥布林","巫女","盜賊","墮落的勇者","史萊姆"]
 map = []
 
 
@@ -28,13 +28,10 @@ class TocMachine(GraphMachine):
         send_text_message(reply_token, "無盡天使:歡迎來到這個世界，你一定是上帝派來拯救我們的勇者，請你幫助我們打到大魔王『斯巴拉斯．魔迪耶爾』!")   
 
     def on_enter_start(self , event):
-        global occupation 
+        global occupation,health ,attack,defense
         occupation =  "狂戰士"
-        global health 
         health = 12
-        global attack
         attack = 3
-        global defense 
         defense = 2
         
         line_bot_api.reply_message(
