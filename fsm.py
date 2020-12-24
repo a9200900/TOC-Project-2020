@@ -12,6 +12,7 @@ occupation = ''
 health = 0
 attack = 0
 defense = 0
+level = 1
 # backpack = []
 # equipment = []
 # moster = ["哥布林","巫女","盜賊","墮落的勇者","史萊姆"]
@@ -164,7 +165,7 @@ class TocMachine(GraphMachine):
                         )
                     )
     def character(self , event):
-        global occupation,health,attack,defense
+        global occupation,name,health,attack,defense,level
 
         
         h = str(health)
@@ -174,7 +175,9 @@ class TocMachine(GraphMachine):
         reply_token = event.reply_token
         send_text_message(reply_token, "角色資訊\n"+
                                         line+
+                                        "名字: "+name+'\n'+
                                         "職業: "+occupation+'\n'+
+                                        "等級: "+level +'\n'+
                                         "生命值: "+h+'\n'+
                                         "攻擊力: "+a+'\n'+
                                         "防禦力: "+d) 
@@ -247,7 +250,8 @@ class TocMachine(GraphMachine):
     def set_name_complete(self , event):
         global name
         reply_token = event.reply_token
-        send_text_message(reply_token, "無盡天使: "+name +"勇者大人，歡迎你的到來!\n輸入 返回 回到角色選單")
+        line = '-----------------------\n'
+        send_text_message(reply_token, "無盡天使: "+name +"勇者大人，歡迎你的到來!\n"+line+"輸入 返回 回到角色選單")
     def on_enter_choose_occupation(self,event):
         line_bot_api.reply_message(
                         event.reply_token,
@@ -323,8 +327,9 @@ class TocMachine(GraphMachine):
             attack = 3
             defense = 3
 
+        line = '-----------------------\n'
         reply_token = event.reply_token
-        send_text_message(reply_token, "無盡天使: 你選擇的職業是 "+occupation +"，馬上展開你的冒險吧!\n輸入 返回 回到角色選單")
+        send_text_message(reply_token, "無盡天使: 你選擇的職業是 "+occupation +"，馬上展開你的冒險吧!\n"+line+"輸入 返回 回到角色選單")
 
     def check_build(self,event):
         flag = False
