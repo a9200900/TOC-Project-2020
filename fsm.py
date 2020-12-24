@@ -587,7 +587,7 @@ class TocMachine(GraphMachine):
         global monster_now,monster,map_now_count,health,attack,defense,exp,level,occupation,drops
         tmp_level = level
         upgrade_text =""
-        exp += monster_now[4]
+        exp += int(monster_now[4])
         if exp >5 :
             level = 1
             if exp >10:
