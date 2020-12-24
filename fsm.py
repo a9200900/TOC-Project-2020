@@ -469,7 +469,15 @@ class TocMachine(GraphMachine):
         
     def situation(self,event):
         global monster_now,monster,map_now_count,health,attack,defense
-        
+        tt="當前怪物為: "+monster_now[monster_now_count][0]+"\n"+
+            "生命值: "+monster_now[monster_now_count][1]+"\n"+
+            "攻擊力: "+monster_now[monster_now_count][2]+"\n"+
+            "防禦力: "+monster_now[monster_now_count][3]+"\n"+
+            line+
+            "你的狀態: \n"+
+            "生命值: "+str(health)+"\n"+
+            "攻擊力: "+str(attack)+"\n"+
+            "防禦力: "+str(defense)+"\n"
         line = '-----------------------\n'
         line_bot_api.reply_message(
                         event.reply_token,[
@@ -498,15 +506,7 @@ class TocMachine(GraphMachine):
                                 ]
                             )
                         ),
-                            TextSendMessage(text="當前怪物為: "+monster_now[monster_now_count][0]+"\n"+
-                                                 "生命值: "+monster_now[monster_now_count][1]+"\n"+
-                                                 "攻擊力: "+monster_now[monster_now_count][2]+"\n"+
-                                                 "防禦力: "+monster_now[monster_now_count][3]+"\n"+
-                                                 line+
-                                                 "你的狀態: \n"+
-                                                 "生命值: "+str(health)+"\n"+
-                                                 "攻擊力: "+str(attack)+"\n"+
-                                                 "防禦力: "+str(defense)+"\n")
+                            TextSendMessage(text=tt)
                         ]
                         
                     )
