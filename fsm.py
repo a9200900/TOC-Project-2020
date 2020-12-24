@@ -188,9 +188,9 @@ class TocMachine(GraphMachine):
         global occupation,name,health,attack,defense,level,attribute,backpack
         for i in attribute:
             if backpack[0] == i[0]:
-                health += i[1]
-                attack += i[2]
-                defense += i[3]
+                health += int(i[1])
+                attack += int(i[2])
+                defense += int(i[3])
             
      
         
