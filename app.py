@@ -287,7 +287,7 @@ def webhook_handler():
                 machine.change_weapon_complete(event)
         if machine.state == "state_change_weapon":
             if event.message.text == "返回":
-                machine.go_back_state_change(event)
+                machine.go_back_state_change_weapon(event)
         
         #map state
         if machine.state == "state_map":
