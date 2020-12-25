@@ -327,6 +327,94 @@ class TocMachine(GraphMachine):
                         ]
                         
                     )
+
+    def change_weapon(self,event):
+        global backpack,equipment,backpack,attribute,drops
+        weapon_name =""
+        weapon_name = event.message.text
+        tmp = ""
+        for i in backpack:
+            if i == weapon_name:
+                tmp = equipment[0]
+                equipment[0] = i
+                backpack.append(tmp)
+
+        item_in_backpack = ""
+        weapon = ""
+        equip = ""
+        space_length=""
+        spa_length=""
+        line = '-----------------------\n'
+        for i in backpack:
+            for j in attribute:
+                if i == j[0]:
+                    item_length = len(i)
+                    for k in range(5 - item_length):
+                        space_length += " "
+                    item_in_backpack += i+ space_length +"+" + j[1] + " +" + j[2] + " +"+ j[3] + "\n" 
+
+        weapon += "武器: " + equipment[0]
+        weapon_attribute = ""
+        equip += "防具: " + equipment[1]
+        equip_attribute = ""
+        for i in range(len(equipment)):
+            for j in attribute:
+                if equipment[i] == j[0]:
+                    equip_length = len(equipment[i])
+                    for k in range(5-equip_length):
+                        spa_length += " "
+                    if i == 0:
+                        weapon_attribute = spa_length +"+" + j[1] + " +" + j[2] + " +"+ j[3] 
+                    if i == 1:
+                        equip_attribute = spa_length +"+" + j[1] + " +" + j[2] + " +"+ j[3] 
+
+
+        line_bot_api.reply_message(
+                        event.reply_token,[
+                        TemplateSendMessage(
+                            alt_text ='Buttons template',
+                            template = ButtonsTemplate(
+                                title = '更換裝備',
+                                text = '請先選擇要更換武器或是防具,再輸入想要更換的裝備。',
+                                actions=[
+                                    MessageTemplateAction(
+                                        label = '更換武器',
+                                        text = '更換武器'
+                                    ),
+                                    MessageTemplateAction(
+                                        label = '更換防具',
+                                        text = '更換防具'
+                                    ),
+                                    MessageTemplateAction(
+                                        label = '返回',
+                                        text = '返回'
+                                    )
+                                ]
+                            )
+                        ),TextSendMessage(text='背包:\n'+
+                                        "名稱   " + "生命" +" 攻擊"+" 防禦\n"+
+                                        item_in_backpack+
+                                        line+
+                                        "裝備中:\n"+
+                                        weapon + weapon_attribute + "\n"+
+                                        equip + equip_attribute )
+                        ]
+                        
+                    )
+
+    def change_equip(self,event):
+        global backpack,equipment,backpack,attribute,drops
+        equip_name =""
+        equip_name = event.message.text
+        tmp = ""
+        for i in backpack:
+            if i == equip_name:
+                tmp = equipment[1]
+                equipment[1] = i
+                backpack.append(tmp)
+        reply_token = event.reply_token
+        send_text_message(reply_token, "裝備更換完成,請輸入 返回 回到選單。")
+
     def on_enter_build(self , event):
         line_bot_api.reply_message(
                         event.reply_token,
@@ -470,19 +558,19 @@ class TocMachine(GraphMachine):
             health_body = 12
             attack_body = 2
             defense_body = 3
-            backpack = ["普通大劍" , "破舊的大衣"]  
+            #backpack = ["普通大劍" , "破舊的大衣"]  
             equipment = ["普通大劍" , "破舊的大衣"] 
         if occupation == "黑暗法師":
             health_body = 9
             attack_body = 3
             defense_body = 2
-            backpack = ["短杖" , "初級魔法袍"]
+            #backpack = ["短杖" , "初級魔法袍"]
             equipment = ["短杖" , "初級魔法袍"]
         if occupation == "精靈射手":
             health_body = 10
             attack_body = 3
             defense_body = 3
-            backpack = ["短弓" , "簡陋的衣裝"]
+            #backpack = ["短弓" , "簡陋的衣裝"]
             equipment = ["短弓" , "簡陋的衣裝"]
 
         line = '-----------------------\n'
