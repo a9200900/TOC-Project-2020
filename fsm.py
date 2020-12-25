@@ -358,41 +358,16 @@ class TocMachine(GraphMachine):
                         weapon_attribute = spa_length +"+" + j[1] + " +" + j[2] + " +"+ j[3] 
                     if i == 1:
                         equip_attribute = spa_length +"+" + j[1] + " +" + j[2] + " +"+ j[3] 
-
-
-        line_bot_api.reply_message(
-                        event.reply_token,[
-                        TemplateSendMessage(
-                            alt_text ='Buttons template',
-                            template = ButtonsTemplate(
-                                title = '更換裝備',
-                                text = '請先選擇要更換武器或是防具,再輸入想要更換的裝備。',
-                                actions=[
-                                    MessageTemplateAction(
-                                        label = '更換武器',
-                                        text = '更換武器'
-                                    ),
-                                    MessageTemplateAction(
-                                        label = '更換防具',
-                                        text = '更換防具'
-                                    ),
-                                    MessageTemplateAction(
-                                        label = '返回',
-                                        text = '返回'
-                                    )
-                                ]
-                            )
-                        ),TextSendMessage(text='背包:\n'+
+        reply_token = event.reply_token
+        send_text_message(reply_token,  '背包:\n'+
                                         "名稱   " + "生命" +" 攻擊"+" 防禦\n"+
                                         item_in_backpack+
                                         line+
                                         "裝備中:\n"+
                                         weapon + weapon_attribute + "\n"+
-                                        equip + equip_attribute+"\n"+
-                                        "輸入 欲更換的裝備名稱。" )
-                        ]
-                        
-                    )
+                                        equip + equip_attribute +"\n"+
+                                        line+
+                                        "輸入 欲更換裝備的名稱。") 
 
     def change_weapon(self,event):
         global backpack,equipment,backpack,attribute,drops
