@@ -183,7 +183,13 @@ class TocMachine(GraphMachine):
                     )
     def character(self , event):
         global occupation,name,health,attack,defense,level,exp
-
+        exp_max = ""
+        if level == 1:
+            exp_max = "/5"
+        elif level == 2:
+            exp_max = "/10"
+        elif level == 3:
+            exp_max = "/20"
         
         h = str(health)
         a = str(attack)
@@ -197,7 +203,7 @@ class TocMachine(GraphMachine):
                                         '名字  : '+name+'\n'+
                                         '職業  : '+occupation+'\n'+
                                         '等級  : '+l +'\n'+
-                                        '經驗值: '+e+'\n'+
+                                        '經驗值: '+e + exp_max +'\n'+
                                         '生命值: '+h+'\n'+
                                         '攻擊力: '+a+'\n'+
                                         '防禦力:' + d) 
@@ -252,8 +258,8 @@ class TocMachine(GraphMachine):
                                         item_in_backpack+
                                         line+
                                         "裝備中:\n"+
-                                        weapon + weapon_attribute + 
-                                        equip + equip_attribute +
+                                        weapon + weapon_attribute + "\n"+
+                                        equip + equip_attribute +"\n"+
                                         line+
                                         "如要更換裝備請輸入 更換 ") 
     def on_enter_build(self , event):
@@ -600,11 +606,11 @@ class TocMachine(GraphMachine):
         tmp_level = level
         upgrade_text =""
         exp += int(monster_now[4])
-        if exp >5 :
+        if exp >=5 :
             level = 1
-            if exp >10:
+            if exp >=10:
                 level = 2
-                if exp >20:
+                if exp >=20:
                     level = 3
         if tmp_level != level:  ##升等
             upgrade_text = "\n並且等級提升了一等,屬性值獲得提升。"
