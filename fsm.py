@@ -261,7 +261,7 @@ class TocMachine(GraphMachine):
                                         weapon + weapon_attribute + "\n"+
                                         equip + equip_attribute +"\n"+
                                         line+
-                                        "如要更換裝備請輸入 更換 ") 
+                                        "輸入 更換 以更換裝備。") 
 
     def on_enter_state_change(self,event):
         global backpack,equipment,backpack,attribute,drops
@@ -339,6 +339,8 @@ class TocMachine(GraphMachine):
                 equipment[0] = i
                 backpack.append(tmp)
 
+    def show_change_item(self,event):
+        global backpack,equipment,backpack,attribute,drops
         item_in_backpack = ""
         weapon = ""
         equip = ""
@@ -760,11 +762,11 @@ class TocMachine(GraphMachine):
         upgrade_text =""
         exp += int(monster_now[4])
         if exp >=5 :
-            level = 1
+            level = 2
             if exp >=10:
-                level = 2
+                level = 3
                 if exp >=20:
-                    level = 3
+                    level = 4
         if tmp_level != level:  ##升等
             upgrade_text = "\n並且等級提升了一等,屬性值獲得提升。"
             if level == 2:
