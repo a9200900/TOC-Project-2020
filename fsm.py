@@ -611,7 +611,7 @@ class TocMachine(GraphMachine):
                 health_body += 3
                 attack_body += 2
                 defense_body += 1
-            if level == 3
+            if level == 3:
                 health_body += 3
                 attack_body += 2
                 defense_body += 1
