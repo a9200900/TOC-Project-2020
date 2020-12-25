@@ -380,10 +380,25 @@ class TocMachine(GraphMachine):
                 tmp = equipment[0]
                 equipment[0] = i
                 backpack.append(tmp)
+                backpack.remove(i)
         
-    def change_weapon_complete(self,event):
+    def change_complete(self,event):
         reply_token = event.reply_token
         send_text_message(reply_token, "裝備更換成功。\n輸入 返回 回到角色選單")
+
+    def change_equip(self,event):
+        global backpack,equipment,backpack,attribute,drops
+        equip_name =""
+        equip_name = event.message.text
+        tmp = ""
+        
+        for i in backpack:
+            if i == equip_name:
+                tmp = equipment[1]
+                equipment[1] = i
+                backpack.append(tmp)
+                backpack.remove(i)
+
     def show_change_item(self,event):
         global backpack,equipment,backpack,attribute,drops
         item_in_backpack = ""
