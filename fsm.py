@@ -584,7 +584,7 @@ class TocMachine(GraphMachine):
                         
                     )
     def show_result(self,event):
-        global monster_now,monster,map_now_count,health,attack,defense,exp,level,occupation,drops
+        global monster_now,monster,map_now_count,health,attack,defense,exp,level,occupation,drops,backpack
         tmp_level = level
         upgrade_text =""
         exp += int(monster_now[4])
@@ -598,6 +598,9 @@ class TocMachine(GraphMachine):
             upgrade_text = "\n並且等級提升了一等。"
         
 
+        # for i in drops:
+        #     if monster_now[0] == i[0]:
+        #         backpack.append(i[])
         if monster_now[0]=="哥布林":
             if occupation =="狂戰士":
                 backpack.append(drops[0][1])
