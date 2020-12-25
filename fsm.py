@@ -333,11 +333,13 @@ class TocMachine(GraphMachine):
         weapon_name =""
         weapon_name = event.message.text
         tmp = ""
+        
         for i in backpack:
             if i == weapon_name:
                 tmp = equipment[0]
                 equipment[0] = i
                 backpack.append(tmp)
+        
 
     def show_change_item(self,event):
         global backpack,equipment,backpack,attribute,drops
