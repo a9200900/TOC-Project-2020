@@ -242,7 +242,7 @@ class TocMachine(GraphMachine):
         equip_attribute = ""
         for i in range(len(equipment)):
             for j in attribute:
-                if i == j[0]:
+                if equipment[i] == j[0]:
                     equip_length = len(equipment[i])
                     for k in range(5-equip_length):
                         spa_length += " "
@@ -262,6 +262,11 @@ class TocMachine(GraphMachine):
                                         equip + equip_attribute +"\n"+
                                         line+
                                         "如要更換裝備請輸入 更換 ") 
+
+    def change_item(self,event):
+        global backpack,equipment
+
+
     def on_enter_build(self , event):
         line_bot_api.reply_message(
                         event.reply_token,
