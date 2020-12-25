@@ -22,8 +22,8 @@ level = 1
 exp = 0
 backpack = []
 equipment = []
-attribute = [["普通大劍" , "0" ,"1","1"] ,["短杖","0","1","1"] ,["短弓","0","1","1"] ,["破舊的大衣","1","0","1"],["初級魔法袍","1","0","1"],["鋒利的彎刀","1","2","1"],["鎖子甲","3","0","1"],["精緻法杖","1","2","1"],["上等法袍","3","0","1"],
-["骨製彎曲弓","1","2","1"],["上等絲綢服","3","0","1"],["簡陋的衣裝","1","0","1"]] 
+attribute = [["普通大劍" , "0" ,"1","1"] ,["短杖","0","1","1"] ,["短弓","0","1","1"] ,["破舊的大衣","1","0","1"],["初級魔法袍","1","0","1"],["簡陋的衣裝","1","0","1"],["鋒利的彎刀","1","2","1"],["鎖子甲","3","0","1"],["精緻魔杖","1","2","1"],["上等法袍","3","0","1"],
+["骨製彎曲弓","1","2","1"],["上等絲綢服","3","0","1"]] 
 monster = [["哥布林","6","2","1","2"],["女巫","8","3","1","3"],["盜賊","9","3","1","5"],["墮落的勇者","12","3","2","5"],["史萊姆","20","2","2","5"]]
 monster_url = [["哥布林","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E5%93%A5%E5%B8%83%E6%9E%97.png"],["女巫","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E5%A5%B3%E5%B7%AB.png"]]
 monster_now = []
@@ -228,13 +228,21 @@ class TocMachine(GraphMachine):
                     for k in range(5 - item_length):
                         space_length += " "
                     item_in_backpack += i+ space_length +"+" + j[1] + " +" + j[2] + " +"+ j[3] + "\n" 
-        for i in equipment:
+
+        weapon += "武器: " + equipment[0]
+        weapon_attribute = ""
+        equip += "防具: " + equipment[1]
+        equip_attribute = ""
+        for i in range(len(equipment)):
             for j in attribute:
                 if i == j[0]:
-                    equip_length = len(i)
+                    equip_length = len(equipment[i])
                     for k in range(5-equip_length):
                         spa_length += " "
-                    item_equip += i+ spa_length +"+" + j[1] + " +" + j[2] + " +"+ j[3] + "\n" 
+                    if i == 0:
+                        weapon_attribute = spa_length +"+" + j[1] + " +" + j[2] + " +"+ j[3] 
+                    if i == 1:
+                        equip_attribute = spa_length +"+" + j[1] + " +" + j[2] + " +"+ j[3] 
 
 
         reply_token = event.reply_token
@@ -243,7 +251,10 @@ class TocMachine(GraphMachine):
                                         item_in_backpack+
                                         line+
                                         "裝備中:\n"+
-                                        item_equip) 
+                                        weapon + weapon_attribute + 
+                                        equip + equip_attribute +
+                                        line+
+                                        "如要更換裝備請輸入 更換 ") 
     def on_enter_build(self , event):
         line_bot_api.reply_message(
                         event.reply_token,
@@ -584,7 +595,7 @@ class TocMachine(GraphMachine):
                         
                     )
     def show_result(self,event):
-        global monster_now,monster,map_now_count,health,attack,defense,exp,level,occupation,drops,backpack
+        global monster_now,monster,map_now_count,health,attack,defense,exp,level,occupation,drops,backpack,health_body,attack_body,defense_body
         tmp_level = level
         upgrade_text =""
         exp += int(monster_now[4])
@@ -595,8 +606,15 @@ class TocMachine(GraphMachine):
                 if exp >20:
                     level = 3
         if tmp_level != level:  ##升等
-            upgrade_text = "\n並且等級提升了一等。"
-        
+            upgrade_text = "\n並且等級提升了一等,屬性值獲得提升。"
+            if level == 2:
+                health_body += 3
+                attack_body += 2
+                defense_body += 1
+            if level == 3
+                health_body += 3
+                attack_body += 2
+                defense_body += 1
 
         # for i in drops:
         #     if monster_now[0] == i[0]:
