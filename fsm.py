@@ -369,11 +369,54 @@ class TocMachine(GraphMachine):
                                         line+
                                         "輸入 欲更換裝備的名稱。") 
 
+    def on_enter_state_change_equip(self,event):
+        global backpack,equipment,backpack,attribute,drops
+        item_in_backpack = ""
+        weapon = ""
+        equip = ""
+        space_length=""
+        spa_length=""
+        line = '-----------------------\n'
+        for i in backpack:
+            for j in attribute:
+                if i == j[0]:
+                    item_length = len(i)
+                    for k in range(5 - item_length):
+                        space_length += " "
+                    item_in_backpack += i+ space_length +"+" + j[1] + " +" + j[2] + " +"+ j[3] + "\n" 
+
+        weapon += "武器: " + equipment[0]
+        weapon_attribute = ""
+        equip += "防具: " + equipment[1]
+        equip_attribute = ""
+        for i in range(len(equipment)):
+            for j in attribute:
+                if equipment[i] == j[0]:
+                    equip_length = len(equipment[i])
+                    for k in range(5-equip_length):
+                        spa_length += " "
+                    if i == 0:
+                        weapon_attribute = spa_length +"+" + j[1] + " +" + j[2] + " +"+ j[3] 
+                    if i == 1:
+                        equip_attribute = spa_length +"+" + j[1] + " +" + j[2] + " +"+ j[3] 
+        reply_token = event.reply_token
+        send_text_message(reply_token,  '背包:\n'+
+                                        "名稱   " + "生命" +" 攻擊"+" 防禦\n"+
+                                        item_in_backpack+
+                                        line+
+                                        "裝備中:\n"+
+                                        weapon + weapon_attribute + "\n"+
+                                        equip + equip_attribute +"\n"+
+                                        line+
+                                        "輸入 欲更換裝備的名稱。") 
+
+    
     def change_weapon(self,event):
         global backpack,equipment,backpack,attribute,drops
         weapon_name =""
         weapon_name = event.message.text
         tmp = ""
+        flag = "False"
         
         for i in backpack:
             if i == weapon_name:
@@ -381,7 +424,9 @@ class TocMachine(GraphMachine):
                 equipment[0] = i
                 backpack.append(tmp)
                 backpack.remove(i)
+                flag = "True"
         
+        return flag
     def change_complete(self,event):
         reply_token = event.reply_token
         send_text_message(reply_token, "裝備更換成功。\n輸入 返回 回到角色選單")
@@ -391,14 +436,15 @@ class TocMachine(GraphMachine):
         equip_name =""
         equip_name = event.message.text
         tmp = ""
-        
+        flag = "False"
         for i in backpack:
             if i == equip_name:
                 tmp = equipment[1]
                 equipment[1] = i
                 backpack.append(tmp)
                 backpack.remove(i)
-
+                flag = "True"
+        return flag
     def show_change_item(self,event):
         global backpack,equipment,backpack,attribute,drops
         item_in_backpack = ""
@@ -463,19 +509,6 @@ class TocMachine(GraphMachine):
                         ]
                         
                     )
-
-    def change_equip(self,event):
-        global backpack,equipment,backpack,attribute,drops
-        equip_name =""
-        equip_name = event.message.text
-        tmp = ""
-        for i in backpack:
-            if i == equip_name:
-                tmp = equipment[1]
-                equipment[1] = i
-                backpack.append(tmp)
-        reply_token = event.reply_token
-        send_text_message(reply_token, "裝備更換完成,請輸入 返回 回到選單。")
 
     def on_enter_build(self , event):
         line_bot_api.reply_message(

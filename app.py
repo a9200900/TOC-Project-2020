@@ -283,8 +283,8 @@ def webhook_handler():
         #change weapon state
         if machine.state == "state_change_weapon":  
             if event.message.text != "返回":
-                machine.change_weapon(event)
-                machine.change_complete(event)
+                if machine.change_weapon(event)=="True":
+                    machine.change_complete(event)
         if machine.state == "state_change_weapon":
             if event.message.text == "返回":
                 machine.go_back_state_change_weapon(event)
@@ -292,8 +292,8 @@ def webhook_handler():
         #change equip state
         if machine.state == "state_change_equip":  
             if event.message.text != "返回":
-                machine.change_equip(event)
-                machine.change_complete(event)
+                if machine.change_equip(event) == "True":
+                    machine.change_complete(event)
         if machine.state == "state_change_equip":
             if event.message.text == "返回":
                 machine.go_back_state_change_equip(event)
