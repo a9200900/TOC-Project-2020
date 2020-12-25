@@ -15,7 +15,7 @@ load_dotenv()
 
 
 machine = TocMachine(
-    states=["intro","build","enter_name","choose_occupation","occupation_intro", "start", "state_map","state_fight", "state_store"],
+    states=["intro","build","enter_name","choose_occupation","occupation_intro", "start","state_change", "state_map","state_fight", "state_store"],
     transitions=[
         {
             "trigger": "to_build",
@@ -66,6 +66,15 @@ machine = TocMachine(
             "trigger": "to_state_fight",
             "source": "start",
             "dest": "state_fight",  
+        },
+        {
+            "trigger": "to_state_change",
+            "source": "start",
+            "dest": "state_change",  
+        },
+        {"trigger": "go_back_start_change",
+         "source": "state_change",
+          "dest": "start" ,
         },
         {"trigger": "go_back_intro",
          "source": "build",
@@ -240,7 +249,15 @@ def webhook_handler():
             if event.message.text == "角色資訊":
                 machine.check_character(event)
                 machine.character(event)
+        if machine.state == "start":
+            if event.message.text == "更換":
+                machine.to_state_change(event)
 
+        #change state
+        if machine.state == "state_change":
+            if event.message.text == "返回":
+                machine.go_back_start_change(event)
+        
         #map state
         if machine.state == "state_map":
             if event.message.text == "返回":
