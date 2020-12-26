@@ -1049,8 +1049,8 @@ class TocMachine(GraphMachine):
                         health_now += 5
                         if health_now >= health_max:
                             health_now = health_max
-                        return flag
-
+                        
+        return flag
     def use_item_complete(self,event):
         reply_token = event.reply_token
         send_text_message(reply_token, "道具使用成功。\n輸入 返回 回到對決選單")
