@@ -360,7 +360,8 @@ def webhook_handler():
         #dead state
         if machine.state == "state_dead":
             if event.message.text == "復活":
-                machine.go_back_to_fight
+                machine.reborn(event)
+                machine.go_back_to_fight(event)
 
         #response = machine.advance(event)
         #if response == False:

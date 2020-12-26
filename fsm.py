@@ -1119,3 +1119,8 @@ class TocMachine(GraphMachine):
     def use_item_not_complete(self,event):
         reply_token = event.reply_token
         send_text_message(reply_token, "道具使用失敗。\n輸入 返回 回到對決選單")
+
+    def reborn(self,event):
+        global health_now,health_max
+
+        health_now = health_max
