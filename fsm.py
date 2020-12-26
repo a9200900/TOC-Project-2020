@@ -185,6 +185,9 @@ class TocMachine(GraphMachine):
                                         '防禦力:' + d) 
     def check_character(self , event):
         global health_max,health_now,attack,defense,level,attribute,backpack,health_equip,attack_equip,defense_equip,health_body,attack_body,defense_body,attribute_for_health
+        health_equip = 0
+        attack_equip =0
+        defense_equip=0
         for i in attribute:
             for j in equipment:
                 if j == i[0]:
@@ -209,6 +212,9 @@ class TocMachine(GraphMachine):
     def set_occupation(self,event):
         global occupation,attack_body,health_body,defense_body,backpack,equipment,attribute,health_max,health_now,attack,defense,attribute_for_health,health_equip,attack_equip,defense_equip
         occupation = event.message.text
+        health_equip = 0
+        attack_equip =0
+        defense_equip=0
         if occupation == "狂戰士":
             health_body = 12
             attack_body = 2
@@ -738,7 +744,9 @@ class TocMachine(GraphMachine):
         global map_now_count,map,map_now,attribute,equipment,health_equip,attack_equip,defense_equip,health_max,health_now,attack,defense,health_body,attack_body,defense_body,attribute_for_health
         map_now_count += 1
         map_now = map[map_now_count][0]
-
+        health_equip = 0
+        attack_equip =0
+        defense_equip=0
         for i in attribute:
             for j in equipment:
                 if j == i[0]:
