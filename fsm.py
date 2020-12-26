@@ -295,10 +295,22 @@ class TocMachine(GraphMachine):
         send_text_message(reply_token, "無盡天使: 你選擇的職業是 "+occupation +"，馬上展開你的冒險吧!\n"+line+"輸入 返回 回到角色選單")
 
     def on_enter_state_fight(self , event):
-        
+        global health_equip,attack_equip,defense_equip,attribute,equipment,health_max,attack,defense,health_body,attack_body,defense_body
+        health_equip=0
+        attack_equip =0
+        defense_equip=0
+        for i in attribute:
+            for j in equipment:
+                if j == i[0]:
+                    health_equip += int(i[1])
+                    attack_equip += int(i[2])
+                    defense_equip += int(i[3])
+        health_max = health_body + health_equip
+        attack = attack_body + attack_equip
+        defense = defense_body +defense_equip
         
         line_bot_api.reply_message(
-                        event.reply_token,
+                        event.reply_token,[
                         TemplateSendMessage(
                             alt_text ='Buttons template',
                             template = ButtonsTemplate(
@@ -323,7 +335,16 @@ class TocMachine(GraphMachine):
                                     )
                                 ]
                             )
-                        )
+                        ),TextSendMessage(text="當前怪物為: "+monster_now[0]+"\n"+
+                                                "生命值: "+monster_now[1]+"\n"+
+                                                "攻擊力: "+monster_now[2]+"\n"+
+                                                "防禦力: "+monster_now[3]+"\n"+
+                                                line+
+                                                "你的狀態: \n"+
+                                                "生命值: "+str(health_now)+"/"+str(health_max)+"\n"+
+                                                "攻擊力: "+str(attack)+"\n"+
+                                                "防禦力: "+str(defense)+"\n")
+                        ]
                     )
 
     
@@ -408,7 +429,7 @@ class TocMachine(GraphMachine):
         send_text_message(reply_token, "生命粉塵  : 使用後回復5生命值\n"+
                                        "大生命粉塵: 使用後回復10生命值\n"+
                                        "鬼人粉塵  : 使用後永久增加1攻擊力\n"+
-                                       "硬化粉塵  : 使用後永久增加1防禦力\n")
+                                       "硬化粉塵  : 使用後永久增加1防禦力")
     def on_enter_state_change(self,event):
         global backpack,equipment,backpack,attribute,drops
         item_in_backpack = ""
