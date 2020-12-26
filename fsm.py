@@ -54,7 +54,7 @@ class TocMachine(GraphMachine):
                             alt_text ='Buttons template',
                             template = ButtonsTemplate(
                                 title = '選項',
-                                text = '無盡天使:歡迎來到這個世界，你一定是上帝派來拯救我們的勇者，請你幫助我們打到大魔王『斯巴拉斯．魔迪耶爾』!',
+                                text = '無盡天使:歡迎來到這個世界，你一定是上帝派來拯救我們的勇者，請你幫助我們打到大魔王『黑龍』!',
                                 actions=[
                                     MessageTemplateAction(
                                         label = '人物介紹',
@@ -1041,10 +1041,10 @@ class TocMachine(GraphMachine):
         flag = False
 
         if item_tmp == "回復藥草":
-            for i in using_item:
-                if i[0] == "回復藥草":
-                    if int(i[1]) >0 :
-                        i[1] = str(int(i[1] - 1))
+            for i in range(len(using_item)):
+                if using_item[i][0] == "回復藥草":
+                    if int(using_item[i][1]) >0 :
+                        using_item[i][1]= str(int(using_item[i][1]) - 1))
                         flag = True
                         health_now += 5
                         if health_now >= health_max:
