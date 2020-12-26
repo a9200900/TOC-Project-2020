@@ -1031,6 +1031,7 @@ class TocMachine(GraphMachine):
         send_text_message(reply_token,"道具:\n"+
                                       line+
                                       item_tmp+
+                                      line+
                                       "輸入 道具名稱 來選擇想使用的道具。")
 
     def use_item(self,event):

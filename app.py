@@ -327,7 +327,7 @@ def webhook_handler():
                     if machine.show_attacking(event) == "角色死亡":
                         machine.dead(event)
         if machine.state == "state_fight":
-            if event.message.text == "道具":
+            if event.message.text == "背包":
                 machine.on_enter_state_item(event)
       
         #item state
