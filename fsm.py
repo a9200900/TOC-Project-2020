@@ -21,6 +21,7 @@ defense_body =0
 defense_equip=0
 level = 1
 exp = 0
+money = 0
 backpack = []
 equipment = []
 attribute = [["普通大劍" , "0" ,"1","1","武器"] ,["短杖","0","1","1","武器"] ,["短弓","0","1","1","武器"] ,["破舊的大衣","1","0","1","防具"],["初級魔法袍","1","0","1","防具"],["簡陋的衣裝","1","0","1","防具"],["鋒利的彎刀","1","2","1","武器"],["鎖子甲","3","0","1","防具"],["精緻魔杖","1","2","1","武器"],["上等法袍","3","0","1","防具"],
@@ -158,7 +159,7 @@ class TocMachine(GraphMachine):
                         )
                     )
     def character(self , event):
-        global occupation,name,health_max,health_now,attack,defense,level,exp
+        global occupation,name,health_max,health_now,attack,defense,level,exp,money
         exp_max = ""
         if level == 1:
             exp_max = "/5"
@@ -173,6 +174,7 @@ class TocMachine(GraphMachine):
         d = str(defense)
         l = str(level)
         e= str(exp)
+        m =str(money)
         line = '-----------------------\n'
         reply_token = event.reply_token
         send_text_message(reply_token,  '角色資訊:\n'+
@@ -183,9 +185,10 @@ class TocMachine(GraphMachine):
                                         '經驗值: '+e + exp_max +'\n'+
                                         '生命值: '+h+"/"+h_max+'\n'+
                                         '攻擊力: '+a+'\n'+
-                                        '防禦力:' + d) 
+                                        '防禦力:' + d+'\n'+
+                                        '金錢  : '+m) 
     def check_character(self , event):
-        global health_max,health_now,attack,defense,level,attribute,backpack,health_equip,attack_equip,defense_equip,health_body,attack_body,defense_body,attribute_for_health,attribute_for_health_equip,attribute_for_health_weapon
+        global money,health_max,health_now,attack,defense,level,attribute,backpack,health_equip,attack_equip,defense_equip,health_body,attack_body,defense_body,attribute_for_health,attribute_for_health_equip,attribute_for_health_weapon
         health_equip = 0
         attack_equip =0
         defense_equip=0
@@ -216,7 +219,7 @@ class TocMachine(GraphMachine):
         send_text_message(reply_token, "無盡天使: "+name +"勇者大人，歡迎你的到來!\n"+line+"輸入 返回 回到角色選單")
 
     def set_occupation(self,event):
-        global occupation,attack_body,health_body,defense_body,backpack,equipment,attribute,health_max,health_now,attack,defense,attribute_for_health,health_equip,attack_equip,defense_equip,attribute_for_health_equip , attribute_for_health_weapon,using_item
+        global money,occupation,attack_body,health_body,defense_body,backpack,equipment,attribute,health_max,health_now,attack,defense,attribute_for_health,health_equip,attack_equip,defense_equip,attribute_for_health_equip , attribute_for_health_weapon,using_item
         occupation = event.message.text
         health_equip = 0
         attack_equip =0
@@ -244,6 +247,7 @@ class TocMachine(GraphMachine):
             using_item.append(["硬化粉塵","1"])
             attack = attack_body + attack_equip
             defense = defense_body +defense_equip
+            money = 10
         if occupation == "黑暗法師":
             health_body = 9
             attack_body = 3
@@ -267,6 +271,7 @@ class TocMachine(GraphMachine):
             using_item.append(["硬化粉塵","1"])
             attack = attack_body + attack_equip
             defense = defense_body +defense_equip
+            money = 10
         if occupation == "精靈射手":
             health_body = 10
             attack_body = 3
@@ -290,6 +295,7 @@ class TocMachine(GraphMachine):
             using_item.append(["硬化粉塵","1"])
             attack = attack_body + attack_equip
             defense = defense_body +defense_equip
+            money = 10
         line = '-----------------------\n'
         reply_token = event.reply_token
         send_text_message(reply_token, "無盡天使: 你選擇的職業是 "+occupation +"，馬上展開你的冒險吧!\n"+line+"輸入 返回 回到角色選單")
@@ -980,7 +986,7 @@ class TocMachine(GraphMachine):
                         
                     )
     def show_result(self,event):
-        global monster_now,monster,map_now_count,health_max,health_now,attack,defense,exp,level,occupation,drops,backpack,health_body,attack_body,defense_body
+        global money,monster_now,monster,map_now_count,health_max,health_now,attack,defense,exp,level,occupation,drops,backpack,health_body,attack_body,defense_body
         tmp_level = level
         upgrade_text =""
         exp += int(monster_now[4])
@@ -1011,6 +1017,7 @@ class TocMachine(GraphMachine):
                 backpack.append(drops[0][1])
             if occupation =="黑暗法師":
                 backpack.append(drops[1][1])
+                money += 5
             if occupation =="精靈射手":
                 backpack.append(drops[2][1])
 
@@ -1019,6 +1026,7 @@ class TocMachine(GraphMachine):
                 backpack.append(drops[0][2])
             if occupation =="黑暗法師":
                 backpack.append(drops[1][2])
+                money += 10
             if occupation =="精靈射手":
                 backpack.append(drops[2][2])
         
