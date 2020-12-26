@@ -1063,7 +1063,7 @@ class TocMachine(GraphMachine):
                     )
     def on_enter_state_dead(self,event):
         reply_token = event.reply_token
-        send_text_message(reply_token, "你被魔物殺死了，真是可惜。\n是否支付台幣100塊來復活呢?\n輸入 復活 重新回到世界!") 
+        send_text_message(reply_token, "你被魔物殺死了，真是可惜。\n是否支付50金幣來復活呢?\n輸入 復活 重新回到世界!") 
 
     def on_enter_state_item(self,event):
         global using_item
@@ -1129,6 +1129,9 @@ class TocMachine(GraphMachine):
         send_text_message(reply_token, "道具使用失敗。\n輸入 返回 回到對決選單")
 
     def reborn(self,event):
-        global health_now,health_max
+        global health_now,health_max,money
 
         health_now = health_max
+        money -= 50
+        if money <=0:
+            money =0
