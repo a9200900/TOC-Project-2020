@@ -222,7 +222,7 @@ class TocMachine(GraphMachine):
                         defense_equip = int(i[3])
             health_max = health_body + health_equip
             health_now = health_max
-            attribute_for_health = health_equip
+            #attribute_for_health = health_equip
             attack = attack_body + attack_equip
             defense = defense_body +defense_equip
         if occupation == "黑暗法師":
@@ -238,7 +238,7 @@ class TocMachine(GraphMachine):
                         defense_equip = int(i[3])
             health_max = health_body + health_equip
             health_now = health_max
-            attribute_for_health = health_equip
+            #attribute_for_health = health_equip
             attack = attack_body + attack_equip
             defense = defense_body +defense_equip
         if occupation == "精靈射手":
@@ -254,7 +254,7 @@ class TocMachine(GraphMachine):
                         defense_equip = int(i[3])
             health_max = health_body + health_equip
             health_now = health_max
-            attribute_for_health = health_equip
+            #attribute_for_health = health_equip
             attack = attack_body + attack_equip
             defense = defense_body +defense_equip
         line = '-----------------------\n'
