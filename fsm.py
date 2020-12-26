@@ -1021,6 +1021,7 @@ class TocMachine(GraphMachine):
 
     def on_enter_state_item(self,event):
         global using_item
+        item_tmp = ""
         for i in using_item:
             item_tmp += i[0] +": x"+i[1]+"\n"
         #item_tmp -= "\n"
