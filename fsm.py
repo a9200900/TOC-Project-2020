@@ -9,7 +9,8 @@ channel_access_token = os.getenv("LINE_CHANNEL_ACCESS_TOKEN", None)
 line_bot_api = LineBotApi(channel_access_token)
 name = ''
 occupation = ''
-health = 0 
+health_max = 0
+health_now =0
 health_body=0
 health_equip=0
 attack = 0 
@@ -24,7 +25,7 @@ backpack = []
 equipment = []
 attribute = [["普通大劍" , "0" ,"1","1","武器"] ,["短杖","0","1","1","武器"] ,["短弓","0","1","1","武器"] ,["破舊的大衣","1","0","1","防具"],["初級魔法袍","1","0","1","防具"],["簡陋的衣裝","1","0","1","防具"],["鋒利的彎刀","1","2","1","武器"],["鎖子甲","3","0","1","防具"],["精緻魔杖","1","2","1","武器"],["上等法袍","3","0","1","防具"],
 ["骨製彎曲弓","1","2","1","武器"],["上等絲綢服","3","0","1","防具"]] 
-monster = [["哥布林","6","2","1","2"],["女巫","8","3","1","3"],["盜賊","9","3","1","5"],["墮落的勇者","12","3","2","5"],["史萊姆","20","2","2","5"]]
+monster = [["哥布林","6","5","1","2"],["女巫","8","5","1","3"],["盜賊","9","100","1","5"],["墮落的勇者","12","3","2","5"],["史萊姆","20","2","2","5"]]
 monster_url = [["哥布林","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E5%93%A5%E5%B8%83%E6%9E%97.png"],["女巫","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E5%A5%B3%E5%B7%AB.png"]]
 monster_now = []
 monster_now_url=""
@@ -33,6 +34,8 @@ map = [["新手鎮","休息"],["幽靜小路","戰鬥"],["被詛咒的沼澤","�
 map_now = "新手鎮"
 map_now_count = 0
 drops = [["狂戰士","鋒利的彎刀","鎖子甲"] , ["黑暗法師","精緻魔杖","上等法袍"] , ["精靈射手","骨製彎曲弓","上等絲綢服"]]
+attribute_for_health = 0
+
 
 
 class TocMachine(GraphMachine):
@@ -40,10 +43,8 @@ class TocMachine(GraphMachine):
         self.machine = GraphMachine(model=self, **machine_configs)
 
     def introduce(self , event):
-
         reply_token = event.reply_token
         send_text_message(reply_token, "無盡天使:現在是魔王曆128年,自從上一位勇者犧牲已經100多年了，沒有人能夠與現在的魔王抗衡，希望勇者您能幫助我們打到魔王!") 
-
     def on_enter_intro(self , event):
 
         line_bot_api.reply_message(
@@ -66,8 +67,65 @@ class TocMachine(GraphMachine):
                             )
                         )
                     )
+    def line_buttons_intro(self,event):
+        line_bot_api.reply_message(
+                        event.reply_token,
+                        TemplateSendMessage(
+                            alt_text ='Buttons template',
+                            template = ButtonsTemplate(
+                                title = '選項',
+                                text = '無盡天使:歡迎來到這個世界，你一定是上帝派來拯救我們的勇者，請你幫助我們打到大魔王『斯巴拉斯．魔迪耶爾』!',
+                                actions=[
+                                    MessageTemplateAction(
+                                        label = '人物介紹',
+                                        text = '人物介紹'
+                                    ),
+                                    MessageTemplateAction(
+                                        label = '開始冒險',
+                                        text = '開始冒險'
+                                    )
+                                ]
+                            )
+                        )
+                    )
 
+    def on_enter_build(self , event):
+        line_bot_api.reply_message(
+                        event.reply_token,
+                        TemplateSendMessage(
+                            alt_text ='Buttons template',
+                            template = ButtonsTemplate(
+                                title = '建立角色',
+                                text = '無盡天使:請依序輸入您的大名，以及想要遊玩的職業。輸入完後點擊完成，開始冒險。',
+                                actions=[
+                                    MessageTemplateAction(
+                                        label = '設定名稱',
+                                        text = '設定名稱'
+                                    ),
+                                    MessageTemplateAction(
+                                        label = '選擇職業',
+                                        text = '選擇職業'
+                                    ),
+                                    MessageTemplateAction(
+                                        label = '完成',
+                                        text = '完成'
+                                    ),
+                                    MessageTemplateAction(
+                                        label = '返回',
+                                        text = '返回'
+                                    )
+                                ]
+                            )
+                        )
+                    )
+    def check_build(self,event):
+        flag = False
+        global occupation,name
+        if occupation !="" :
+            if name != "" :
+                flag = True
 
+        return flag
     def on_enter_start(self , event):
         
         line_bot_api.reply_message(
@@ -98,6 +156,107 @@ class TocMachine(GraphMachine):
                             )
                         )
                     )
+    def character(self , event):
+        global occupation,name,health_max,health_now,attack,defense,level,exp
+        exp_max = ""
+        if level == 1:
+            exp_max = "/5"
+        elif level == 2:
+            exp_max = "/10"
+        elif level == 3:
+            exp_max = "/20"
+        
+        h = str(health_now)
+        h_max = str(health_max)
+        a = str(attack)
+        d = str(defense)
+        l = str(level)
+        e= str(exp)
+        line = '-----------------------\n'
+        reply_token = event.reply_token
+        send_text_message(reply_token,  '角色資訊:\n'+
+                                        line+
+                                        '名字  : '+name+'\n'+
+                                        '職業  : '+occupation+'\n'+
+                                        '等級  : '+l +'\n'+
+                                        '經驗值: '+e + exp_max +'\n'+
+                                        '生命值: '+h+"/"+h_max+'\n'+
+                                        '攻擊力: '+a+'\n'+
+                                        '防禦力:' + d) 
+    def check_character(self , event):
+        global health_max,health_now,attack,defense,level,attribute,backpack,health_equip,attack_equip,defense_equip,health_body,attack_body,defense_body,attribute_for_health
+        for i in attribute:
+            for j in equipment:
+                if j == i[0]:
+                    health_equip = int(i[1])
+                    attack_equip = int(i[2])
+                    defense_equip = int(i[3])
+        health_max = health_body + health_equip
+        attack = attack_body + attack_equip
+        defense = defense_body +defense_equip
+        if attribute_for_health != health_equip:
+            attribute_for_health = health_equip
+            health_now += health_equip
+    def set_name(self, event):
+        global name
+        name = event.message.text
+    def set_name_complete(self , event):
+        global name
+        reply_token = event.reply_token
+        line = '-----------------------\n'
+        send_text_message(reply_token, "無盡天使: "+name +"勇者大人，歡迎你的到來!\n"+line+"輸入 返回 回到角色選單")
+
+    def set_occupation(self,event):
+        global occupation,attack_body,health_body,defense_body,backpack,equipment,attribute,health_max,health_now,attack,defense
+        occupation = event.message.text
+        if occupation == "狂戰士":
+            health_body = 12
+            attack_body = 2
+            defense_body = 3
+            equipment = ["普通大劍" , "破舊的大衣"] 
+            for i in attribute:
+                for j in equipment:
+                    if j == i[0]:
+                        health_equip = int(i[1])
+                        attack_equip = int(i[2])
+                        defense_equip = int(i[3])
+            health_max = health_body + health_equip
+            health_now = health_max
+            attack = attack_body + attack_equip
+            defense = defense_body +defense_equip
+        if occupation == "黑暗法師":
+            health_body = 9
+            attack_body = 3
+            defense_body = 2
+            equipment = ["短杖" , "初級魔法袍"]
+            for i in attribute:
+                for j in equipment:
+                    if j == i[0]:
+                        health_equip = int(i[1])
+                        attack_equip = int(i[2])
+                        defense_equip = int(i[3])
+            health_max = health_body + health_equip
+            health_now = health_max
+            attack = attack_body + attack_equip
+            defense = defense_body +defense_equip
+        if occupation == "精靈射手":
+            health_body = 10
+            attack_body = 3
+            defense_body = 3
+            equipment = ["短弓" , "簡陋的衣裝"]
+            for i in attribute:
+                for j in equipment:
+                    if j == i[0]:
+                        health_equip = int(i[1])
+                        attack_equip = int(i[2])
+                        defense_equip = int(i[3])
+            health_max = health_body + health_equip
+            health_now = health_max
+            attack = attack_body + attack_equip
+            defense = defense_body +defense_equip
+        line = '-----------------------\n'
+        reply_token = event.reply_token
+        send_text_message(reply_token, "無盡天使: 你選擇的職業是 "+occupation +"，馬上展開你的冒險吧!\n"+line+"輸入 返回 回到角色選單")
 
     def on_enter_state_fight(self , event):
         
@@ -131,31 +290,7 @@ class TocMachine(GraphMachine):
                         )
                     )
 
-    # def on_exit_state_fight(self , event):
-    #     reply_token = event.reply_token
-    #     send_text_message(reply_token, "戰鬥結束")
-
-    def line_buttons_intro(self,event):
-        line_bot_api.reply_message(
-                        event.reply_token,
-                        TemplateSendMessage(
-                            alt_text ='Buttons template',
-                            template = ButtonsTemplate(
-                                title = '選項',
-                                text = '無盡天使:歡迎來到這個世界，你一定是上帝派來拯救我們的勇者，請你幫助我們打到大魔王『斯巴拉斯．魔迪耶爾』!',
-                                actions=[
-                                    MessageTemplateAction(
-                                        label = '人物介紹',
-                                        text = '人物介紹'
-                                    ),
-                                    MessageTemplateAction(
-                                        label = '開始冒險',
-                                        text = '開始冒險'
-                                    )
-                                ]
-                            )
-                        )
-                    )
+    
     def on_enter_state_store(self , event):
         line_bot_api.reply_message(
                         event.reply_token,
@@ -181,44 +316,7 @@ class TocMachine(GraphMachine):
                             )
                         )
                     )
-    def character(self , event):
-        global occupation,name,health,attack,defense,level,exp
-        exp_max = ""
-        if level == 1:
-            exp_max = "/5"
-        elif level == 2:
-            exp_max = "/10"
-        elif level == 3:
-            exp_max = "/20"
-        
-        h = str(health)
-        a = str(attack)
-        d = str(defense)
-        l = str(level)
-        e= str(exp)
-        line = '-----------------------\n'
-        reply_token = event.reply_token
-        send_text_message(reply_token,  '角色資訊:\n'+
-                                        line+
-                                        '名字  : '+name+'\n'+
-                                        '職業  : '+occupation+'\n'+
-                                        '等級  : '+l +'\n'+
-                                        '經驗值: '+e + exp_max +'\n'+
-                                        '生命值: '+h+'\n'+
-                                        '攻擊力: '+a+'\n'+
-                                        '防禦力:' + d) 
-
-    def check_character(self , event):
-        global occupation,name,health,attack,defense,level,attribute,backpack,health_equip,attack_equip,defense_equip,health_body,attack_body,defense_body
-        for i in attribute:
-            for j in equipment:
-                if j == i[0]:
-                    health_equip = int(i[1])
-                    attack_equip = int(i[2])
-                    defense_equip = int(i[3])
-        health = health_body + health_equip
-        attack = attack_body + attack_equip
-        defense = defense_body +defense_equip          
+              
     
     def item(self , event):
         global backpack,attribute,drops
@@ -412,11 +510,12 @@ class TocMachine(GraphMachine):
 
     
     def change_weapon(self,event):
-        global backpack,equipment,backpack,attribute,drops
+        global backpack,equipment,backpack,attribute,drops,attribute_for_health
         weapon_name =""
         weapon_name = event.message.text
         tmp = ""
         flag = "False"
+
         
         for i in backpack:
             if i == weapon_name:
@@ -425,6 +524,9 @@ class TocMachine(GraphMachine):
                 backpack.append(tmp)
                 backpack.remove(i)
                 flag = "True"
+        for i in attribute:
+            if weapon_name == i[0]:
+                attribute_for_health = i[1]
         
         return flag
     def change_complete(self,event):
@@ -432,7 +534,7 @@ class TocMachine(GraphMachine):
         send_text_message(reply_token, "裝備更換成功。\n輸入 返回 回到角色選單")
 
     def change_equip(self,event):
-        global backpack,equipment,backpack,attribute,drops
+        global backpack,equipment,backpack,attribute,drops,attribute_for_health
         equip_name =""
         equip_name = event.message.text
         tmp = ""
@@ -444,6 +546,9 @@ class TocMachine(GraphMachine):
                 backpack.append(tmp)
                 backpack.remove(i)
                 flag = "True"
+        for i in attribute:
+            if equip_name == i[0]:
+                attribute_for_health = i[1]
         return flag
     def show_change_item(self,event):
         global backpack,equipment,backpack,attribute,drops
@@ -510,14 +615,19 @@ class TocMachine(GraphMachine):
                         
                     )
 
-    def on_enter_build(self , event):
+    
+
+    def on_enter_enter_name(self ,event):
+        reply_token = event.reply_token
+        send_text_message(reply_token, "無盡天使:請告訴我您的大名。")
+    def show_build(self,event):
         line_bot_api.reply_message(
                         event.reply_token,
                         TemplateSendMessage(
                             alt_text ='Buttons template',
                             template = ButtonsTemplate(
                                 title = '建立角色',
-                                text = '無盡天使:請依序輸入您的大名，以及想要遊玩的職業。輸入完成後點擊完成，開始冒險。',
+                                text = '無盡天使:請依序輸入您的大名，以及想要遊玩的職業。輸入完後點擊完成，開始冒險。',
                                 actions=[
                                     MessageTemplateAction(
                                         label = '設定名稱',
@@ -540,46 +650,6 @@ class TocMachine(GraphMachine):
                         )
                     )
 
-    def on_enter_enter_name(self ,event):
-        reply_token = event.reply_token
-        send_text_message(reply_token, "無盡天使:請告訴我您的大名。")
-    def show_build(self,event):
-        line_bot_api.reply_message(
-                        event.reply_token,
-                        TemplateSendMessage(
-                            alt_text ='Buttons template',
-                            template = ButtonsTemplate(
-                                title = '建立角色',
-                                text = '無盡天使:請依序輸入您的大名，以及想要遊玩的職業。輸入完成後點擊完成，開始冒險。',
-                                actions=[
-                                    MessageTemplateAction(
-                                        label = '設定名稱',
-                                        text = '設定名稱'
-                                    ),
-                                    MessageTemplateAction(
-                                        label = '選擇職業',
-                                        text = '選擇職業'
-                                    ),
-                                    MessageTemplateAction(
-                                        label = '完成',
-                                        text = '完成'
-                                    ),
-                                    MessageTemplateAction(
-                                        label = '返回',
-                                        text = '返回'
-                                    )
-                                ]
-                            )
-                        )
-                    )
-    def set_name(self, event):
-        global name
-        name = event.message.text
-    def set_name_complete(self , event):
-        global name
-        reply_token = event.reply_token
-        line = '-----------------------\n'
-        send_text_message(reply_token, "無盡天使: "+name +"勇者大人，歡迎你的到來!\n"+line+"輸入 返回 回到角色選單")
     def on_enter_choose_occupation(self,event):
         line_bot_api.reply_message(
                         event.reply_token,
@@ -646,40 +716,6 @@ class TocMachine(GraphMachine):
                         
                     )
 
-    def set_occupation(self,event):
-        global occupation,attack_body,health_body,defense_body,backpack,equipment
-        occupation = event.message.text
-        if occupation == "狂戰士":
-            health_body = 12
-            attack_body = 2
-            defense_body = 3
-            #backpack = ["普通大劍" , "破舊的大衣"]  
-            equipment = ["普通大劍" , "破舊的大衣"] 
-        if occupation == "黑暗法師":
-            health_body = 9
-            attack_body = 3
-            defense_body = 2
-            #backpack = ["短杖" , "初級魔法袍"]
-            equipment = ["短杖" , "初級魔法袍"]
-        if occupation == "精靈射手":
-            health_body = 10
-            attack_body = 3
-            defense_body = 3
-            #backpack = ["短弓" , "簡陋的衣裝"]
-            equipment = ["短弓" , "簡陋的衣裝"]
-
-        line = '-----------------------\n'
-        reply_token = event.reply_token
-        send_text_message(reply_token, "無盡天使: 你選擇的職業是 "+occupation +"，馬上展開你的冒險吧!\n"+line+"輸入 返回 回到角色選單")
-
-    def check_build(self,event):
-        flag = False
-        global occupation,name
-        if occupation !="" :
-            if name != "" :
-                flag = True
-
-        return flag
 
 
     def on_enter_state_map(self,event):
@@ -696,7 +732,7 @@ class TocMachine(GraphMachine):
                                         "輸入 返回 回到選單" ) 
 
     def forward(self,event):
-        global map_now_count,map,map_now,attribute,equipment,health_equip,attack_equip,defense_equip,health,attack,defense,health_body,attack_body,defense_body
+        global map_now_count,map,map_now,attribute,equipment,health_equip,attack_equip,defense_equip,health_max,health_now,attack,defense,health_body,attack_body,defense_body,attribute_for_health
         map_now_count += 1
         map_now = map[map_now_count][0]
 
@@ -706,10 +742,12 @@ class TocMachine(GraphMachine):
                     health_equip = int(i[1])
                     attack_equip = int(i[2])
                     defense_equip = int(i[3])
-        health = health_body + health_equip
+        health_max = health_body + health_equip
         attack = attack_body + attack_equip
         defense = defense_body +defense_equip 
-        
+        if attribute_for_health != health_equip:
+            attribute_for_health = health_equip
+            health_now += health_equip
 
     def check_map(self,event):
         global map_now_count,map,map_now,monster,monster_now,monster_now_count,monster_url,monster_now_url
@@ -762,7 +800,7 @@ class TocMachine(GraphMachine):
 
         
     def situation(self,event):
-        global monster_now,monster,map_now_count,health,attack,defense
+        global monster_now,monster,map_now_count,health_max,health_now,attack,defense
         line = '-----------------------\n'
         line_bot_api.reply_message(
                         event.reply_token,[
@@ -797,14 +835,14 @@ class TocMachine(GraphMachine):
                                                 "防禦力: "+monster_now[3]+"\n"+
                                                 line+
                                                 "你的狀態: \n"+
-                                                "生命值: "+str(health)+"\n"+
+                                                "生命值: "+str(health_now)+"/"+str(health_max)+"\n"+
                                                 "攻擊力: "+str(attack)+"\n"+
                                                 "防禦力: "+str(defense)+"\n")
                         ]
                         
                     )
     def attacking(self,event):
-        global monster_now,monster,map_now_count,health,attack,defense
+        global monster_now,monster,map_now_count,attack,defense
 
         monster_now[1] = str(int(monster_now[1]) - (attack - int(monster_now[3])))
         
@@ -812,11 +850,14 @@ class TocMachine(GraphMachine):
             return  "死亡"
         
     def show_attacking(self,event):
-        global monster_now,monster,map_now_count,health,attack,defense
+        global monster_now,monster,map_now_count,health_max,health_now,attack,defense
         line = '-----------------------\n'
         damage = int(monster_now[2]) - defense
         if damage <= 0:
             damage =0
+        health_now = health_now - damage
+        if health_now <=0 :
+            return "角色死亡"
         line_bot_api.reply_message(
                         event.reply_token,[
                         TemplateSendMessage(
@@ -845,12 +886,22 @@ class TocMachine(GraphMachine):
                             )
                         ),
                             TextSendMessage(text="你對怪物造成了 "+str(attack - int(monster_now[3])) +" 傷害!\n"+
-                                                 "怪物並沒有死亡，並且對你造成了 "+str(damage)+" 傷害" )
+                                                 "怪物並沒有死亡，並且對你造成了 "+str(damage)+" 傷害" +
+                                                 line+
+                                                 "當前怪物為: "+monster_now[0]+"\n"+
+                                                "生命值: "+monster_now[1]+"\n"+
+                                                "攻擊力: "+monster_now[2]+"\n"+
+                                                "防禦力: "+monster_now[3]+"\n"+
+                                                line+
+                                                "你的狀態: \n"+
+                                                "生命值: "+str(health_now)+"/"+str(health_max)+"\n"+
+                                                "攻擊力: "+str(attack)+"\n"+
+                                                "防禦力: "+str(defense)+"\n")
                         ]
                         
                     )
     def show_result(self,event):
-        global monster_now,monster,map_now_count,health,attack,defense,exp,level,occupation,drops,backpack,health_body,attack_body,defense_body
+        global monster_now,monster,map_now_count,health_max,health_now,attack,defense,exp,level,occupation,drops,backpack,health_body,attack_body,defense_body
         tmp_level = level
         upgrade_text =""
         exp += int(monster_now[4])
@@ -864,10 +915,12 @@ class TocMachine(GraphMachine):
             upgrade_text = "\n並且等級提升了一等,屬性值獲得提升。"
             if level == 2:
                 health_body += 3
+                health_now += 3
                 attack_body += 2
                 defense_body += 1
             if level == 3:
                 health_body += 3
+                health_now += 3
                 attack_body += 2
                 defense_body += 1
 
@@ -921,5 +974,7 @@ class TocMachine(GraphMachine):
                         ]
                         
                     )
-
+    def dead(self,event):
+        reply_token = event.reply_token
+        send_text_message(reply_token, "無盡天使:現在是魔王曆128年,自從上一位勇者犧牲已經100多年了，沒有人能夠與現在的魔王抗衡，希望勇者您能幫助我們打到魔王!") 
 
