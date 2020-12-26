@@ -34,7 +34,7 @@ map = [["新手鎮","休息"],["幽靜小路","戰鬥"],["被詛咒的沼澤","�
 map_now = "新手鎮"
 map_now_count = 0
 drops = [["狂戰士","鋒利的彎刀","鎖子甲"] , ["黑暗法師","精緻魔杖","上等法袍"] , ["精靈射手","骨製彎曲弓","上等絲綢服"]]
-attribute_for_health = 0
+attribute_for_health=0
 
 
 
@@ -188,9 +188,9 @@ class TocMachine(GraphMachine):
         for i in attribute:
             for j in equipment:
                 if j == i[0]:
-                    health_equip = int(i[1])
-                    attack_equip = int(i[2])
-                    defense_equip = int(i[3])
+                    health_equip += int(i[1])
+                    attack_equip += int(i[2])
+                    defense_equip += int(i[3])
         health_max = health_body + health_equip
         attack = attack_body + attack_equip
         defense = defense_body +defense_equip
@@ -217,12 +217,12 @@ class TocMachine(GraphMachine):
             for i in attribute:
                 for j in equipment:
                     if j == i[0]:
-                        health_equip = int(i[1])
-                        attack_equip = int(i[2])
-                        defense_equip = int(i[3])
+                        health_equip += int(i[1])
+                        attack_equip += int(i[2])
+                        defense_equip += int(i[3])
             health_max = health_body + health_equip
             health_now = health_max
-            #attribute_for_health = health_equip
+            attribute_for_health = health_equip
             attack = attack_body + attack_equip
             defense = defense_body +defense_equip
         if occupation == "黑暗法師":
@@ -233,12 +233,12 @@ class TocMachine(GraphMachine):
             for i in attribute:
                 for j in equipment:
                     if j == i[0]:
-                        health_equip = int(i[1])
-                        attack_equip = int(i[2])
-                        defense_equip = int(i[3])
+                        health_equip += int(i[1])
+                        attack_equip += int(i[2])
+                        defense_equip += int(i[3])
             health_max = health_body + health_equip
             health_now = health_max
-            #attribute_for_health = health_equip
+            attribute_for_health = health_equip
             attack = attack_body + attack_equip
             defense = defense_body +defense_equip
         if occupation == "精靈射手":
@@ -249,12 +249,12 @@ class TocMachine(GraphMachine):
             for i in attribute:
                 for j in equipment:
                     if j == i[0]:
-                        health_equip = int(i[1])
-                        attack_equip = int(i[2])
-                        defense_equip = int(i[3])
+                        health_equip += int(i[1])
+                        attack_equip += int(i[2])
+                        defense_equip += int(i[3])
             health_max = health_body + health_equip
             health_now = health_max
-            #attribute_for_health = health_equip
+            attribute_for_health = health_equip
             attack = attack_body + attack_equip
             defense = defense_body +defense_equip
         line = '-----------------------\n'
@@ -742,9 +742,9 @@ class TocMachine(GraphMachine):
         for i in attribute:
             for j in equipment:
                 if j == i[0]:
-                    health_equip = int(i[1])
-                    attack_equip = int(i[2])
-                    defense_equip = int(i[3])
+                    health_equip += int(i[1])
+                    attack_equip += int(i[2])
+                    defense_equip += int(i[3])
         health_max = health_body + health_equip
         attack = attack_body + attack_equip
         defense = defense_body +defense_equip 
