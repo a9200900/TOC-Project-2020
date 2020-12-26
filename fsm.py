@@ -35,7 +35,6 @@ map_now = "新手鎮"
 map_now_count = 0
 drops = [["狂戰士","鋒利的彎刀","鎖子甲"] , ["黑暗法師","精緻魔杖","上等法袍"] , ["精靈射手","骨製彎曲弓","上等絲綢服"]]
 attribute_for_health=0
-health_equip_tmp = 0
 attribute_for_health_equip=0
 attribute_for_health_weapon=0
 
@@ -168,7 +167,7 @@ class TocMachine(GraphMachine):
         elif level == 3:
             exp_max = "/20"
         
-        h = str(health_now)
+        h = str(round(health_now,0))
         h_max = str(health_max)
         a = str(attack)
         d = str(defense)
@@ -182,7 +181,7 @@ class TocMachine(GraphMachine):
                                         '職業  : '+occupation+'\n'+
                                         '等級  : '+l +'\n'+
                                         '經驗值: '+e + exp_max +'\n'+
-                                        '生命值: '+round(h,0)+"/"+h_max+'\n'+
+                                        '生命值: '+h+"/"+h_max+'\n'+
                                         '攻擊力: '+a+'\n'+
                                         '防禦力:' + d) 
     def check_character(self , event):
