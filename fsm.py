@@ -378,7 +378,7 @@ class TocMachine(GraphMachine):
                         equip_attribute = spa_length +"+" + j[1] + " +" + j[2] + " +"+ j[3] 
         for i in using_item:
             item_tmp += i[0] +": x"+i[1]+"\n"
-        item_tmp -= "\n"
+        
         reply_token = event.reply_token
         send_text_message(reply_token,  '背包:\n'+
                                         "名稱   " + "生命" +" 攻擊"+" 防禦\n"+
