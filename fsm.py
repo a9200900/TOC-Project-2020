@@ -1044,7 +1044,7 @@ class TocMachine(GraphMachine):
             for i in range(len(using_item)):
                 if using_item[i][0] == "回復藥草":
                     if int(using_item[i][1]) >0 :
-                        using_item[i][1]= str(int(using_item[i][1]) - 1))
+                        using_item[i][1]= str(int(using_item[i][1]) - 1)
                         flag = True
                         health_now += 5
                         if health_now >= health_max:
