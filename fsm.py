@@ -35,7 +35,9 @@ map_now = "新手鎮"
 map_now_count = 0
 drops = [["狂戰士","鋒利的彎刀","鎖子甲"] , ["黑暗法師","精緻魔杖","上等法袍"] , ["精靈射手","骨製彎曲弓","上等絲綢服"]]
 attribute_for_health=0
-
+health_equip_tmp = 0
+attribute_for_health_equip=0
+attribute_for_health_weapon=0
 
 
 class TocMachine(GraphMachine):
@@ -184,7 +186,7 @@ class TocMachine(GraphMachine):
                                         '攻擊力: '+a+'\n'+
                                         '防禦力:' + d) 
     def check_character(self , event):
-        global health_max,health_now,attack,defense,level,attribute,backpack,health_equip,attack_equip,defense_equip,health_body,attack_body,defense_body,attribute_for_health
+        global health_max,health_now,attack,defense,level,attribute,backpack,health_equip,attack_equip,defense_equip,health_body,attack_body,defense_body,attribute_for_health,attribute_for_health_equip,attribute_for_health_weapon
         health_equip = 0
         attack_equip =0
         defense_equip=0
@@ -197,9 +199,14 @@ class TocMachine(GraphMachine):
         health_max = health_body + health_equip
         attack = attack_body + attack_equip
         defense = defense_body +defense_equip
+        attribute_for_health = attribute_for_health_equip + attribute_for_health_weapon
         if attribute_for_health != health_equip:
             health_now += health_equip - attribute_for_health
             attribute_for_health = health_equip
+            attribute_for_health_equip = attribute_for_health/2
+            attribute_for_health_weapon = attribute_for_health/2
+            if attribute_for_health % 2 == 1:
+                attribute_for_health_equip += 1
     def set_name(self, event):
         global name
         name = event.message.text
@@ -519,15 +526,16 @@ class TocMachine(GraphMachine):
 
     
     def change_weapon(self,event):
-        global backpack,equipment,backpack,attribute,drops,attribute_for_health
+        global backpack,equipment,backpack,attribute,drops,attribute_for_health,health_equip,health_equip_tmp,attribute_for_health_weapon
         weapon_name =""
         weapon_name = event.message.text
         tmp = ""
         flag = "False"
-
+        #health_equip_tmp = health_equip
         for i in attribute:
             if equipment[0] == i[0]:
-                attribute_for_health = int(i[1]) 
+                attribute_for_health_weapon = int(i[1]) 
+                #health_equip_tmp += attribute_for_health
         for i in backpack:
             if i == weapon_name:
                 tmp = equipment[0]
@@ -542,14 +550,16 @@ class TocMachine(GraphMachine):
         send_text_message(reply_token, "裝備更換成功。\n輸入 返回 回到角色選單")
 
     def change_equip(self,event):
-        global backpack,equipment,backpack,attribute,drops,attribute_for_health
+        global backpack,equipment,backpack,attribute,drops,attribute_for_health,health_equip,health_equip_tmp,attribute_for_health_equip
         equip_name =""
         equip_name = event.message.text
         tmp = ""
         flag = "False"
+        #health_equip_tmp = health_equip
         for i in attribute:
             if equipment[1] == i[0]:
-                attribute_for_health = int(i[1])
+                attribute_for_health_equip = int(i[1])
+                #health_equip_tmp += attribute_for_health
         for i in backpack:
             if i == equip_name:
                 tmp = equipment[1]
@@ -740,7 +750,7 @@ class TocMachine(GraphMachine):
                                         "輸入 返回 回到選單" ) 
 
     def forward(self,event):
-        global map_now_count,map,map_now,attribute,equipment,health_equip,attack_equip,defense_equip,health_max,health_now,attack,defense,health_body,attack_body,defense_body,attribute_for_health
+        global map_now_count,map,map_now,attribute,equipment,health_equip,attack_equip,defense_equip,health_max,health_now,attack,defense,health_body,attack_body,defense_body,attribute_for_health,attribute_for_health_equip , attribute_for_health_weapon
         map_now_count += 1
         map_now = map[map_now_count][0]
         health_equip = 0
@@ -755,9 +765,15 @@ class TocMachine(GraphMachine):
         health_max = health_body + health_equip
         attack = attack_body + attack_equip
         defense = defense_body +defense_equip 
+        
+        attribute_for_health = attribute_for_health_equip + attribute_for_health_weapon
         if attribute_for_health != health_equip:
-            health_now += (health_equip - attribute_for_health)
+            health_now += health_equip - attribute_for_health
             attribute_for_health = health_equip
+            attribute_for_health_equip = attribute_for_health/2
+            attribute_for_health_weapon = attribute_for_health/2
+            if attribute_for_health % 2 == 1:
+                attribute_for_health_equip += 1
 
     def check_map(self,event):
         global map_now_count,map,map_now,monster,monster_now,monster_now_count,monster_url,monster_now_url
@@ -896,7 +912,7 @@ class TocMachine(GraphMachine):
                             )
                         ),
                             TextSendMessage(text="你對怪物造成了 "+str(attack - int(monster_now[3])) +" 傷害!\n"+
-                                                 "怪物沒有死亡，並對你造成 "+str(damage)+" 點傷害" +
+                                                 "怪物沒有死亡，並造成 "+str(damage)+" 點傷害" +
                                                  line+
                                                  "當前怪物為: "+monster_now[0]+"\n"+
                                                 "生命值: "+monster_now[1]+"\n"+
