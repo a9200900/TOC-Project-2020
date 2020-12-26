@@ -37,7 +37,7 @@ drops = [["狂戰士","鋒利的彎刀","鎖子甲"] , ["黑暗法師","精緻�
 attribute_for_health=0
 attribute_for_health_equip=0
 attribute_for_health_weapon=0
-
+using_item=[]
 
 class TocMachine(GraphMachine):
     def __init__(self, **machine_configs):
@@ -216,7 +216,7 @@ class TocMachine(GraphMachine):
         send_text_message(reply_token, "無盡天使: "+name +"勇者大人，歡迎你的到來!\n"+line+"輸入 返回 回到角色選單")
 
     def set_occupation(self,event):
-        global occupation,attack_body,health_body,defense_body,backpack,equipment,attribute,health_max,health_now,attack,defense,attribute_for_health,health_equip,attack_equip,defense_equip,attribute_for_health_equip , attribute_for_health_weapon
+        global occupation,attack_body,health_body,defense_body,backpack,equipment,attribute,health_max,health_now,attack,defense,attribute_for_health,health_equip,attack_equip,defense_equip,attribute_for_health_equip , attribute_for_health_weapon,using_item
         occupation = event.message.text
         health_equip = 0
         attack_equip =0
@@ -238,8 +238,7 @@ class TocMachine(GraphMachine):
                             attribute_for_health_equip = int(i[1])
             health_max = health_body + health_equip
             health_now = health_max
-            #attribute_for_health = health_equip
-            
+            using_item.append(["回復藥草","1"])
             attack = attack_body + attack_equip
             defense = defense_body +defense_equip
         if occupation == "黑暗法師":
@@ -259,7 +258,7 @@ class TocMachine(GraphMachine):
                             attribute_for_health_equip = int(i[1])
             health_max = health_body + health_equip
             health_now = health_max
-            #attribute_for_health = health_equip
+            using_item.append(["回復藥草","1"])
             attack = attack_body + attack_equip
             defense = defense_body +defense_equip
         if occupation == "精靈射手":
@@ -279,7 +278,7 @@ class TocMachine(GraphMachine):
                             attribute_for_health_equip = int(i[1])
             health_max = health_body + health_equip
             health_now = health_max
-            #attribute_for_health = health_equip
+            using_item.append(["回復藥草","1"])
             attack = attack_body + attack_equip
             defense = defense_body +defense_equip
         line = '-----------------------\n'
@@ -347,12 +346,13 @@ class TocMachine(GraphMachine):
               
     
     def item(self , event):
-        global backpack,attribute,drops
+        global backpack,attribute,drops,using_item
         item_in_backpack = ""
         weapon = ""
         equip = ""
         space_length=""
         spa_length=""
+        item_tmp =""
         line = '-----------------------\n'
         for i in backpack:
             for j in attribute:
@@ -376,8 +376,9 @@ class TocMachine(GraphMachine):
                         weapon_attribute = spa_length +"+" + j[1] + " +" + j[2] + " +"+ j[3] 
                     if i == 1:
                         equip_attribute = spa_length +"+" + j[1] + " +" + j[2] + " +"+ j[3] 
-
-
+        for i in using_item:
+            item_tmp += i[0] +": x"+i[1]+"\n"
+        
         reply_token = event.reply_token
         send_text_message(reply_token,  '背包:\n'+
                                         "名稱   " + "生命" +" 攻擊"+" 防禦\n"+
@@ -387,7 +388,9 @@ class TocMachine(GraphMachine):
                                         weapon + weapon_attribute + "\n"+
                                         equip + equip_attribute +"\n"+
                                         line+
-                                        "輸入 更換 以更換裝備。") 
+                                        "輸入 更換 以更換裝備。\n"+
+                                        line+
+                                        "道具:\n"+item_tmp) 
 
     def on_enter_state_change(self,event):
         global backpack,equipment,backpack,attribute,drops
