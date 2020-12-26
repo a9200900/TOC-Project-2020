@@ -25,7 +25,7 @@ backpack = []
 equipment = []
 attribute = [["普通大劍" , "0" ,"1","1","武器"] ,["短杖","0","1","1","武器"] ,["短弓","0","1","1","武器"] ,["破舊的大衣","1","0","1","防具"],["初級魔法袍","1","0","1","防具"],["簡陋的衣裝","1","0","1","防具"],["鋒利的彎刀","1","2","1","武器"],["鎖子甲","3","0","1","防具"],["精緻魔杖","1","2","1","武器"],["上等法袍","3","0","1","防具"],
 ["骨製彎曲弓","1","2","1","武器"],["上等絲綢服","3","0","1","防具"]] 
-monster = [["哥布林","6","5","1","2"],["女巫","8","5","1","3"],["盜賊","9","100","1","5"],["墮落的勇者","12","3","2","5"],["史萊姆","20","2","2","5"]]
+monster = [["哥布林","6","3","1","2"],["女巫","8","5","1","3"],["盜賊","9","100","1","5"],["墮落的勇者","12","3","2","5"],["史萊姆","20","2","2","5"]]
 monster_url = [["哥布林","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E5%93%A5%E5%B8%83%E6%9E%97.png"],["女巫","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E5%A5%B3%E5%B7%AB.png"]]
 monster_now = []
 monster_now_url=""
@@ -195,7 +195,7 @@ class TocMachine(GraphMachine):
         attack = attack_body + attack_equip
         defense = defense_body +defense_equip
         if attribute_for_health != health_equip:
-            health_now += health_equip - attribute_for_health
+            health_now =health_now + health_equip - attribute_for_health
             attribute_for_health = health_equip
     def set_name(self, event):
         global name
