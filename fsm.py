@@ -197,9 +197,9 @@ class TocMachine(GraphMachine):
         health_max = health_body + health_equip
         attack = attack_body + attack_equip
         defense = defense_body +defense_equip
-        tmp = health_equip - attribute_for_health
         if attribute_for_health != health_equip:
-            health_now += tmp
+            health_now += health_equip
+            health_now -=attribute_for_health
             attribute_for_health = health_equip
     def set_name(self, event):
         global name
