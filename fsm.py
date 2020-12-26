@@ -195,8 +195,8 @@ class TocMachine(GraphMachine):
         attack = attack_body + attack_equip
         defense = defense_body +defense_equip
         if attribute_for_health != health_equip:
+            health_now += health_equip - attribute_for_health
             attribute_for_health = health_equip
-            health_now += health_equip
     def set_name(self, event):
         global name
         name = event.message.text
@@ -749,8 +749,8 @@ class TocMachine(GraphMachine):
         attack = attack_body + attack_equip
         defense = defense_body +defense_equip 
         if attribute_for_health != health_equip:
+            health_now += health_equip - attribute_for_health
             attribute_for_health = health_equip
-            health_now += health_equip
 
     def check_map(self,event):
         global map_now_count,map,map_now,monster,monster_now,monster_now_count,monster_url,monster_now_url
@@ -889,7 +889,7 @@ class TocMachine(GraphMachine):
                             )
                         ),
                             TextSendMessage(text="你對怪物造成了 "+str(attack - int(monster_now[3])) +" 傷害!\n"+
-                                                 "怪物並沒有死亡，並且對你造成了 "+str(damage)+" 傷害" +
+                                                 "怪物並沒有死亡，並對你造成 "+str(damage)+" 點傷害" +
                                                  line+
                                                  "當前怪物為: "+monster_now[0]+"\n"+
                                                 "生命值: "+monster_now[1]+"\n"+
