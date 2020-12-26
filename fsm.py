@@ -1032,20 +1032,20 @@ class TocMachine(GraphMachine):
                                       line+
                                       item_tmp+
                                       line+
-                                      "輸入 道具名稱 來選擇想使用的道具。")
+                                      "輸入 道具的名稱 來選擇想使用的道具。")
 
     def use_item(self,event):
         global using_item,health_now,health_max
         item_tmp = ""
         item_tmp = event.message.text
-        flag = False
+        flag = "False"
 
         if item_tmp == "回復藥草":
             for i in range(len(using_item)):
                 if using_item[i][0] == "回復藥草":
                     if int(using_item[i][1]) >0 :
                         using_item[i][1]= str(int(using_item[i][1]) - 1)
-                        flag = True
+                        flag = "True"
                         health_now += 5
                         if health_now >= health_max:
                             health_now = health_max
@@ -1055,3 +1055,6 @@ class TocMachine(GraphMachine):
         reply_token = event.reply_token
         send_text_message(reply_token, "道具使用成功。\n輸入 返回 回到對決選單")
         
+    def use_item_not_complete(self,event):
+        reply_token = event.reply_token
+        send_text_message(reply_token, "道具使用失敗。\n輸入 返回 回到對決選單")

@@ -335,6 +335,8 @@ def webhook_handler():
             if event.message.text != "返回":
                 if machine.use_item(event) == "True":
                     machine.use_item_complete(event)
+                elif machine.change_weapon(event)=="False":
+                    machine.use_item_not_complete(event)
         if machine.state == "state_item":
             if event.message.text == "返回":
                 machine.go_back_state_fight(event)
