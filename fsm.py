@@ -308,7 +308,7 @@ class TocMachine(GraphMachine):
         health_max = health_body + health_equip
         attack = attack_body + attack_equip
         defense = defense_body +defense_equip
-        
+        line = '-----------------------\n'
         line_bot_api.reply_message(
                         event.reply_token,[
                         TemplateSendMessage(
