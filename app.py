@@ -276,6 +276,9 @@ def webhook_handler():
         if machine.state == "start":
             if event.message.text == "更換":
                 machine.to_state_change(event)
+        if machine.state == "start":
+            if event.message.text == "道具介紹":
+                machine.item_introduce(event)
 
         #change state
         if machine.state == "state_change":

@@ -238,7 +238,10 @@ class TocMachine(GraphMachine):
                             attribute_for_health_equip = int(i[1])
             health_max = health_body + health_equip
             health_now = health_max
-            using_item.append(["回復藥草","1"])
+            using_item.append(["生命粉塵","1"])
+            using_item.append(["大生命粉塵","1"])
+            using_item.append(["鬼人粉塵","1"])
+            using_item.append(["硬化粉塵","1"])
             attack = attack_body + attack_equip
             defense = defense_body +defense_equip
         if occupation == "黑暗法師":
@@ -258,7 +261,10 @@ class TocMachine(GraphMachine):
                             attribute_for_health_equip = int(i[1])
             health_max = health_body + health_equip
             health_now = health_max
-            using_item.append(["回復藥草","1"])
+            using_item.append(["生命粉塵","1"])
+            using_item.append(["大生命粉塵","1"])
+            using_item.append(["鬼人粉塵","1"])
+            using_item.append(["硬化粉塵","1"])
             attack = attack_body + attack_equip
             defense = defense_body +defense_equip
         if occupation == "精靈射手":
@@ -278,7 +284,10 @@ class TocMachine(GraphMachine):
                             attribute_for_health_equip = int(i[1])
             health_max = health_body + health_equip
             health_now = health_max
-            using_item.append(["回復藥草","1"])
+            using_item.append(["生命粉塵","1"])
+            using_item.append(["大生命粉塵","1"])
+            using_item.append(["鬼人粉塵","1"])
+            using_item.append(["硬化粉塵","1"])
             attack = attack_body + attack_equip
             defense = defense_body +defense_equip
         line = '-----------------------\n'
@@ -390,8 +399,16 @@ class TocMachine(GraphMachine):
                                         line+
                                         "道具:\n"+item_tmp+
                                         line+
-                                        "輸入 更換 以更換裝備。\n") 
+                                        "輸入 更換 以更換裝備。\n"+
+                                        "輸入 道具介紹 可了解各藥草的功能") 
+    def item_introduce(self,event):
+    
 
+        reply_token = event.reply_token
+        send_text_message(reply_token, "生命粉塵  : 使用後回復5生命值\n"+
+                                       "大生命粉塵: 使用後回復10生命值\n"+
+                                       "鬼人粉塵  : 使用後永久增加1攻擊力\n"+
+                                       "硬化粉塵  : 使用後永久增加1防禦力\n")
     def on_enter_state_change(self,event):
         global backpack,equipment,backpack,attribute,drops
         item_in_backpack = ""
@@ -1036,21 +1053,43 @@ class TocMachine(GraphMachine):
                                       "輸入 返回 回到對決選單")
 
     def use_item(self,event):
-        global using_item,health_now,health_max
+        global using_item,health_now,health_max,attack_body,defense_body
         item_tmp = ""
         item_tmp = event.message.text
         flag = "False"
 
-        if item_tmp == "回復藥草":
+        if item_tmp == "生命粉塵":
             for i in range(len(using_item)):
-                if using_item[i][0] == "回復藥草":
+                if using_item[i][0] == "生命粉塵":
                     if int(using_item[i][1]) >0 :
                         using_item[i][1]= str(int(using_item[i][1]) - 1)
                         flag = "True"
                         health_now += 5
                         if health_now >= health_max:
                             health_now = health_max
-                        
+        if item_tmp == "大生命粉塵":
+            for i in range(len(using_item)):
+                if using_item[i][0] == "大生命粉塵":
+                    if int(using_item[i][1]) >0 :
+                        using_item[i][1]= str(int(using_item[i][1]) - 1)
+                        flag = "True"
+                        health_now += 10
+                        if health_now >= health_max:
+                            health_now = health_max
+        if item_tmp == "鬼人粉塵":
+            for i in range(len(using_item)):
+                if using_item[i][0] == "鬼人粉塵":
+                    if int(using_item[i][1]) > 0:
+                        using_item[i][1]= str(int(using_item[i][1]) - 1)
+                        flag = "True"
+                        attack_body += 1
+        if item_tmp == "硬化粉塵":
+            for i in range(len(using_item)):
+                if using_item[i][0] == "硬化粉塵":
+                    if int(using_item[i][1]) > 0:
+                        using_item[i][1]= str(int(using_item[i][1]) - 1)
+                        flag = "True"
+                        defense_body += 1
         return flag
     def use_item_complete(self,event):
         reply_token = event.reply_token
