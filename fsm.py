@@ -378,7 +378,7 @@ class TocMachine(GraphMachine):
                         equip_attribute = spa_length +"+" + j[1] + " +" + j[2] + " +"+ j[3] 
         for i in using_item:
             item_tmp += i[0] +": x"+i[1]+"\n"
-        
+        item_tmp -= "\n"
         reply_token = event.reply_token
         send_text_message(reply_token,  '背包:\n'+
                                         "名稱   " + "生命" +" 攻擊"+" 防禦\n"+
@@ -388,9 +388,9 @@ class TocMachine(GraphMachine):
                                         weapon + weapon_attribute + "\n"+
                                         equip + equip_attribute +"\n"+
                                         line+
-                                        "輸入 更換 以更換裝備。\n"+
+                                        "道具:\n"+item_tmp+
                                         line+
-                                        "道具:\n"+item_tmp) 
+                                        "輸入 更換 以更換裝備。\n") 
 
     def on_enter_state_change(self,event):
         global backpack,equipment,backpack,attribute,drops
@@ -1019,3 +1019,15 @@ class TocMachine(GraphMachine):
         reply_token = event.reply_token
         send_text_message(reply_token, "無盡天使:現在是魔王曆128年,自從上一位勇者犧牲已經100多年了，沒有人能夠與現在的魔王抗衡，希望勇者您能幫助我們打到魔王!") 
 
+    def check_item(self,event):
+        global using_item
+        for i in using_item:
+            item_tmp += i[0] +": x"+i[1]+"\n"
+        #item_tmp -= "\n"
+
+        line = '-----------------------\n'
+        reply_token = event.reply_token
+        send_text_message(reply_token,"道具:\n"+
+                                      line+
+                                      item_tmp+
+                                      "輸入 使用 來選擇想使用的道具。")

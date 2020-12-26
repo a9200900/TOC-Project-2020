@@ -318,6 +318,9 @@ def webhook_handler():
                 else:
                     if machine.show_attacking(event) == "角色死亡":
                         machine.dead(event)
+        if machine.state == "state_fight":
+            if event.message.text == "道具":
+                machine.check_item(event)
         #store state
         if machine.state == "state_store":
             if event.message.text == "返回":
