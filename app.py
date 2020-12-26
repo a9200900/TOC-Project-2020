@@ -15,7 +15,7 @@ load_dotenv()
 
 
 machine = TocMachine(
-    states=["intro","build","enter_name","choose_occupation","occupation_intro", "start","state_change","state_change_weapon","state_change_equip", "state_map","state_fight", "state_store"],
+    states=["intro","build","enter_name","choose_occupation","occupation_intro", "start","state_change","state_change_weapon","state_change_equip","state_item", "state_map","state_fight", "state_store"],
     transitions=[
         {
             "trigger": "to_build",
@@ -115,6 +115,14 @@ machine = TocMachine(
         {"trigger": "go_back_state_change_equip",
          "source": "state_change_equip",
           "dest": "state_change" ,
+        },
+        {"trigger": "to_state_item",
+         "source": "state_fight",
+          "dest": "state_item" ,
+        },
+        {"trigger": "go_back_state_fight",
+         "source": "state_item",
+          "dest": "state_fight" ,
         },
     ],
     initial="intro",
@@ -320,7 +328,17 @@ def webhook_handler():
                         machine.dead(event)
         if machine.state == "state_fight":
             if event.message.text == "道具":
-                machine.check_item(event)
+                machine.on_enter_state_item(event)
+      
+        #item state
+        if machine.state == "state_item":  
+            if event.message.text != "返回":
+                if machine.use_item(event) == "True":
+                    machine.use_item_complete(event)
+        if machine.state == "state_item":
+            if event.message.text == "返回":
+                machine.go_back_state_fight(event)
+
         #store state
         if machine.state == "state_store":
             if event.message.text == "返回":

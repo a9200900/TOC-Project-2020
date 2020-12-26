@@ -1019,7 +1019,7 @@ class TocMachine(GraphMachine):
         reply_token = event.reply_token
         send_text_message(reply_token, "無盡天使:現在是魔王曆128年,自從上一位勇者犧牲已經100多年了，沒有人能夠與現在的魔王抗衡，希望勇者您能幫助我們打到魔王!") 
 
-    def check_item(self,event):
+    def on_enter_state_item(self,event):
         global using_item
         for i in using_item:
             item_tmp += i[0] +": x"+i[1]+"\n"
@@ -1030,4 +1030,26 @@ class TocMachine(GraphMachine):
         send_text_message(reply_token,"道具:\n"+
                                       line+
                                       item_tmp+
-                                      "輸入 使用 來選擇想使用的道具。")
+                                      "輸入 道具名稱 來選擇想使用的道具。")
+
+    def use_item(self,event):
+        global using_item,health_now,health_max
+        item_tmp = ""
+        item_tmp = event.message.text
+        flag = False
+
+        if item_tmp == "回復藥草":
+            for i in using_item:
+                if i[0] == "回復藥草":
+                    if int(i[1]) >0 :
+                        i[1] = str(int(i[1] - 1))
+                        flag = True
+                        health_now += 5
+                        if health_now >= health_max:
+                            health_now = health_max
+                        return flag
+
+    def use_item_complete(self,event):
+        reply_token = event.reply_token
+        send_text_message(reply_token, "道具使用成功。\n輸入 返回 回到對決選單")
+        
