@@ -361,7 +361,7 @@ def webhook_handler():
         if machine.state == "state_dead":
             if event.message.text == "復活":
                 machine.reborn(event)
-                machine.go_back_to_fight(event)
+                machine.go_back_state_fight_dead(event)
 
         #response = machine.advance(event)
         #if response == False:
