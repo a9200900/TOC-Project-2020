@@ -217,7 +217,7 @@ class TocMachine(GraphMachine):
         send_text_message(reply_token, "無盡天使: "+name +"勇者大人，歡迎你的到來!\n"+line+"輸入 返回 回到角色選單")
 
     def set_occupation(self,event):
-        global occupation,attack_body,health_body,defense_body,backpack,equipment,attribute,health_max,health_now,attack,defense,attribute_for_health,health_equip,attack_equip,defense_equip.attribute_for_health_equip , attribute_for_health_weapon
+        global occupation,attack_body,health_body,defense_body,backpack,equipment,attribute,health_max,health_now,attack,defense,attribute_for_health,health_equip,attack_equip,defense_equip,attribute_for_health_equip , attribute_for_health_weapon
         occupation = event.message.text
         health_equip = 0
         attack_equip =0
