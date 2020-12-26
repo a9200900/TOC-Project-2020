@@ -198,8 +198,7 @@ class TocMachine(GraphMachine):
         attack = attack_body + attack_equip
         defense = defense_body +defense_equip
         if attribute_for_health != health_equip:
-            health_now += health_equip
-            health_now -=attribute_for_health
+            health_now += health_equip - attribute_for_health
             attribute_for_health = health_equip
     def set_name(self, event):
         global name
@@ -528,7 +527,7 @@ class TocMachine(GraphMachine):
 
         for i in attribute:
             if equipment[0] == i[0]:
-                attribute_for_health = i[1] 
+                attribute_for_health = int(i[1]) 
         for i in backpack:
             if i == weapon_name:
                 tmp = equipment[0]
@@ -550,7 +549,7 @@ class TocMachine(GraphMachine):
         flag = "False"
         for i in attribute:
             if equipment[1] == i[0]:
-                attribute_for_health = i[1]
+                attribute_for_health = int(i[1])
         for i in backpack:
             if i == equip_name:
                 tmp = equipment[1]
