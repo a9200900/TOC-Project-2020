@@ -297,7 +297,7 @@ class TocMachine(GraphMachine):
                                 text = '遭遇怪物，立刻攻擊!',
                                 actions=[
                                     MessageTemplateAction(
-                                        label = '攻擊1',
+                                        label = '攻擊',
                                         text = '攻擊1'
                                     ),
                                     MessageTemplateAction(
@@ -309,8 +309,8 @@ class TocMachine(GraphMachine):
                                         text = '道具'
                                     ),
                                     MessageTemplateAction(
-                                        label = '返回',
-                                        text = '返回'
+                                        label = '當前狀態',
+                                        text = '當前狀態'
                                     )
                                 ]
                             )
@@ -1032,7 +1032,8 @@ class TocMachine(GraphMachine):
                                       line+
                                       item_tmp+
                                       line+
-                                      "輸入 道具的名稱 來選擇想使用的道具。")
+                                      "輸入 道具的名稱 來選擇想使用的道具。\n"+
+                                      "輸入 返回 回到對決選單")
 
     def use_item(self,event):
         global using_item,health_now,health_max
