@@ -1,6 +1,6 @@
 from transitions.extensions import GraphMachine
 import os
-
+import random
 from utils import send_text_message
 from linebot.models import (MessageEvent, TextMessage, TextSendMessage,TemplateSendMessage,ButtonsTemplate,MessageTemplateAction,ImageSendMessage)
 from linebot import LineBotApi, WebhookParser
@@ -185,7 +185,7 @@ class TocMachine(GraphMachine):
                                         '經驗值: '+e + exp_max +'\n'+
                                         '生命值: '+h+"/"+h_max+'\n'+
                                         '攻擊力: '+a+'\n'+
-                                        '防禦力:' + d+'\n'+
+                                        '防禦力: ' + d+'\n'+
                                         '金錢  : '+m) 
     def check_character(self , event):
         global money,health_max,health_now,attack,defense,level,attribute,backpack,health_equip,attack_equip,defense_equip,health_body,attack_body,defense_body,attribute_for_health,attribute_for_health_equip,attribute_for_health_weapon
@@ -247,7 +247,7 @@ class TocMachine(GraphMachine):
             using_item.append(["硬化粉塵","1"])
             attack = attack_body + attack_equip
             defense = defense_body +defense_equip
-            money = 10
+            money = random.randint(0,10)
         if occupation == "黑暗法師":
             health_body = 9
             attack_body = 3
