@@ -525,7 +525,9 @@ class TocMachine(GraphMachine):
         tmp = ""
         flag = "False"
 
-        
+        for i in attribute:
+            if equipment[0] == i[0]:
+                attribute_for_health = i[1] 
         for i in backpack:
             if i == weapon_name:
                 tmp = equipment[0]
@@ -533,10 +535,7 @@ class TocMachine(GraphMachine):
                 backpack.append(tmp)
                 backpack.remove(i)
                 flag = "True"
-        for i in attribute:
-            if weapon_name == i[0]:
-                attribute_for_health = i[1]
-        
+ 
         return flag
     def change_complete(self,event):
         reply_token = event.reply_token
@@ -548,6 +547,9 @@ class TocMachine(GraphMachine):
         equip_name = event.message.text
         tmp = ""
         flag = "False"
+        for i in attribute:
+            if equipment[1] == i[0]:
+                attribute_for_health = i[1]
         for i in backpack:
             if i == equip_name:
                 tmp = equipment[1]
@@ -555,9 +557,6 @@ class TocMachine(GraphMachine):
                 backpack.append(tmp)
                 backpack.remove(i)
                 flag = "True"
-        for i in attribute:
-            if equip_name == i[0]:
-                attribute_for_health = i[1]
         return flag
     def show_change_item(self,event):
         global backpack,equipment,backpack,attribute,drops
@@ -897,7 +896,7 @@ class TocMachine(GraphMachine):
                             )
                         ),
                             TextSendMessage(text="你對怪物造成了 "+str(attack - int(monster_now[3])) +" 傷害!\n"+
-                                                 "怪物並沒有死亡，並對你造成 "+str(damage)+" 點傷害" +
+                                                 "怪物沒有死亡，並對你造成 "+str(damage)+" 點傷害" +
                                                  line+
                                                  "當前怪物為: "+monster_now[0]+"\n"+
                                                 "生命值: "+monster_now[1]+"\n"+
