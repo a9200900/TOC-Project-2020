@@ -15,7 +15,7 @@ load_dotenv()
 
 
 machine = TocMachine(
-    states=["intro","build","enter_name","choose_occupation","occupation_intro", "start","state_change","state_change_weapon","state_change_equip","state_item", "state_map","state_fight", "state_store"],
+    states=["intro","build","enter_name","choose_occupation","occupation_intro", "start","state_change","state_change_weapon","state_change_equip","state_dead","state_item", "state_map","state_fight", "state_store"],
     transitions=[
         {
             "trigger": "to_build",
@@ -122,6 +122,14 @@ machine = TocMachine(
         },
         {"trigger": "go_back_state_fight",
          "source": "state_item",
+          "dest": "state_fight" ,
+        },
+        {"trigger": "to_state_dead",
+         "source": "state_fight",
+          "dest": "state_dead" ,
+        },
+        {"trigger": "go_back_state_fight_dead",
+         "source": "state_dead",
           "dest": "state_fight" ,
         },
     ],
@@ -328,7 +336,7 @@ def webhook_handler():
                     machine.go_back_start_fight(event)
                 else:
                     if machine.show_attacking(event) == "角色死亡":
-                        machine.dead(event)
+                        machine.to_state_dead(event)
         if machine.state == "state_fight":
             if event.message.text == "道具":
                 machine.to_state_item(event)
@@ -342,13 +350,17 @@ def webhook_handler():
                     machine.use_item_not_complete(event)
         if machine.state == "state_item":
             if event.message.text == "返回":
-                machine.go_back_state_fight(event)
+                machine.go_back_state_fight_dead(event)
 
         #store state
         if machine.state == "state_store":
             if event.message.text == "返回":
                 machine.go_back_start_store(event)
 
+        #dead state
+        if machine.state == "state_dead":
+            if event.message.text == "復活":
+                machine.go_back_to_fight
 
         #response = machine.advance(event)
         #if response == False:

@@ -420,7 +420,7 @@ class TocMachine(GraphMachine):
                                         line+
                                         "道具:\n"+item_tmp+
                                         line+
-                                        "輸入 更換 以更換裝備。\n"+
+                                        "輸入 更換裝備 以更換裝備。\n"+
                                         "輸入 道具介紹 可了解各藥草的功能") 
     def item_introduce(self,event):
     
@@ -1053,9 +1053,9 @@ class TocMachine(GraphMachine):
                         ]
                         
                     )
-    def dead(self,event):
+    def on_enter_state_dead(self,event):
         reply_token = event.reply_token
-        send_text_message(reply_token, "無盡天使:現在是魔王曆128年,自從上一位勇者犧牲已經100多年了，沒有人能夠與現在的魔王抗衡，希望勇者您能幫助我們打到魔王!") 
+        send_text_message(reply_token, "你被魔物殺死了，真是可惜。\n是否支付台幣100塊來復活呢?\n輸入 復活 重新回到世界!") 
 
     def on_enter_state_item(self,event):
         global using_item
@@ -1070,7 +1070,7 @@ class TocMachine(GraphMachine):
                                       line+
                                       item_tmp+
                                       line+
-                                      "輸入 道具的名稱 來選擇想使用的道具。\n"+
+                                      "輸入 道具的名稱 來使用道具。\n"+
                                       "輸入 返回 回到對決選單")
 
     def use_item(self,event):
