@@ -207,7 +207,7 @@ class TocMachine(GraphMachine):
         send_text_message(reply_token, "無盡天使: "+name +"勇者大人，歡迎你的到來!\n"+line+"輸入 返回 回到角色選單")
 
     def set_occupation(self,event):
-        global occupation,attack_body,health_body,defense_body,backpack,equipment,attribute,health_max,health_now,attack,defense
+        global occupation,attack_body,health_body,defense_body,backpack,equipment,attribute,health_max,health_now,attack,defense,attribute_for_health
         occupation = event.message.text
         if occupation == "狂戰士":
             health_body = 12
@@ -222,6 +222,7 @@ class TocMachine(GraphMachine):
                         defense_equip = int(i[3])
             health_max = health_body + health_equip
             health_now = health_max
+            attribute_for_health = health_equip
             attack = attack_body + attack_equip
             defense = defense_body +defense_equip
         if occupation == "黑暗法師":
@@ -237,6 +238,7 @@ class TocMachine(GraphMachine):
                         defense_equip = int(i[3])
             health_max = health_body + health_equip
             health_now = health_max
+            attribute_for_health = health_equip
             attack = attack_body + attack_equip
             defense = defense_body +defense_equip
         if occupation == "精靈射手":
@@ -252,6 +254,7 @@ class TocMachine(GraphMachine):
                         defense_equip = int(i[3])
             health_max = health_body + health_equip
             health_now = health_max
+            attribute_for_health = health_equip
             attack = attack_body + attack_equip
             defense = defense_body +defense_equip
         line = '-----------------------\n'
