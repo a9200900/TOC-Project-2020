@@ -182,7 +182,7 @@ class TocMachine(GraphMachine):
                                         '職業  : '+occupation+'\n'+
                                         '等級  : '+l +'\n'+
                                         '經驗值: '+e + exp_max +'\n'+
-                                        '生命值: '+h+"/"+h_max+'\n'+
+                                        '生命值: '+round(h,0)+"/"+h_max+'\n'+
                                         '攻擊力: '+a+'\n'+
                                         '防禦力:' + d) 
     def check_character(self , event):
