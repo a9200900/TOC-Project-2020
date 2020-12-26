@@ -198,7 +198,7 @@ class TocMachine(GraphMachine):
         attack = attack_body + attack_equip
         defense = defense_body +defense_equip
         if attribute_for_health != health_equip:
-            health_now += health_equip - attribute_for_health
+            health_now += (health_equip - attribute_for_health)
             attribute_for_health = health_equip
     def set_name(self, event):
         global name
@@ -756,7 +756,7 @@ class TocMachine(GraphMachine):
         attack = attack_body + attack_equip
         defense = defense_body +defense_equip 
         if attribute_for_health != health_equip:
-            health_now += health_equip - attribute_for_health
+            health_now += (health_equip - attribute_for_health)
             attribute_for_health = health_equip
 
     def check_map(self,event):
