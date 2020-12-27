@@ -59,6 +59,10 @@
 ![text](./line_img/13.jpg)
 ![text](./line_img/14.jpg)
 
+打敗最後的魔龍以後，遊戲就全破了
+![text](./line_img/16.jpg)
+
+
 ---------------------------
 ## FSM
 
