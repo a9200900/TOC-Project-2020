@@ -1174,7 +1174,7 @@ class TocMachine(GraphMachine):
                                         ]
                                     )
                                 ),
-                                    TextSendMessage(text="遇到了"+monster_now[0]+"，立刻攻擊!"),
+                                    TextSendMessage(text="遇到了最終魔王 "+monster_now[0]+"，立刻攻擊!"),
                                     ImageSendMessage(original_content_url=monster_now_url,preview_image_url=monster_now_url)
                                     
                                 ]
@@ -1411,37 +1411,42 @@ class TocMachine(GraphMachine):
                         drop_tmp = random.choice(drop_3_arch)
                         backpack.append(drop_tmp)
                         tmp_text ="\n怪物掉落了 "+drop_tmp
-        line_bot_api.reply_message(
-                        event.reply_token,[
-                        TemplateSendMessage(
-                            alt_text ='Buttons template',
-                            template = ButtonsTemplate(
-                                title = '選擇',
-                                text = '踏上旅程，在前方是未知的道路!',
-                                actions=[
-                                    MessageTemplateAction(
-                                        label = '前進',
-                                        text = '前進'
-                                    ),
-                                    MessageTemplateAction(
-                                        label = '背包',
-                                        text = '背包'
-                                    ),
-                                    MessageTemplateAction(
-                                        label = '地圖',
-                                        text = '地圖'
-                                    ),
-                                    MessageTemplateAction(
-                                        label = '角色資訊',
-                                        text = '角色資訊'
-                                    )
-                                ]
-                            )
-                        ),TextSendMessage(text="你打敗了"+monster_now[0]+"。\n"+"獲得"+monster_now[4]+"經驗值。" +upgrade_text+money_text+tmp_text)
+
+        if map_now_count == 18:
+            reply_token = event.reply_token
+            send_text_message(reply_token, "黑龍被你擊敗了,這個世界又恢復了和平。\n多虧了勇者您的表現。\n輸入 restart 來重新開始。")
+        else:
+            line_bot_api.reply_message(
+                            event.reply_token,[
+                            TemplateSendMessage(
+                                alt_text ='Buttons template',
+                                template = ButtonsTemplate(
+                                    title = '選擇',
+                                    text = '踏上旅程，在前方是未知的道路!',
+                                    actions=[
+                                        MessageTemplateAction(
+                                            label = '前進',
+                                            text = '前進'
+                                        ),
+                                        MessageTemplateAction(
+                                            label = '背包',
+                                            text = '背包'
+                                        ),
+                                        MessageTemplateAction(
+                                            label = '地圖',
+                                            text = '地圖'
+                                        ),
+                                        MessageTemplateAction(
+                                            label = '角色資訊',
+                                            text = '角色資訊'
+                                        )
+                                    ]
+                                )
+                            ),TextSendMessage(text="你打敗了"+monster_now[0]+"。\n"+"獲得"+monster_now[4]+"經驗值。" +upgrade_text+money_text+tmp_text)
+                                
+                            ]
                             
-                        ]
-                        
-                    )
+                        )
     def on_enter_state_dead(self,event):
         reply_token = event.reply_token
         send_text_message(reply_token, "你被魔物殺死了，真是可惜。\n是否支付50金幣來復活呢?\n輸入 復活 重新回到世界!") 
@@ -1516,3 +1521,6 @@ class TocMachine(GraphMachine):
         money -= 50
         if money <=0:
             money =0
+
+
+        
