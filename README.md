@@ -10,7 +10,9 @@
 
 
 ##基本資訊
-![text][line_img/1.jpg]
+
+![text](./line_img/baseic.jpg)
+
 
 
 
