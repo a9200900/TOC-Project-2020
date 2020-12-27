@@ -161,6 +161,36 @@ class TocMachine(GraphMachine):
                             )
                         )
                     )
+    def show_start(self , event):
+        
+        line_bot_api.reply_message(
+                        event.reply_token,
+                        TemplateSendMessage(
+                            alt_text ='Buttons template',
+                            template = ButtonsTemplate(
+                                title = '選項',
+                                text = '踏上旅程，在前方是未知的道路!',
+                                actions=[
+                                    MessageTemplateAction(
+                                        label = '前進',
+                                        text = '前進'
+                                    ),
+                                    MessageTemplateAction(
+                                        label = '背包',
+                                        text = '背包'
+                                    ),
+                                    MessageTemplateAction(
+                                        label = '地圖',
+                                        text = '地圖'
+                                    ),
+                                    MessageTemplateAction(
+                                        label = '角色資訊',
+                                        text = '角色資訊'
+                                    )
+                                ]
+                            )
+                        )
+                    )
     def character(self , event):
         global occupation,name,health_max,health_now,attack,defense,level,exp,money
         exp_max = ""

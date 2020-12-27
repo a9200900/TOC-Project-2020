@@ -1,5 +1,5 @@
-[["哥布林","5","3","1","2"],["奇面族","8","2","5","2"],["孫悟空","5","3","2","2"],["騷鳥","5","2","5","2"],["凶豺龍","10","5","3","2"],
-["雷狼龍","3","8","1","2"],["炫鳥","8","2","5","2"],["土沙龍","10","2","2","2"],["泥魚龍","6","2","4","2"],["神秘龍人","8","2","5","2"]]
+[["哥布林","5","3","1","2"],["奇面族","8","2","5","2"],["女巫","5","3","2","2"],["騷鳥","5","2","5","2"],["凶豺龍","10","5","3","2"],
+["雷狼龍","3","8","1","2"],["眩鳥","8","2","5","2"],["土沙龍","10","2","2","2"],["泥魚龍","6","2","4","2"],["神秘龍人","8","2","5","2"]]
 
 [["地精長老","8","3","1","10"],["毒妖鳥","9","5","5","10"],["火龍","9","5","10","10"],["雌火龍","10","4","5","10"],["櫻火龍","10","5","3","10"],
 ["蒼火龍","8","8","1","10"],["角龍","8","10","5","10"],["黑角龍","10","10","6","10"],["浮空龍","8","6","5","10"],["風漂龍","8","4","5","10"]]
@@ -10,11 +10,11 @@
 [
     ["哥布林","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E5%93%A5%E5%B8%83%E6%9E%97.png"],
     ["奇面族","https://www.steamxo.com/wp-content/uploads/2018/09/MZsbUC225720_375660.jpg"],
-    ["孫悟空","https://lh3.googleusercontent.com/proxy/LNblsStu8udi2Hp2BnF1-ld25AtPF-pg8qgRp3bOuz0il56rcNRtpxiCido8G20CDhkF6LFVW0PyNBUyrGjWPflLzhV3GUMi95F-PVEpf0opV_DoqyrB4Q"],
+    ["女巫","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E5%A5%B3%E5%B7%AB.png"],
     ["騷鳥","https://www.steamxo.com/wp-content/uploads/2018/08/Monster_Hunter_World_guide_walkthrough_63.1517158815_314100.jpg"],
     ["凶豺龍","https://lh3.googleusercontent.com/proxy/zGV4kDK8CqiCzCqGpklrjICq-Z4yX7nj__T8UpOdZ_49GZIYtXl8WflRGqxfLJCdum_J1bt6NMME62YTjBK7S4cyuxyF8zxrZeJSoX39y0PFweHaJnOtB8uY9u0Pn8-8n2ixGRRJolL3Na7vFvSkcDwx4e7WWHomoUuRv0mMmsdjTo7p7Jt5EafpMvTsnz8hzSDNXF7GNA"],
     ["雷狼龍","https://p2.bahamut.com.tw/B/2KU/84/61996197ceb1151b102c15ab6e162kk5.JPG"],
-    ["炫鳥","https://lh3.googleusercontent.com/proxy/BUdBGAlbgnYDqtyWDIlR2LuPaVw845Ndsa7W55L8S79dtlBI4T-mCZWGORQxx9asH6sR5WoXPu2HEcDfwP8Jrpd1Ka0A16YOvYVrZiwzXV4xCsijWmmoZDm_ize8TRo87_7QOlaxN8j1BNlEcLS-leeMX2C-_CeKtvHr8dGFp7DgnwMyeQ"],
+    ["眩鳥","https://lh3.googleusercontent.com/proxy/BUdBGAlbgnYDqtyWDIlR2LuPaVw845Ndsa7W55L8S79dtlBI4T-mCZWGORQxx9asH6sR5WoXPu2HEcDfwP8Jrpd1Ka0A16YOvYVrZiwzXV4xCsijWmmoZDm_ize8TRo87_7QOlaxN8j1BNlEcLS-leeMX2C-_CeKtvHr8dGFp7DgnwMyeQ"],
     ["土沙龍","https://lh3.googleusercontent.com/proxy/zxLXNfkmX1-ncU3GvGYKrk81ki33CzmxB4n1wPYaOoR3zVu1r2-SpjfIW_cSJmRwApG9XrpgUuKcxD-_KCh0_rxVOmDFSepwhAdlMwQ_g_4xDDMMQZPfAEQtGmdlifmMUjUWCEHBCSeSYCg7CWpSpPk8emqveasxXqoM1HHy_eDw5pJSX7N-G1KjStDVKQ"],
     ["泥魚龍","https://exp-picture.cdn.bcebos.com/b6f0f0f97fbd4c7c2c3870f5b8bad341027d3023.jpg?x-bce-process=image%2Fresize%2Cm_lfit%2Cw_500%2Climit_1"],
     ["神秘龍人","https://n.sinaimg.cn/sinacn16/270/w640h430/20180730/e0cf-hfxsxzi1344416.png"],
@@ -39,3 +39,5 @@
     ["恐暴龍","https://steamcdn-a.akamaihd.net/steamcommunity/public/images/clans/33171098/fccd3c6f5241c04f43a59f159fc60ae33ab0250d.jpg"],
     ["蠻顎龍","https://pcucgame.com/wp-content/uploads/584_2018012561017687.png"]
 ]
+
+

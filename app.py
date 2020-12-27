@@ -355,6 +355,7 @@ def webhook_handler():
         #store state
         if machine.state == "state_store":
             if event.message.text == "返回":
+                machine.show_start(event)
                 machine.go_back_start_store(event)
 
         #dead state
