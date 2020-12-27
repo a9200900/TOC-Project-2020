@@ -283,7 +283,6 @@ class TocMachine(GraphMachine):
             random.shuffle(map_1)
             random.shuffle(map_2)
             random.shuffle(map_3)
-            map_tmp_1 = map_1
         if occupation == "精靈射手":
             health_body = 10
             attack_body = 3
@@ -813,18 +812,16 @@ class TocMachine(GraphMachine):
 
     def on_enter_state_map(self,event):
         global map,map_now,map_1,map_2,map_3,map_now_count
-        path = ""
+        path = "新手鎮 ==> "
         line = '-----------------------\n'
         if map_now_count == -1:
-            map_now = ["新手鎮","商店"]
-            path = "新手鎮 ==> "
             for i in map_1:
                 path += i[0] +" ==> "
         if map_now_count >=0:
             if map_now_count <6:
                 for i in map_1:
                     path += i[0] + " ==> "
-                map_now = map_1[map_now_count][0]
+                map_now = map_1[map_now_count]
         
         
         
@@ -840,7 +837,7 @@ class TocMachine(GraphMachine):
         map_now_count += 1
         if map_now_count >=0:
             if map_now_count <6:
-                map_now = map_1[map_now_count][0]
+                map_now = map_1[map_now_count]
 
         health_equip = 0
         attack_equip =0
