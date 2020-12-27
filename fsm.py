@@ -36,7 +36,6 @@ map_1 = [["古代樹之森","戰鬥"],["大蟻塚荒地","戰鬥"],["北東營�
 map_2 = [["瘴氣之谷","戰鬥"],["東營地","商店"],["陸珊瑚台地","戰鬥"],["邪魔神之地","戰鬥"],["岩漿地區","戰鬥"],["魔物巢穴","戰鬥"]]
 map_3 = [["龍結晶之地","戰鬥"],["星辰據點","商店"],["永霜凍土","戰鬥"],["雪山洞穴","戰鬥"],["沙漠山丘","戰鬥"],["強風之古","戰鬥"]]
 map_now = ""
-map_tmp_1 = []
 map_now_count = -1
 drops = [["狂戰士","鋒利的彎刀","鎖子甲"] , ["黑暗法師","精緻魔杖","上等法袍"] , ["精靈射手","骨製彎曲弓","上等絲綢服"]]
 attribute_for_health=0
@@ -252,10 +251,6 @@ class TocMachine(GraphMachine):
             attack = attack_body + attack_equip
             defense = defense_body +defense_equip
             money = 10
-            random.shuffle(map_1)
-            random.shuffle(map_2)
-            random.shuffle(map_3)
-            map_tmp_1 = map_1
         if occupation == "黑暗法師":
             health_body = 9
             attack_body = 3
@@ -280,9 +275,6 @@ class TocMachine(GraphMachine):
             attack = attack_body + attack_equip
             defense = defense_body +defense_equip
             money = 10
-            random.shuffle(map_1)
-            random.shuffle(map_2)
-            random.shuffle(map_3)
         if occupation == "精靈射手":
             health_body = 10
             attack_body = 3
@@ -307,11 +299,10 @@ class TocMachine(GraphMachine):
             attack = attack_body + attack_equip
             defense = defense_body +defense_equip
             money = 10
-            random.shuffle(map_1)
-            random.shuffle(map_2)
-            random.shuffle(map_3)
-            map_tmp_1 = map_1
         line = '-----------------------\n'
+        random.shuffle(map_1)
+        random.shuffle(map_2)
+        random.shuffle(map_3)
         reply_token = event.reply_token
         send_text_message(reply_token, "無盡天使: 你選擇的職業是 "+occupation +"，馬上展開你的冒險吧!\n"+line+"輸入 返回 回到角色選單")
 
@@ -812,18 +803,33 @@ class TocMachine(GraphMachine):
 
     def on_enter_state_map(self,event):
         global map,map_now,map_1,map_2,map_3,map_now_count
-        path = "新手鎮 ==> "
+        path = ""
         line = '-----------------------\n'
         if map_now_count == -1:
+            path = "新手鎮 ==> "
             for i in map_1:
                 path += i[0] +" ==> "
+                map_now = "新手鎮"
         if map_now_count >=0:
             if map_now_count <6:
+                path = "新手鎮 ==> "
                 for i in map_1:
                     path += i[0] + " ==> "
                 map_now = map_1[map_now_count][0]
-        
-        
+                path += "傳送門"
+        if map_now_count == 6:
+            path = "傳送門 ==> "
+            for i in map_2:
+                path += i[0] +" ==> "
+                map_now = "傳送門"
+        if map_now_count >6:
+            if map_now_count <13:
+                path = "傳送門 ==> "
+                for i in map_2:
+                    path += i[0] + " ==> "
+                map_now = map_2[map_now_count-7][0]
+                path += "傳送門"
+
         
         reply_token = event.reply_token
         send_text_message(reply_token, "路線為: \n"+ path +"\n"+
@@ -838,6 +844,9 @@ class TocMachine(GraphMachine):
         if map_now_count >=0:
             if map_now_count <6:
                 map_now = map_1[map_now_count][0]
+        if map_now_count >6:
+            if map_now_count <13:
+                map_now = map_2[map_now_count-7][0]
 
         health_equip = 0
         attack_equip =0
@@ -904,11 +913,54 @@ class TocMachine(GraphMachine):
                                 ]
                                 
                             )
-                    return "戰鬥"    
+                    return "戰鬥"  
+        if map_now_count >6 :
+            if map_now_count <13:
+                if map_2[map_now_count-7][1] == "戰鬥":
+                    line_bot_api.reply_message(
+                                event.reply_token,[
+                                TemplateSendMessage(
+                                    alt_text ='Buttons template',
+                                    template = ButtonsTemplate(
+                                        title = '對決',
+                                        text = '可先查看當前狀態已了解對手，在決定下一步怎麼辦。',
+                                        actions=[
+                                            MessageTemplateAction(
+                                                label = '攻擊',
+                                                text = '攻擊'
+                                            ),
+                                            MessageTemplateAction(
+                                                label = '攻擊2',
+                                                text = '攻擊2'
+                                            ),
+                                            MessageTemplateAction(
+                                                label = '道具',
+                                                text = '道具'
+                                            ),
+                                            MessageTemplateAction(
+                                                label = '當前狀態',
+                                                text = '當前狀態'
+                                            )
+                                        ]
+                                    )
+                                ),
+                                    TextSendMessage(text="遇到了"+monster_now[0]+"，立刻攻擊!"),
+                                    ImageSendMessage(original_content_url=monster_now_url,preview_image_url=monster_now_url)
+                                    
+                                ]
+                                
+                            )
+                    return "戰鬥"      
 
         if map_now_count >= 0 :
             if map_now_count <6:
                 if map_1[map_now_count][1] == "商店":
+                    reply_token = event.reply_token
+                    send_text_message(reply_token, "遇到商人,可購買商品。") 
+                    return "商店"  
+        if map_now_count >6 :
+            if map_now_count <13:
+                if map_2[map_now_count-7][1] == "商店":
                     reply_token = event.reply_token
                     send_text_message(reply_token, "遇到商人,可購買商品。") 
                     return "商店"  
