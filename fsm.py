@@ -839,7 +839,7 @@ class TocMachine(GraphMachine):
                                         "輸入 返回 回到選單" ) 
 
     def forward(self,event):
-        global map_now_count,map_1,map_now,attribute,equipment,health_equip,attack_equip,defense_equip,health_max,health_now,attack,defense,health_body,attack_body,defense_body,attribute_for_health,attribute_for_health_equip , attribute_for_health_weapon
+        global map_now_count,map_1,map_2,map_3,map_now,attribute,equipment,health_equip,attack_equip,defense_equip,health_max,health_now,attack,defense,health_body,attack_body,defense_body,attribute_for_health,attribute_for_health_equip , attribute_for_health_weapon
         map_now_count += 1
         if map_now_count >=0:
             if map_now_count <6:
@@ -871,7 +871,7 @@ class TocMachine(GraphMachine):
                 attribute_for_health_equip += 1
 
     def check_map(self,event):
-        global map_now_count,map,map_now,monster,monster_now,monster_now_count,monster_url,monster_now_url,map_now_count,map_1
+        global map_now_count,map,map_now,monster,monster_now,monster_now_count,monster_url,monster_now_url,map_now_count,map_1,map_2,map_3
         monster_now_count +=1
         monster_now = monster[monster_now_count]
         for i in monster_url:
