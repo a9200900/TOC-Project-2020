@@ -1227,8 +1227,12 @@ class TocMachine(GraphMachine):
                 level = 3
                 if exp >=20:
                     level = 4
+                    if exp >= 50:
+                        level =5
+                        if exp >= 100:
+                            level =6
         if tmp_level != level:  ##升等
-            upgrade_text = "\n並且等級提升了一等,屬性值獲得提升。"
+            upgrade_text = "\n等級提升了一等,屬性值獲得提升。"
             if level == 2:
                 health_body += 3
                 health_now += 3
@@ -1236,6 +1240,21 @@ class TocMachine(GraphMachine):
                 defense_body += 1
 
             if level == 3:
+                health_body += 3
+                health_now += 3
+                attack_body += 2
+                defense_body += 1
+            if level == 4:
+                health_body += 3
+                health_now += 3
+                attack_body += 2
+                defense_body += 1
+            if level == 5:
+                health_body += 3
+                health_now += 3
+                attack_body += 2
+                defense_body += 1
+            if level == 6:
                 health_body += 3
                 health_now += 3
                 attack_body += 2
@@ -1321,7 +1340,7 @@ class TocMachine(GraphMachine):
                                     )
                                 ]
                             )
-                        ),TextSendMessage(text="你打敗了"+monster_now[0]+"\n"+"獲得"+monster_now[4]+"經驗值" +upgrade_text+money_text+tmp_text)
+                        ),TextSendMessage(text="你打敗了"+monster_now[0]+"。\n"+"獲得"+monster_now[4]+"經驗值。" +upgrade_text+money_text+tmp_text)
                             
                         ]
                         
