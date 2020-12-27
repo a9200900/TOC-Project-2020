@@ -33,7 +33,7 @@ monster_2 =[["地精長老","8","3","1","10"],["毒妖鳥","9","5","5","10"],["�
 monster_3 =[["痺賊龍","12","8","10","20"],["麒麟","12","8","8","20"],["鋼龍","15","8","8","20"],["炎王龍","15","16","10","20"],["炎妃龍","15","15","13","20"],
 ["滅盡龍","13","18","10","20"],["熔山龍","18","20","8","20"],["屍套龍","13","20","20","20"],["恐暴龍","18","20","8","20"],["蠻顎龍","18","20","9","20"]]
 monster_url = [
-    ["哥布林","https://github.com/a9200900/TOC-Project-2020/blob/master/img/%E5%93%A5%E5%B8%83%E6%9E%97.png"],
+    ["哥布林","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E5%93%A5%E5%B8%83%E6%9E%97.png"],
     ["奇面族","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E5%85%B6%E9%BA%B5%E6%97%8F.jpg"],
     ["女巫","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E5%A5%B3%E5%B7%AB.png"],
     ["騷鳥","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E8%89%98%E9%B3%A5.jpg"],
@@ -884,18 +884,19 @@ class TocMachine(GraphMachine):
                     path += i[0] + " ==> "
                 map_now = map_1[map_now_count][0]
                 path += "傳送門"
-        # if map_now_count == 6:
-        #     path = "傳送門 ==> "
-        #     for i in map_2:
-        #         path += i[0] +" ==> "
-        #         map_now = "傳送門"
-        #     path += "傳送門"
         if map_now_count >=6:
             if map_now_count <12:
                 path = "傳送門 ==> "
                 for i in map_2:
                     path += i[0] + " ==> "
                 map_now = map_2[map_now_count-6][0]
+                path += "傳送門"
+        if map_now_count >=12:
+            if map_now_count <18:
+                path = "傳送門 ==> "
+                for i in map_3:
+                    path += i[0] + " ==> "
+                map_now = map_3[map_now_count-12][0]
                 path += "傳送門"
 
         
@@ -915,6 +916,9 @@ class TocMachine(GraphMachine):
         if map_now_count >=6:
             if map_now_count <12:
                 map_now = map_2[map_now_count-6][0]
+        if map_now_count >=12:
+            if map_now_count <18:
+                map_now = map_3[map_now_count-12][0]
 
         health_equip = 0
         attack_equip =0
@@ -945,6 +949,14 @@ class TocMachine(GraphMachine):
             if map_now_count <6:
                 monster_now = random.choice(monster_1)
                 monster_1.remove(monster_now)
+        if map_now_count >= 6:
+            if map_now_count <12:
+                monster_now = random.choice(monster_2)
+                monster_2.remove(monster_now)
+        if map_now_count >= 12:
+            if map_now_count <18:
+                monster_now = random.choice(monster_3)
+                monster_3.remove(monster_now)
         for i in monster_url:
             if monster_now[0] == i[0]:
                 monster_now_url = i[1]
@@ -957,7 +969,7 @@ class TocMachine(GraphMachine):
                                     alt_text ='Buttons template',
                                     template = ButtonsTemplate(
                                         title = '對決',
-                                        text = '可先查看當前狀態已了解對手，在決定下一步怎麼辦。',
+                                        text = '可先查看當前狀態已了解魔物，在決定下一步怎麼辦。',
                                         actions=[
                                             MessageTemplateAction(
                                                 label = '攻擊',
@@ -994,7 +1006,7 @@ class TocMachine(GraphMachine):
                                     alt_text ='Buttons template',
                                     template = ButtonsTemplate(
                                         title = '對決',
-                                        text = '可先查看當前狀態已了解對手，在決定下一步怎麼辦。',
+                                        text = '可先查看當前狀態已了解魔物，在決定下一步怎麼辦。',
                                         actions=[
                                             MessageTemplateAction(
                                                 label = '攻擊',
@@ -1022,7 +1034,42 @@ class TocMachine(GraphMachine):
                                 
                             )
                     return "戰鬥"      
-
+        if map_now_count >=12 :
+            if map_now_count <18:
+                if map_3[map_now_count-12][1] == "戰鬥":
+                    line_bot_api.reply_message(
+                                event.reply_token,[
+                                TemplateSendMessage(
+                                    alt_text ='Buttons template',
+                                    template = ButtonsTemplate(
+                                        title = '對決',
+                                        text = '可先查看當前狀態已了解魔物，在決定下一步怎麼辦。',
+                                        actions=[
+                                            MessageTemplateAction(
+                                                label = '攻擊',
+                                                text = '攻擊'
+                                            ),
+                                            MessageTemplateAction(
+                                                label = '攻擊2',
+                                                text = '攻擊2'
+                                            ),
+                                            MessageTemplateAction(
+                                                label = '道具',
+                                                text = '道具'
+                                            ),
+                                            MessageTemplateAction(
+                                                label = '當前狀態',
+                                                text = '當前狀態'
+                                            )
+                                        ]
+                                    )
+                                ),
+                                    TextSendMessage(text="遇到了"+monster_now[0]+"，立刻攻擊!"),
+                                    ImageSendMessage(original_content_url=monster_now_url,preview_image_url=monster_now_url)
+                                    
+                                ]
+                            )
+                    return "戰鬥"
         if map_now_count >= 0 :
             if map_now_count <6:
                 if map_1[map_now_count][1] == "商店":
@@ -1035,10 +1082,15 @@ class TocMachine(GraphMachine):
                     reply_token = event.reply_token
                     send_text_message(reply_token, "遇到商人,可購買商品。") 
                     return "商店"  
-
+        if map_now_count >=12 :
+            if map_now_count <18:
+                if map_3[map_now_count-12][1] == "商店":
+                    reply_token = event.reply_token
+                    send_text_message(reply_token, "遇到商人,可購買商品。") 
+                    return "商店"  
         
     def situation(self,event):
-        global monster_now,monster,map_now_count,health_max,health_now,attack,defense
+        global monster_now,map_now_count,health_max,health_now,attack,defense
         line = '-----------------------\n'
         line_bot_api.reply_message(
                         event.reply_token,[
@@ -1046,7 +1098,7 @@ class TocMachine(GraphMachine):
                             alt_text ='Buttons template',
                             template = ButtonsTemplate(
                                 title = '對決',
-                                text = '可先查看當前狀態已了解對手，在決定下一步怎麼辦。',
+                                text = '可先查看當前狀態已了解魔物，在決定下一步怎麼辦。',
                                 actions=[
                                     MessageTemplateAction(
                                         label = '攻擊',
@@ -1080,19 +1132,24 @@ class TocMachine(GraphMachine):
                         
                     )
     def attacking(self,event):
-        global monster_now,monster,map_now_count,attack,defense
-
-        monster_now[1] = str(int(monster_now[1]) - (attack - int(monster_now[3])))
+        global monster_now,map_now_count,attack,defense
+        damage = attack - int(monster_now[3])
+        if damage <= 0 :
+            damage =0
+        monster_now[1] = str(int(monster_now[1]) - damage)
         
         if int(monster_now[1]) <= 0 :
             return  "死亡"
         
     def show_attacking(self,event):
-        global monster_now,monster,map_now_count,health_max,health_now,attack,defense
+        global monster_now,map_now_count,health_max,health_now,attack,defense
         line = '-----------------------\n'
         damage = int(monster_now[2]) - defense
         if damage <= 0:
             damage =0
+        d = attack - int(monster_now[3])
+        if d <= 0:
+            d=0
         health_now = health_now - damage
         if health_now <=0 :
             return "角色死亡"
@@ -1102,7 +1159,7 @@ class TocMachine(GraphMachine):
                             alt_text ='Buttons template',
                             template = ButtonsTemplate(
                                 title = '對決',
-                                text = '可先查看當前狀態已了解對手，在決定下一步怎麼辦。',
+                                text = '可先查看當前狀態已了解魔物，在決定下一步怎麼辦。',
                                 actions=[
                                     MessageTemplateAction(
                                         label = '攻擊',
@@ -1123,7 +1180,7 @@ class TocMachine(GraphMachine):
                                 ]
                             )
                         ),
-                            TextSendMessage(text="你對怪物造成了 "+str(attack - int(monster_now[3])) +" 傷害!\n"+
+                            TextSendMessage(text="你對怪物造成了 "+str(d) +" 傷害!\n"+
                                                  "怪物沒有死亡，並造成 "+str(damage)+" 點傷害" +
                                                  line+
                                                  "當前怪物為: "+monster_now[0]+"\n"+

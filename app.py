@@ -350,7 +350,7 @@ def webhook_handler():
                     machine.use_item_not_complete(event)
         if machine.state == "state_item":
             if event.message.text == "返回":
-                machine.go_back_state_fight_dead(event)
+                machine.go_back_state_fight(event)
 
         #store state
         if machine.state == "state_store":
