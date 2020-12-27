@@ -11,12 +11,22 @@
 
 ##基本資訊
 
-![text](./line_img/baseic.jpg)
+![text](./line_img/封面_line.jpg)
+![text](./line_img/baseic_id.jpg)
+![text](./line_img/QRcode.jpg)
+
+
 
 
 
 
 ---------------------------
 ##功能
-一開始輸入 進入 便可開始遊戲。
+一開始輸入 進入 便可開始遊戲。![text](./line_img/1.jpg)
+
+設定完名字和職業，按下完成，設定好基本角色資料。
+![text](./line_img/2.jpg)
+
+總共有3種職業，按下職業介紹可得知個別的屬性。
+![text](./line_img/4.jpg)
 
