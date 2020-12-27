@@ -8,7 +8,7 @@ from linebot.exceptions import InvalidSignatureError
 from linebot.models import (MessageEvent, TextMessage, TextSendMessage,TemplateSendMessage,ButtonsTemplate,MessageTemplateAction,ImageSendMessage)
 
 from fsm import TocMachine
-from utils import send_text_message
+from utils import send_text_message,send_image
 
 
 load_dotenv()
@@ -136,8 +136,8 @@ machine = TocMachine(
          "source": "state_store",
           "dest": "state_buying_portion" ,
         },
-        {"trigger": "go_back_state_buying_portion",
-         "source": "state_buying_porttion",
+        {"trigger": "go_back_state_store_portion",
+         "source": "state_buying_portion",
           "dest": "state_store" ,
         },
     ],
@@ -375,7 +375,7 @@ def webhook_handler():
         #portion state
         if machine.state == "state_buying_portion":
             if event.message.text == "返回":
-                machine.go_back_state_buying_portion(event)
+                machine.go_back_state_store_portion(event)
         if machine.state == "state_buying_portion":
             if event.message.text == "生命粉塵":
                 machine.health_portion(event)
@@ -396,7 +396,7 @@ def webhook_handler():
         #    send_text_message(event.reply_token, "Not Entering any State")
 
         if event.message.text == "fsm":
-            ImageSendMessage(event.reply_token,original_content_url="https://a9200900.herokuapp.com/show-fsm",preview_image_url="https://a9200900.herokuapp.com/show-fsm")
+            send_image(event.reply_token , "https://a9200900.herokuapp.com/show-fsm")
     return "OK"
 
 
