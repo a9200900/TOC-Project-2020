@@ -26,8 +26,44 @@ backpack = []
 equipment = []
 attribute = [["普通大劍" , "0" ,"1","1","武器"] ,["短杖","0","1","1","武器"] ,["短弓","0","1","1","武器"] ,["破舊的大衣","1","0","1","防具"],["初級魔法袍","1","0","1","防具"],["簡陋的衣裝","1","0","1","防具"],["鋒利的彎刀","1","2","1","武器"],["鎖子甲","3","0","1","防具"],["精緻魔杖","1","2","1","武器"],["上等法袍","3","0","1","防具"],
 ["骨製彎曲弓","1","2","1","武器"],["上等絲綢服","3","0","1","防具"]] 
-monster = [["哥布林","6","3","1","2"],["女巫","8","5","1","3"],["盜賊","9","100","1","5"],["墮落的勇者","12","3","2","5"],["史萊姆","20","2","2","5"],["哥布林","6","3","1","2"],["女巫","8","5","1","3"],["盜賊","9","100","1","5"],["墮落的勇者","12","3","2","5"],["史萊姆","20","2","2","5"],["哥布林","6","3","1","2"],["女巫","8","5","1","3"],["盜賊","9","100","1","5"],["墮落的勇者","12","3","2","5"],["史萊姆","20","2","2","5"]]
-monster_url = [["哥布林","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E5%93%A5%E5%B8%83%E6%9E%97.png"],["女巫","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E5%A5%B3%E5%B7%AB.png"]]
+monster_1 =[["哥布林","5","3","1","2"],["奇面族","8","2","5","2"],["女巫","5","3","2","2"],["騷鳥","5","2","5","2"],["凶豺龍","10","5","3","2"],
+["雷狼龍","3","8","1","2"],["眩鳥","8","2","5","2"],["土沙龍","10","2","2","2"],["泥魚龍","6","2","4","2"],["神秘龍人","8","2","5","2"]] 
+monster_2 =[["地精長老","8","3","1","10"],["毒妖鳥","9","5","5","10"],["火龍","9","5","10","10"],["雌火龍","10","4","5","10"],["櫻火龍","10","5","3","10"],
+["蒼火龍","8","8","1","10"],["角龍","8","10","5","10"],["黑角龍","10","10","6","10"],["浮空龍","8","6","5","10"],["風漂龍","8","4","5","10"]]
+monster_3 =[["痺賊龍","12","8","10","20"],["麒麟","12","8","8","20"],["鋼龍","15","8","8","20"],["炎王龍","15","16","10","20"],["炎妃龍","15","15","13","20"],
+["滅盡龍","13","18","10","20"],["熔山龍","18","20","8","20"],["屍套龍","13","20","20","20"],["恐暴龍","18","20","8","20"],["蠻顎龍","18","20","9","20"]]
+monster_url = [
+    ["哥布林","https://github.com/a9200900/TOC-Project-2020/blob/master/img/%E5%93%A5%E5%B8%83%E6%9E%97.png"],
+    ["奇面族","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E5%85%B6%E9%BA%B5%E6%97%8F.jpg"],
+    ["女巫","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E5%A5%B3%E5%B7%AB.png"],
+    ["騷鳥","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E8%89%98%E9%B3%A5.jpg"],
+    ["凶豺龍","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E5%85%87%E8%B2%A1%E9%9A%86.png"],
+    ["雷狼龍","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E9%9B%B7%E9%83%8E%E9%BE%8D.png"],
+    ["眩鳥","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E7%9C%A9%E9%B3%A5.png"],
+    ["土沙龍","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E5%9C%9F%E6%B2%99%E9%BE%8D.png"],
+    ["泥魚龍","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E6%B3%A5%E6%96%BC%E9%9A%86.jpg"],
+    ["神秘龍人","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E7%A5%9E%E7%A7%98%E8%81%BE%E4%BA%BA.png"],
+    ["地精長老","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E5%9C%B0%E7%B2%BE%E9%95%B7%E8%80%81.png"],
+    ["毒妖鳥","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E6%AF%92%E9%82%80%E9%B3%A5.png"],
+    ["火龍","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E7%81%AB%E9%BE%8D.jpg"],
+    ["雌火龍","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E9%9B%8C%E7%81%AB%E9%BE%8D.png"],
+    ["櫻火龍","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E6%87%89%E7%81%AB%E9%BE%8D.jpg"],
+    ["蒼火龍","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E5%80%89%E7%81%AB%E9%BE%8D.jpg"],
+    ["角龍","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E8%A7%92%E9%BE%8D.png"],
+    ["黑角龍","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E9%BB%91%E8%A7%92%E9%BE%8D.png"],
+    ["浮空龍","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E6%9C%8D%E7%A9%BA%E9%BE%8D.jpg"],
+    ["風漂龍","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E9%A2%A8%E9%A3%84%E9%BE%8D.png"],
+    ["痺賊龍","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E5%BF%85%E8%B3%8A%E9%BE%8D.jpg"],
+    ["麒麟","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E9%BA%92%E9%BA%9F.jpg"],
+    ["鋼龍","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E5%89%9B%E9%BE%8D.jpg"],
+    ["炎王龍","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E9%96%BB%E7%8E%8B%E9%BE%8D.jpg"],
+    ["炎妃龍","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E5%BB%B6%E9%A3%9B%E9%BE%8D.png"],
+    ["滅盡龍","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E6%BB%85%E9%80%B2%E9%9A%86.jpg"],
+    ["熔山龍","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E5%AE%B9%E6%9D%89%E9%BE%8D.jpg"],
+    ["屍套龍","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E5%B8%AB%E5%A5%97%E9%BE%8D.jpg"],
+    ["恐暴龍","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E6%81%90%E6%9A%B4%E9%BE%8D.jpg"],
+    ["蠻顎龍","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E9%B0%BB%E6%83%A1%E9%BE%8D.png"]
+]
 monster_now = []
 monster_now_url=""
 monster_now_count = -1
@@ -903,9 +939,12 @@ class TocMachine(GraphMachine):
                 attribute_for_health_equip += 1
 
     def check_map(self,event):
-        global map_now_count,map,map_now,monster,monster_now,monster_now_count,monster_url,monster_now_url,map_now_count,map_1,map_2,map_3
-        monster_now_count +=1
-        monster_now = monster[monster_now_count]
+        global map_now_count,map,map_now,monster_1,monster_2,monster_3,monster_now,monster_now_count,monster_url,monster_now_url,map_now_count,map_1,map_2,map_3
+        #monster_now_count +=1
+        if map_now_count >= 0:
+            if map_now_count <6:
+                monster_now = random.choice(monster_1)
+                monster_1.remove(monster_now)
         for i in monster_url:
             if monster_now[0] == i[0]:
                 monster_now_url = i[1]

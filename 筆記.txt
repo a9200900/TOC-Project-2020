@@ -13,7 +13,7 @@
     ["女巫","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E5%A5%B3%E5%B7%AB.png"],
     ["騷鳥","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E8%89%98%E9%B3%A5.jpg"],
     ["凶豺龍","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E5%85%87%E8%B2%A1%E9%9A%86.png"],
-    ["雷狼龍","https://p2.bahamut.com.tw/B/2KU/84/61996197ceb1151b102c15ab6e162kk5.JPG"],
+    ["雷狼龍","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E9%9B%B7%E9%83%8E%E9%BE%8D.png"],
     ["眩鳥","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E7%9C%A9%E9%B3%A5.png"],
     ["土沙龍","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E5%9C%9F%E6%B2%99%E9%BE%8D.png"],
     ["泥魚龍","https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E6%B3%A5%E6%96%BC%E9%9A%86.jpg"],
