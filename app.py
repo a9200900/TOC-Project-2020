@@ -397,6 +397,8 @@ def webhook_handler():
             send_image(event.reply_token , "https://a9200900.herokuapp.com/show-fsm")
         if event.message.text == "restart":
             machine.state = "intro"
+        if event.message.text == "cheat":
+            machine.cheat(event)
     return "OK"
 
 
