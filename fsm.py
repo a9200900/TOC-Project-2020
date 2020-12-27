@@ -410,7 +410,7 @@ class TocMachine(GraphMachine):
                                 actions=[
                                     MessageTemplateAction(
                                         label = '攻擊',
-                                        text = '攻擊1'
+                                        text = '攻擊'
                                     ),
                                     MessageTemplateAction(
                                         label = '攻擊2',
@@ -441,7 +441,7 @@ class TocMachine(GraphMachine):
     
     def on_enter_state_store(self , event):
         line_bot_api.reply_message(
-                        event.reply_token,
+                        event.reply_token,[
                         TemplateSendMessage(
                             alt_text ='Buttons template',
                             template = ButtonsTemplate(
@@ -453,8 +453,8 @@ class TocMachine(GraphMachine):
                                         text = '藥水'
                                     ),
                                     MessageTemplateAction(
-                                        label = '刀',
-                                        text = '刀'
+                                        label = '裝備',
+                                        text = '裝備'
                                     ),
                                     MessageTemplateAction(
                                         label = '返回',
@@ -462,7 +462,8 @@ class TocMachine(GraphMachine):
                                     )
                                 ]
                             )
-                        )
+                        ),TextSendMessage(text="遇到商人,可在此購買道具。")
+                        ]
                     )
               
     
@@ -1086,20 +1087,20 @@ class TocMachine(GraphMachine):
         if map_now_count >= 0 :
             if map_now_count <6:
                 if map_1[map_now_count][1] == "商店":
-                    reply_token = event.reply_token
-                    send_text_message(reply_token, "遇到商人,可購買商品。") 
+                    #reply_token = event.reply_token
+                    #send_text_message(reply_token, "遇到商人,可購買商品。") 
                     return "商店"  
         if map_now_count >=6 :
             if map_now_count <12:
                 if map_2[map_now_count-6][1] == "商店":
-                    reply_token = event.reply_token
-                    send_text_message(reply_token, "遇到商人,可購買商品。") 
+                    #reply_token = event.reply_token
+                    #send_text_message(reply_token, "遇到商人,可購買商品。") 
                     return "商店"  
         if map_now_count >=12 :
             if map_now_count <18:
                 if map_3[map_now_count-12][1] == "商店":
-                    reply_token = event.reply_token
-                    send_text_message(reply_token, "遇到商人,可購買商品。") 
+                    #reply_token = event.reply_token
+                    #send_text_message(reply_token, "遇到商人,可購買商品。") 
                     return "商店"  
         
     def situation(self,event):
