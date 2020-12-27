@@ -1214,6 +1214,7 @@ class TocMachine(GraphMachine):
         tmp_level = level
         upgrade_text =""
         tmp = 0
+        drop_tmp = ""
         exp += int(monster_now[4])
         if exp >=5 :
             level = 2
@@ -1237,16 +1238,19 @@ class TocMachine(GraphMachine):
 
         if occupation =="狂戰士":
             tmp = random.randint(1,10)
-            if tmp ==1:
+            if tmp <= 5:
                 if monster_now_count>=0:
                     if monster_now_count <6:
-                        backpack.append(random.choice(drop_1_sword))
+                        drop_tmp = random.choice(drop_1_sword)
+                        backpack.append(drop_tmp)
                 if monster_now_count>=6:
                     if monster_now_count <12:
-                        backpack.append(random.choice(drop_2_sword))
+                        drop_tmp = random.choice(drop_2_sword)
+                        backpack.append(drop_tmp)
                 if monster_now_count>=12:
                     if monster_now_count <18:
-                        backpack.append(random.choice(drop_3_sword))
+                        drop_tmp = random.choice(drop_3_sword)
+                        backpack.append(drop_tmp)
 
         
         line_bot_api.reply_message(
