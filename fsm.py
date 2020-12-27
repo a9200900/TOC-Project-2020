@@ -1244,7 +1244,7 @@ class TocMachine(GraphMachine):
                     if monster_now_count <6:
                         drop_tmp = random.choices(drop_1_sword)
                         backpack.append(drop_tmp)
-                        #backpack.append()
+                        backpack.append("炎王龍雙刀")
                         tmp_text ="\n怪物掉落了 "+drop_tmp
                 if monster_now_count>=6:
                     if monster_now_count <12:
