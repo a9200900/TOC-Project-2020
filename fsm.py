@@ -24,8 +24,12 @@ exp = 0
 money = 0
 backpack = []
 equipment = []
-attribute = [["普通大劍" , "0" ,"1","1","武器"] ,["短杖","0","1","1","武器"] ,["短弓","0","1","1","武器"] ,["破舊的大衣","1","0","1","防具"],["初級魔法袍","1","0","1","防具"],["簡陋的衣裝","1","0","1","防具"],["鋒利的彎刀","1","2","1","武器"],["鎖子甲","3","0","1","防具"],["精緻魔杖","1","2","1","武器"],["上等法袍","3","0","1","防具"],
-["骨製彎曲弓","1","2","1","武器"],["上等絲綢服","3","0","1","防具"]] 
+attribute = [["普通大劍" , "0" ,"1","1","武器"] ,["短杖","0","1","1","武器"] ,["短弓","0","1","1","武器"] ,["破舊的大衣","1","0","1","防具"],
+["初級魔法袍","1","0","1","防具"],["簡陋的衣裝","1","0","1","防具"],["鋒利的彎刀","1","2","1","武器"],["鎖子甲","3","0","1","防具"],["精緻魔杖","1","2","1","武器"],
+["上等法袍","3","0","1","防具"],["骨製彎曲弓","1","2","1","武器"],["上等絲綢服","3","0","1","防具"],["角龍大劍","2","3","1","武器"],["女巫法書","2","3","1","武器"],
+["角龍弓","2","3","1","武器"],["兇財龍套裝","5","1","2","防具"],["雷狼龍魔劍","4","5","2","武器"],["雷狼龍魔杖","4","5","2","武器"],["雷狼龍魔弓","4","5","2","武器"],
+["泥魚龍套裝","7","2","3","防具"],["滅盡龍太刀","5","6","3","武器"],["滅盡龍魔書","5","6","3","武器"],["滅盡龍弓","5","6","3","武器"],["蒼火龍防具","6","1","3","防具"],
+["炎王龍雙刀","6","7","4","武器"],["炎王龍火杖","6","7","4","武器"],["炎王龍火弓","6","7","4","武器"],["鋼龍套服","10","2","5","防具"]] 
 monster_1 =[["哥布林","5","3","1","2"],["奇面族","8","2","5","2"],["女巫","5","3","2","2"],["騷鳥","5","2","5","2"],["凶豺龍","10","5","3","2"],
 ["雷狼龍","3","8","1","2"],["眩鳥","8","2","5","2"],["土沙龍","10","2","2","2"],["泥魚龍","6","2","4","2"],["神秘龍人","8","2","5","2"]] 
 monster_2 =[["地精長老","8","3","1","10"],["毒妖鳥","9","5","5","10"],["火龍","9","5","10","10"],["雌火龍","10","4","5","10"],["櫻火龍","10","5","3","10"],
@@ -73,7 +77,18 @@ map_2 = [["瘴氣之谷","戰鬥"],["東營地","商店"],["陸珊瑚台地","�
 map_3 = [["龍結晶之地","戰鬥"],["星辰據點","商店"],["永霜凍土","戰鬥"],["雪山洞穴","戰鬥"],["沙漠山丘","戰鬥"],["強風之古","戰鬥"]]
 map_now = ""
 map_now_count = -1
-drops = [["狂戰士","鋒利的彎刀","鎖子甲"] , ["黑暗法師","精緻魔杖","上等法袍"] , ["精靈射手","骨製彎曲弓","上等絲綢服"]]
+drops = [["狂戰士","鋒利的彎刀","鎖子甲","角龍大劍","兇財龍套裝","雷狼龍魔劍","泥魚龍套裝","滅盡龍太刀","蒼火龍防具","炎王龍雙刀","鋼龍套服"] ,
+ ["黑暗法師","精緻魔杖","上等法袍","女巫法書","兇財龍套裝","雷狼龍魔杖","泥魚龍套裝","滅盡龍魔書","蒼火龍防具","炎王龍火杖","鋼龍套服"] 
+ , ["精靈射手","骨製彎曲弓","上等絲綢服","角龍弓","兇財龍套裝","雷狼龍魔弓","泥魚龍套裝","滅盡龍弓","蒼火龍防具","炎王龍火弓","鋼龍套服"]]
+drop_1_sword =["鋒利的彎刀","鎖子甲","角龍大劍","兇財龍套裝"]
+drop_2_sword = ["雷狼龍魔劍","泥魚龍套裝","滅盡龍太刀","蒼火龍防具"]
+drop_3_sword =["炎王龍雙刀","鋼龍套服"]
+drop_1_magic =["精緻魔杖","上等法袍","女巫法書","兇財龍套裝"]
+drop_2_magic = ["雷狼龍魔杖","泥魚龍套裝","滅盡龍魔書","蒼火龍防具"]
+drop_3_magic = ["炎王龍火杖","鋼龍套服"]
+drop_1_arch = ["骨製彎曲弓","上等絲綢服","角龍弓","兇財龍套裝"]
+drop_2_arch = ["雷狼龍魔弓","泥魚龍套裝","滅盡龍弓","蒼火龍防具"]
+drop_3_arch = ["炎王龍火弓","鋼龍套服"]
 attribute_for_health=0
 attribute_for_health_equip=0
 attribute_for_health_weapon=0
@@ -168,7 +183,6 @@ class TocMachine(GraphMachine):
 
         return flag
     def on_enter_start(self , event):
-        
         line_bot_api.reply_message(
                         event.reply_token,
                         TemplateSendMessage(
@@ -197,8 +211,7 @@ class TocMachine(GraphMachine):
                             )
                         )
                     )
-    def show_start(self , event):
-        
+    def show_start(self , event): 
         line_bot_api.reply_message(
                         event.reply_token,
                         TemplateSendMessage(
@@ -295,7 +308,7 @@ class TocMachine(GraphMachine):
         defense_equip=0
         if occupation == "狂戰士":
             health_body = 12
-            attack_body = 2
+            attack_body = 200
             defense_body = 3
             equipment = ["普通大劍" , "破舊的大衣"] 
             for i in attribute:
@@ -681,7 +694,7 @@ class TocMachine(GraphMachine):
         send_text_message(reply_token, "裝備更換成功。\n輸入 返回 回到角色選單")
 
     def change_equip(self,event):
-        global backpack,equipment,backpack,attribute,drops,attribute_for_health,health_equip,health_equip_tmp,attribute_for_health_equip
+        global backpack,equipment,backpack,attribute,drops,attribute_for_health,health_equip,attribute_for_health_equip
         equip_name =""
         equip_name = event.message.text
         tmp = ""
@@ -897,7 +910,7 @@ class TocMachine(GraphMachine):
                 for i in map_3:
                     path += i[0] + " ==> "
                 map_now = map_3[map_now_count-12][0]
-                path += "傳送門"
+                path += "終點"
 
         
         reply_token = event.reply_token
@@ -1196,9 +1209,11 @@ class TocMachine(GraphMachine):
                         
                     )
     def show_result(self,event):
-        global money,monster_now,monster,map_now_count,health_max,health_now,attack,defense,exp,level,occupation,drops,backpack,health_body,attack_body,defense_body
+        global money,monster_now,map_now_count,health_max,health_now,attack,defense,exp,level,occupation,drops,backpack,health_body,attack_body,defense_body,drop_1_sword,drop_2_sword
+        global drop_3_sword,drop_1_magic,drop_2_magic,drop_3_magic,drop_1_arch,drop_2_arch,drop_3_arch,monster_now_count
         tmp_level = level
         upgrade_text =""
+        tmp = 0
         exp += int(monster_now[4])
         if exp >=5 :
             level = 2
@@ -1213,32 +1228,26 @@ class TocMachine(GraphMachine):
                 health_now += 3
                 attack_body += 2
                 defense_body += 1
+
             if level == 3:
                 health_body += 3
                 health_now += 3
                 attack_body += 2
                 defense_body += 1
 
-        # for i in drops:
-        #     if monster_now[0] == i[0]:
-        #         backpack.append(i[])
-        if monster_now[0]=="哥布林":
-            if occupation =="狂戰士":
-                backpack.append(drops[0][1])
-            if occupation =="黑暗法師":
-                backpack.append(drops[1][1])
-                money += 5
-            if occupation =="精靈射手":
-                backpack.append(drops[2][1])
+        if occupation =="狂戰士":
+            tmp = random.randint(1,10)
+            if tmp ==1:
+                if monster_now_count>=0:
+                    if monster_now_count <6:
+                        backpack.append(random.choice(drop_1_sword))
+                if monster_now_count>=6:
+                    if monster_now_count <12:
+                        backpack.append(random.choice(drop_2_sword))
+                if monster_now_count>=12:
+                    if monster_now_count <18:
+                        backpack.append(random.choice(drop_3_sword))
 
-        if monster_now[0]=="女巫":
-            if occupation =="狂戰士":
-                backpack.append(drops[0][2])
-            if occupation =="黑暗法師":
-                backpack.append(drops[1][2])
-                money += 10
-            if occupation =="精靈射手":
-                backpack.append(drops[2][2])
         
         line_bot_api.reply_message(
                         event.reply_token,[
