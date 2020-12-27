@@ -379,12 +379,12 @@ def webhook_handler():
         if machine.state == "state_buying_portion":
             if event.message.text == "生命粉塵":
                 machine.health_portion(event)
-        # if machine.state == "state_buying_portion":
-        #     if event.message.text == "鬼人粉塵":
-
-        # if machine.state == "state_buying_portion":
-        #     if event.message.text == "硬化粉塵":
-
+        if machine.state == "state_buying_portion":
+            if event.message.text == "鬼人粉塵":
+                machine.attack_portion(event)
+        if machine.state == "state_buying_portion":
+            if event.message.text == "硬化粉塵":
+                machine.defense_portion(event)
         #dead state
         if machine.state == "state_dead":
             if event.message.text == "復活":

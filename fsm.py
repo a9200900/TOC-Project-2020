@@ -505,6 +505,27 @@ class TocMachine(GraphMachine):
             using_item[0][1] = str( int(using_item[0][1] ) + 1 ) 
             reply_token = event.reply_token
             send_text_message(reply_token, "購買了一個生命粉塵。\n可繼續購買或是輸入 返回 回到選單")
+
+    def attack_portion(self,event):
+        global using_item,money
+        if money < 20 :
+            reply_token = event.reply_token
+            send_text_message(reply_token, "金幣不夠,無法購買。")
+        else:
+            money -= 20
+            using_item[2][1] = str( int(using_item[2][1] ) + 1 ) 
+            reply_token = event.reply_token
+            send_text_message(reply_token, "購買了一個鬼人粉塵。\n可繼續購買或是輸入 返回 回到選單")
+    def defense_portion(self,event):
+        global using_item,money
+        if money < 20 :
+            reply_token = event.reply_token
+            send_text_message(reply_token, "金幣不夠,無法購買。")
+        else:
+            money -= 20
+            using_item[3][1] = str( int(using_item[3][1] ) + 1 ) 
+            reply_token = event.reply_token
+            send_text_message(reply_token, "購買了一個硬化粉塵。\n可繼續購買或是輸入 返回 回到選單")
     def item(self , event):
         global backpack,attribute,drops,using_item
         item_in_backpack = ""
