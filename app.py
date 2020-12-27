@@ -5,7 +5,7 @@ from flask import Flask, jsonify, request, abort, send_file
 from dotenv import load_dotenv
 from linebot import LineBotApi, WebhookParser
 from linebot.exceptions import InvalidSignatureError
-from linebot.models import (MessageEvent, TextMessage, TextSendMessage,TemplateSendMessage,ButtonsTemplate,MessageTemplateAction)
+from linebot.models import (MessageEvent, TextMessage, TextSendMessage,TemplateSendMessage,ButtonsTemplate,MessageTemplateAction,ImageSendMessage)
 
 from fsm import TocMachine
 from utils import send_text_message
@@ -136,7 +136,7 @@ machine = TocMachine(
          "source": "state_store",
           "dest": "state_buying_portion" ,
         },
-        {"trigger": "go_back_state_store_portion",
+        {"trigger": "go_back_state_buying_portion",
          "source": "state_buying_porttion",
           "dest": "state_store" ,
         },
@@ -375,7 +375,7 @@ def webhook_handler():
         #portion state
         if machine.state == "state_buying_portion":
             if event.message.text == "返回":
-                machine.go_back_state_store_portion(event)
+                machine.go_back_state_buying_portion(event)
         if machine.state == "state_buying_portion":
             if event.message.text == "生命粉塵":
                 machine.health_portion(event)
@@ -395,6 +395,8 @@ def webhook_handler():
         #if response == False:
         #    send_text_message(event.reply_token, "Not Entering any State")
 
+        if event.message.text == "fsm":
+            ImageSendMessage(event.reply_token,original_content_url="https://a9200900.herokuapp.com/show-fsm",preview_image_url="https://a9200900.herokuapp.com/show-fsm")
     return "OK"
 
 
