@@ -1240,17 +1240,21 @@ class TocMachine(GraphMachine):
         if occupation =="狂戰士":
             tmp = random.randint(1,10)
             if tmp <= 5:
-                backpack.append(random.choice(drop_1_sword))
-                backpack.append("炎王龍雙刀")
-                tmp_text ="\n怪物掉落了 "+drop_tmp
-                if monster_now_count>=6:
-                    if monster_now_count <12:
-                        drop_tmp = random.choices(drop_2_sword)
+                if map_now_count>=0:
+                    if map_now_count <6:
+                        drop_tmp = random.choice(drop_1_sword)
                         backpack.append(drop_tmp)
-                if monster_now_count>=12:
-                    if monster_now_count <18:
-                        drop_tmp = random.choices(drop_3_sword)
+                        tmp_text ="\n怪物掉落了 "+drop_tmp
+                if map_now_count>=6:
+                    if map_now_count <12:
+                        drop_tmp = random.choice(drop_2_sword)
                         backpack.append(drop_tmp)
+                        tmp_text ="\n怪物掉落了 "+drop_tmp
+                if map_now_count>=12:
+                    if map_now_count <18:
+                        drop_tmp = random.choice(drop_3_sword)
+                        backpack.append(drop_tmp)
+                        tmp_text ="\n怪物掉落了 "+drop_tmp
 
         
         line_bot_api.reply_message(
