@@ -368,9 +368,7 @@ def webhook_handler():
         if machine.state == "state_store":
             if event.message.text == "道具":
                 machine.to_state_buying_portion(event)
-        # if machine.state == "state_store":
-        #     if event.message.text == "裝備":
-        #         machine.
+
 
         #portion state
         if machine.state == "state_buying_portion":
@@ -390,13 +388,15 @@ def webhook_handler():
             if event.message.text == "復活":
                 machine.reborn(event)
                 machine.go_back_state_fight_dead(event)
-
+        
         #response = machine.advance(event)
         #if response == False:
         #    send_text_message(event.reply_token, "Not Entering any State")
 
         if event.message.text == "fsm":
             send_image(event.reply_token , "https://a9200900.herokuapp.com/show-fsm")
+        if event.message.text == "restart":
+            machine.state = "intro"
     return "OK"
 
 

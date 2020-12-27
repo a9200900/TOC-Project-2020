@@ -93,6 +93,8 @@ attribute_for_health=0
 attribute_for_health_equip=0
 attribute_for_health_weapon=0
 using_item=[]
+boss = ["黑龍","100","20","15","100"]
+boss_url = "https://raw.githubusercontent.com/a9200900/TOC-Project-2020/master/img/%E9%BB%91%E9%BE%8D.jpg"
 
 class TocMachine(GraphMachine):
     def __init__(self, **machine_configs):
@@ -453,10 +455,6 @@ class TocMachine(GraphMachine):
                                         text = '道具'
                                     ),
                                     MessageTemplateAction(
-                                        label = '裝備',
-                                        text = '裝備'
-                                    ),
-                                    MessageTemplateAction(
                                         label = '返回',
                                         text = '返回'
                                     )
@@ -476,15 +474,15 @@ class TocMachine(GraphMachine):
                                 text = '神秘商人:這裡有許多道具,隨便看看吧。',
                                 actions=[
                                     MessageTemplateAction(
-                                        label = '生命粉塵',
+                                        label = '生命粉塵(5金幣)',
                                         text = '生命粉塵'
                                     ),
                                     MessageTemplateAction(
-                                        label = '鬼人粉塵',
+                                        label = '鬼人粉塵(20金幣)',
                                         text = '鬼人粉塵'
                                     ),
                                     MessageTemplateAction(
-                                        label = '硬化粉塵',
+                                        label = '硬化粉塵(20金幣)',
                                         text = '硬化粉塵'
                                     ),
                                     MessageTemplateAction(
@@ -992,6 +990,7 @@ class TocMachine(GraphMachine):
         if map_now_count >=12:
             if map_now_count <18:
                 map_now = map_3[map_now_count-12][0]
+        
 
         health_equip = 0
         attack_equip =0
@@ -1016,7 +1015,7 @@ class TocMachine(GraphMachine):
                 attribute_for_health_equip += 1
 
     def check_map(self,event):
-        global map_now_count,map,map_now,monster_1,monster_2,monster_3,monster_now,monster_now_count,monster_url,monster_now_url,map_now_count,map_1,map_2,map_3
+        global boss,boss_url,map_now_count,map,map_now,monster_1,monster_2,monster_3,monster_now,monster_now_count,monster_url,monster_now_url,map_now_count,map_1,map_2,map_3
         #monster_now_count +=1
         if map_now_count >= 0:
             if map_now_count <6:
@@ -1033,6 +1032,10 @@ class TocMachine(GraphMachine):
         for i in monster_url:
             if monster_now[0] == i[0]:
                 monster_now_url = i[1]
+        if map_now_count == 18:
+            monster_now=boss
+            monster_now_url = boss_url
+
         if map_now_count >= 0 :
             if map_now_count <6:
                 if map_1[map_now_count][1] == "戰鬥":
@@ -1143,6 +1146,40 @@ class TocMachine(GraphMachine):
                                 ]
                             )
                     return "戰鬥"
+        if map_now_count == 18:
+            line_bot_api.reply_message(
+                                event.reply_token,[
+                                TemplateSendMessage(
+                                    alt_text ='Buttons template',
+                                    template = ButtonsTemplate(
+                                        title = '對決',
+                                        text = '可先查看當前狀態已了解魔物，在決定下一步怎麼辦。',
+                                        actions=[
+                                            MessageTemplateAction(
+                                                label = '攻擊',
+                                                text = '攻擊'
+                                            ),
+                                            MessageTemplateAction(
+                                                label = '攻擊2',
+                                                text = '攻擊2'
+                                            ),
+                                            MessageTemplateAction(
+                                                label = '道具',
+                                                text = '道具'
+                                            ),
+                                            MessageTemplateAction(
+                                                label = '當前狀態',
+                                                text = '當前狀態'
+                                            )
+                                        ]
+                                    )
+                                ),
+                                    TextSendMessage(text="遇到了"+monster_now[0]+"，立刻攻擊!"),
+                                    ImageSendMessage(original_content_url=monster_now_url,preview_image_url=monster_now_url)
+                                    
+                                ]
+                            )
+            return "戰鬥"
         if map_now_count >= 0 :
             if map_now_count <6:
                 if map_1[map_now_count][1] == "商店":
