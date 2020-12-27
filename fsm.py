@@ -222,7 +222,7 @@ class TocMachine(GraphMachine):
         send_text_message(reply_token, "無盡天使: "+name +"勇者大人，歡迎你的到來!\n"+line+"輸入 返回 回到角色選單")
 
     def set_occupation(self,event):
-        global map_1,map_2,map_3,map_tmp_1,money,occupation,attack_body,health_body,defense_body,backpack,equipment,attribute,health_max,health_now,attack,defense,attribute_for_health,health_equip,attack_equip,defense_equip,attribute_for_health_equip , attribute_for_health_weapon,using_item
+        global map_1,map_2,map_3,money,occupation,attack_body,health_body,defense_body,backpack,equipment,attribute,health_max,health_now,attack,defense,attribute_for_health,health_equip,attack_equip,defense_equip,attribute_for_health_equip , attribute_for_health_weapon,using_item
         occupation = event.message.text
         health_equip = 0
         attack_equip =0
@@ -810,7 +810,7 @@ class TocMachine(GraphMachine):
             for i in map_1:
                 path += i[0] +" ==> "
                 map_now = "新手鎮"
-                path += "傳送門"
+            path += "傳送門"
         if map_now_count >=0:
             if map_now_count <6:
                 path = "新手鎮 ==> "
@@ -818,18 +818,18 @@ class TocMachine(GraphMachine):
                     path += i[0] + " ==> "
                 map_now = map_1[map_now_count][0]
                 path += "傳送門"
-        if map_now_count == 6:
-            path = "傳送門 ==> "
-            for i in map_2:
-                path += i[0] +" ==> "
-                map_now = "傳送門"
-                path += "傳送門"
-        if map_now_count >6:
-            if map_now_count <13:
+        # if map_now_count == 6:
+        #     path = "傳送門 ==> "
+        #     for i in map_2:
+        #         path += i[0] +" ==> "
+        #         map_now = "傳送門"
+        #     path += "傳送門"
+        if map_now_count >=6:
+            if map_now_count <12:
                 path = "傳送門 ==> "
                 for i in map_2:
                     path += i[0] + " ==> "
-                map_now = map_2[map_now_count-7][0]
+                map_now = map_2[map_now_count-6][0]
                 path += "傳送門"
 
         
@@ -846,9 +846,9 @@ class TocMachine(GraphMachine):
         if map_now_count >=0:
             if map_now_count <6:
                 map_now = map_1[map_now_count][0]
-        if map_now_count >6:
-            if map_now_count <13:
-                map_now = map_2[map_now_count-7][0]
+        if map_now_count >=6:
+            if map_now_count <12:
+                map_now = map_2[map_now_count-6][0]
 
         health_equip = 0
         attack_equip =0
@@ -916,9 +916,9 @@ class TocMachine(GraphMachine):
                                 
                             )
                     return "戰鬥"  
-        if map_now_count >6 :
-            if map_now_count <13:
-                if map_2[map_now_count-7][1] == "戰鬥":
+        if map_now_count >=6 :
+            if map_now_count <12:
+                if map_2[map_now_count-6][1] == "戰鬥":
                     line_bot_api.reply_message(
                                 event.reply_token,[
                                 TemplateSendMessage(
@@ -960,9 +960,9 @@ class TocMachine(GraphMachine):
                     reply_token = event.reply_token
                     send_text_message(reply_token, "遇到商人,可購買商品。") 
                     return "商店"  
-        if map_now_count >6 :
-            if map_now_count <13:
-                if map_2[map_now_count-7][1] == "商店":
+        if map_now_count >=6 :
+            if map_now_count <12:
+                if map_2[map_now_count-6][1] == "商店":
                     reply_token = event.reply_token
                     send_text_message(reply_token, "遇到商人,可購買商品。") 
                     return "商店"  
