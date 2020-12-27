@@ -35,7 +35,7 @@ map = [["新手鎮","休息"],["幽靜小路","戰鬥"],["被詛咒的沼澤","�
 map_1 = [["古代樹之森","戰鬥"],["大蟻塚荒地","戰鬥"],["北東營地","商店"],["幽靜小路","戰鬥"],["被詛咒的沼澤","戰鬥"],["山洞","戰鬥"]]
 map_2 = [["瘴氣之谷","戰鬥"],["東營地","商店"],["陸珊瑚台地","戰鬥"],["邪魔神之地","戰鬥"],["岩漿地區","戰鬥"],["魔物巢穴","戰鬥"]]
 map_3 = [["龍結晶之地","戰鬥"],["星辰據點","商店"],["永霜凍土","戰鬥"],["雪山洞穴","戰鬥"],["沙漠山丘","戰鬥"],["強風之古","戰鬥"]]
-map_now = []
+map_now = ""
 map_tmp_1 = []
 map_now_count = -1
 drops = [["狂戰士","鋒利的彎刀","鎖子甲"] , ["黑暗法師","精緻魔杖","上等法袍"] , ["精靈射手","骨製彎曲弓","上等絲綢服"]]
@@ -821,14 +821,14 @@ class TocMachine(GraphMachine):
             if map_now_count <6:
                 for i in map_1:
                     path += i[0] + " ==> "
-                map_now = map_1[map_now_count]
+                map_now = map_1[map_now_count][0]
         
         
         
         reply_token = event.reply_token
         send_text_message(reply_token, "路線為: \n"+ path +"\n"+
                                         line+
-                                        "當前位置為: \n"+ map_now[0] +"\n"+
+                                        "當前位置為: \n"+ map_now +"\n"+
                                         line+
                                         "輸入 返回 回到選單" ) 
 
@@ -837,7 +837,7 @@ class TocMachine(GraphMachine):
         map_now_count += 1
         if map_now_count >=0:
             if map_now_count <6:
-                map_now = map_1[map_now_count]
+                map_now = map_1[map_now_count][0]
 
         health_equip = 0
         attack_equip =0
