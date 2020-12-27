@@ -102,7 +102,7 @@ class TocMachine(GraphMachine):
 
     def introduce(self , event):
         reply_token = event.reply_token
-        send_text_message(reply_token, "無盡天使:現在是魔王曆128年,自從上一位勇者犧牲已經100多年了，沒有人能夠與現在的魔王抗衡，希望勇者您能幫助我們打到魔王!") 
+        send_text_message(reply_token, "調查員:夥伴,你來了!\n現在板塊正劇烈晃動,一定是有魔物出沒,\n可以請你幫我去調查魔物嗎?") 
     def on_enter_intro(self , event):
 
         line_bot_api.reply_message(
@@ -111,7 +111,7 @@ class TocMachine(GraphMachine):
                             alt_text ='Buttons template',
                             template = ButtonsTemplate(
                                 title = '選項',
-                                text = '無盡天使:歡迎來到這個世界，你一定是上帝派來拯救我們的勇者，請你幫助我們打到大魔王『黑龍』!',
+                                text = '調查員:歡迎來到這個世界，勇敢的獵人請你幫助我們打到大魔王『黑龍』!',
                                 actions=[
                                     MessageTemplateAction(
                                         label = '人物介紹',
@@ -132,7 +132,7 @@ class TocMachine(GraphMachine):
                             alt_text ='Buttons template',
                             template = ButtonsTemplate(
                                 title = '選項',
-                                text = '無盡天使:歡迎來到這個世界，你一定是上帝派來拯救我們的勇者，請你幫助我們打到大魔王『斯巴拉斯．魔迪耶爾』!',
+                                text = '調查員:歡迎來到這個世界，勇敢的獵人請你幫助我們打到大魔王『黑龍』!',
                                 actions=[
                                     MessageTemplateAction(
                                         label = '人物介紹',
@@ -154,7 +154,7 @@ class TocMachine(GraphMachine):
                             alt_text ='Buttons template',
                             template = ButtonsTemplate(
                                 title = '建立角色',
-                                text = '無盡天使:請依序輸入您的大名，以及想要遊玩的職業。輸入完後點擊完成，開始冒險。',
+                                text = '調查員:請依序輸入您的大名，以及想要遊玩的職業。輸入完後點擊完成，開始冒險。',
                                 actions=[
                                     MessageTemplateAction(
                                         label = '設定名稱',
@@ -300,7 +300,7 @@ class TocMachine(GraphMachine):
         global name
         reply_token = event.reply_token
         line = '-----------------------\n'
-        send_text_message(reply_token, "無盡天使: "+name +"勇者大人，歡迎你的到來!\n"+line+"輸入 返回 回到角色選單")
+        send_text_message(reply_token, "調查員: "+name +"勇者大人，歡迎你的到來!\n"+line+"輸入 返回 回到角色選單")
 
     def set_occupation(self,event):
         global map_1,map_2,map_3,money,occupation,attack_body,health_body,defense_body,backpack,equipment,attribute,health_max,health_now,attack,defense,attribute_for_health,health_equip,attack_equip,defense_equip,attribute_for_health_equip , attribute_for_health_weapon,using_item
@@ -310,7 +310,7 @@ class TocMachine(GraphMachine):
         defense_equip=0
         if occupation == "狂戰士":
             health_body = 12
-            attack_body = 200
+            attack_body = 3
             defense_body = 3
             equipment = ["普通大劍" , "破舊的大衣"] 
             for i in attribute:
@@ -385,7 +385,7 @@ class TocMachine(GraphMachine):
         random.shuffle(map_2)
         random.shuffle(map_3)
         reply_token = event.reply_token
-        send_text_message(reply_token, "無盡天使: 你選擇的職業是 "+occupation +"，馬上展開你的冒險吧!\n"+line+"輸入 返回 回到角色選單")
+        send_text_message(reply_token, "調查員: 你選擇的職業是 "+occupation +"，馬上展開你的冒險吧!\n"+line+"輸入 返回 回到角色選單")
 
     def on_enter_state_fight(self , event):
         global health_equip,attack_equip,defense_equip,attribute,equipment,health_max,attack,defense,health_body,attack_body,defense_body
@@ -839,7 +839,7 @@ class TocMachine(GraphMachine):
 
     def on_enter_enter_name(self ,event):
         reply_token = event.reply_token
-        send_text_message(reply_token, "無盡天使:請告訴我您的大名。")
+        send_text_message(reply_token, "調查員:請告訴我您的大名。")
     def show_build(self,event):
         line_bot_api.reply_message(
                         event.reply_token,
@@ -847,7 +847,7 @@ class TocMachine(GraphMachine):
                             alt_text ='Buttons template',
                             template = ButtonsTemplate(
                                 title = '建立角色',
-                                text = '無盡天使:請依序輸入您的大名，以及想要遊玩的職業。輸入完後點擊完成，開始冒險。',
+                                text = '調查員:請依序輸入您的大名，以及想要遊玩的職業。輸入完後點擊完成，開始冒險。',
                                 actions=[
                                     MessageTemplateAction(
                                         label = '設定名稱',
@@ -877,7 +877,7 @@ class TocMachine(GraphMachine):
                             alt_text ='Buttons template',
                             template = ButtonsTemplate(
                                 title = '選擇職業',
-                                text = '無盡天使:請選擇想要遊玩的職業，每個職業都有其強大的力量。',
+                                text = '調查員:請選擇想要遊玩的職業，每個職業都有其強大的力量。',
                                 actions=[
                                     MessageTemplateAction(
                                         label = '狂戰士',
@@ -906,7 +906,7 @@ class TocMachine(GraphMachine):
                             alt_text ='Buttons template',
                             template = ButtonsTemplate(
                                 title = '選擇職業',
-                                text = '無盡天使:請選擇想要遊玩的職業，每個職業都有其強大的力量。',
+                                text = '調查員:請選擇想要遊玩的職業，每個職業都有其強大的力量。',
                                 actions=[
                                     MessageTemplateAction(
                                         label = '狂戰士',
@@ -927,7 +927,7 @@ class TocMachine(GraphMachine):
                                 ]
                             )
                         ),
-                            TextSendMessage(text="無盡天使:角色職業總共分為三大類,\n"+
+                            TextSendMessage(text="調查員:角色職業總共分為三大類,\n"+
                                         '-----------------------\n'+
                                         "狂戰士: 具有強大防禦力以及血量的維京人戰士，能夠穩定的輸出且續戰力驚人。\n使用武器為:刀、劍類\n\n"+
                                         "黑暗法師: 掌握魔法力量的法師，來自地下神秘組織，試圖用魔法掌控世界的走向。攻擊力相當高，防禦則相對薄弱。\n使用武器為:法仗\n\n"+
@@ -1414,7 +1414,7 @@ class TocMachine(GraphMachine):
 
         if map_now_count == 18:
             reply_token = event.reply_token
-            send_text_message(reply_token, "黑龍被你擊敗了,這個世界又恢復了和平。\n多虧了勇者您的表現。\n輸入 restart 來重新開始。")
+            send_text_message(reply_token, "黑龍被你擊敗了,這個世界又恢復了和平。\n多虧了勇者您的表現。")
         else:
             line_bot_api.reply_message(
                             event.reply_token,[
