@@ -449,8 +449,8 @@ class TocMachine(GraphMachine):
                                 text = '神秘商人:這裡充滿神祕的商品，想要甚麼就拿走吧',
                                 actions=[
                                     MessageTemplateAction(
-                                        label = '藥水',
-                                        text = '藥水'
+                                        label = '道具',
+                                        text = '道具'
                                     ),
                                     MessageTemplateAction(
                                         label = '裝備',
@@ -466,7 +466,45 @@ class TocMachine(GraphMachine):
                         ]
                     )
               
-    
+    def on_enter_state_buying_portion(self,event):
+        line_bot_api.reply_message(
+                        event.reply_token,
+                        TemplateSendMessage(
+                            alt_text ='Buttons template',
+                            template = ButtonsTemplate(
+                                title = '選項',
+                                text = '神秘商人:這裡有許多道具,隨便看看吧。',
+                                actions=[
+                                    MessageTemplateAction(
+                                        label = '生命粉塵',
+                                        text = '生命粉塵'
+                                    ),
+                                    MessageTemplateAction(
+                                        label = '鬼人粉塵',
+                                        text = '鬼人粉塵'
+                                    ),
+                                    MessageTemplateAction(
+                                        label = '硬化粉塵',
+                                        text = '硬化粉塵'
+                                    ),
+                                    MessageTemplateAction(
+                                        label = '返回',
+                                        text = '返回'
+                                    )
+                                ]
+                            )
+                        )
+                    )
+    def health_portion(self,event):
+        global using_item,money
+        if money < 5 :
+            reply_token = event.reply_token
+            send_text_message(reply_token, "金幣不夠,無法購買。")
+        else:
+            money -= 5
+            using_item[0][1] = str( int(using_item[0][1] ) + 1 ) 
+            reply_token = event.reply_token
+            send_text_message(reply_token, "購買了一個生命粉塵。\n可繼續購買或是輸入 返回 回到選單")
     def item(self , event):
         global backpack,attribute,drops,using_item
         item_in_backpack = ""

@@ -15,7 +15,7 @@ load_dotenv()
 
 
 machine = TocMachine(
-    states=["intro","build","enter_name","choose_occupation","occupation_intro", "start","state_change","state_change_weapon","state_change_equip","state_dead","state_item", "state_map","state_fight", "state_store"],
+    states=["intro","build","enter_name","choose_occupation","occupation_intro", "start","state_change","state_buying_portion","state_change_weapon","state_change_equip","state_dead","state_item", "state_map","state_fight", "state_store"],
     transitions=[
         {
             "trigger": "to_build",
@@ -131,6 +131,14 @@ machine = TocMachine(
         {"trigger": "go_back_state_fight_dead",
          "source": "state_dead",
           "dest": "state_fight" ,
+        },
+        {"trigger": "to_state_buying_portion",
+         "source": "state_store",
+          "dest": "state_buying_portion" ,
+        },
+        {"trigger": "go_back_state_store_portion",
+         "source": "state_buying_porttion",
+          "dest": "state_store" ,
         },
     ],
     initial="intro",
@@ -357,6 +365,25 @@ def webhook_handler():
             if event.message.text == "返回":
                 machine.show_start(event)
                 machine.go_back_start_store(event)
+        if machine.state == "state_store":
+            if event.message.text == "道具":
+                machine.to_state_buying_portion(event)
+        if machine.state == "state_store":
+            if event.message.text == "裝備":
+                machine.
+
+        #portion state
+        if machine.state == "state_buying_portion":
+            if event.message.text == "返回":
+                machine.go_back_state_store_portion(event)
+        if machine.state == "state_buying_portion":
+            if event.message.text == "生命粉塵":
+                machine.health_portion(event)
+        # if machine.state == "state_buying_portion":
+        #     if event.message.text == "鬼人粉塵":
+
+        # if machine.state == "state_buying_portion":
+        #     if event.message.text == "硬化粉塵":
 
         #dead state
         if machine.state == "state_dead":
