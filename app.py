@@ -368,9 +368,9 @@ def webhook_handler():
         if machine.state == "state_store":
             if event.message.text == "道具":
                 machine.to_state_buying_portion(event)
-        if machine.state == "state_store":
-            if event.message.text == "裝備":
-                machine.
+        # if machine.state == "state_store":
+        #     if event.message.text == "裝備":
+        #         machine.
 
         #portion state
         if machine.state == "state_buying_portion":
