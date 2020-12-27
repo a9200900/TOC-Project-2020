@@ -1241,15 +1241,17 @@ class TocMachine(GraphMachine):
             if tmp <= 5:
                 if monster_now_count>=0:
                     if monster_now_count <6:
-                        drop_tmp = random.choice(drop_1_sword)
+                        drop_tmp = random.choices(drop_1_sword)
                         backpack.append(drop_tmp)
+                        #backpack.append()
+                        
                 if monster_now_count>=6:
                     if monster_now_count <12:
-                        drop_tmp = random.choice(drop_2_sword)
+                        drop_tmp = random.choices(drop_2_sword)
                         backpack.append(drop_tmp)
                 if monster_now_count>=12:
                     if monster_now_count <18:
-                        drop_tmp = random.choice(drop_3_sword)
+                        drop_tmp = random.choices(drop_3_sword)
                         backpack.append(drop_tmp)
 
         
