@@ -1215,6 +1215,7 @@ class TocMachine(GraphMachine):
         upgrade_text =""
         tmp = 0
         drop_tmp = ""
+        tmp_text = ""
         exp += int(monster_now[4])
         if exp >=5 :
             level = 2
@@ -1244,7 +1245,7 @@ class TocMachine(GraphMachine):
                         drop_tmp = random.choices(drop_1_sword)
                         backpack.append(drop_tmp)
                         #backpack.append()
-                        
+                        tmp_text ="\n怪物掉落了 "+drop_tmp
                 if monster_now_count>=6:
                     if monster_now_count <12:
                         drop_tmp = random.choices(drop_2_sword)
@@ -1281,7 +1282,7 @@ class TocMachine(GraphMachine):
                                     )
                                 ]
                             )
-                        ),TextSendMessage(text="你打敗了"+monster_now[0]+"\n"+"獲得"+monster_now[4]+"經驗值" +upgrade_text)
+                        ),TextSendMessage(text="你打敗了"+monster_now[0]+"\n"+"獲得"+monster_now[4]+"經驗值" +upgrade_text+tmp_text)
                             
                         ]
                         
