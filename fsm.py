@@ -511,7 +511,7 @@ class TocMachine(GraphMachine):
                                         line+
                                         "道具:\n"+item_tmp+
                                         line+
-                                        "輸入 更換裝備 以更換裝備。\n"+
+                                        "輸入 更換 以更換裝備。\n"+
                                         "輸入 道具介紹 可了解各藥草的功能") 
     def item_introduce(self,event):
     
@@ -1216,6 +1216,10 @@ class TocMachine(GraphMachine):
         tmp = 0
         drop_tmp = ""
         tmp_text = ""
+        money_text =""
+        money_get = random.randint(5,15)
+        money += money_get
+        money_text = "\n從怪物身上獲得 "+str(money_get)+"金幣"
         exp += int(monster_now[4])
         if exp >=5 :
             level = 2
@@ -1255,8 +1259,42 @@ class TocMachine(GraphMachine):
                         drop_tmp = random.choice(drop_3_sword)
                         backpack.append(drop_tmp)
                         tmp_text ="\n怪物掉落了 "+drop_tmp
-
-        
+        if occupation =="黑暗法師":
+            tmp = random.randint(1,10)
+            if tmp <= 5:
+                if map_now_count>=0:
+                    if map_now_count <6:
+                        drop_tmp = random.choice(drop_1_magic)
+                        backpack.append(drop_tmp)
+                        tmp_text ="\n怪物掉落了 "+drop_tmp
+                if map_now_count>=6:
+                    if map_now_count <12:
+                        drop_tmp = random.choice(drop_2_magic)
+                        backpack.append(drop_tmp)
+                        tmp_text ="\n怪物掉落了 "+drop_tmp
+                if map_now_count>=12:
+                    if map_now_count <18:
+                        drop_tmp = random.choice(drop_3_magic)
+                        backpack.append(drop_tmp)
+                        tmp_text ="\n怪物掉落了 "+drop_tmp
+        if occupation =="精靈射手":
+            tmp = random.randint(1,10)
+            if tmp <= 5:
+                if map_now_count>=0:
+                    if map_now_count <6:
+                        drop_tmp = random.choice(drop_1_arch)
+                        backpack.append(drop_tmp)
+                        tmp_text ="\n怪物掉落了 "+drop_tmp
+                if map_now_count>=6:
+                    if map_now_count <12:
+                        drop_tmp = random.choice(drop_2_arch)
+                        backpack.append(drop_tmp)
+                        tmp_text ="\n怪物掉落了 "+drop_tmp
+                if map_now_count>=12:
+                    if map_now_count <18:
+                        drop_tmp = random.choice(drop_3_arch)
+                        backpack.append(drop_tmp)
+                        tmp_text ="\n怪物掉落了 "+drop_tmp
         line_bot_api.reply_message(
                         event.reply_token,[
                         TemplateSendMessage(
@@ -1283,7 +1321,7 @@ class TocMachine(GraphMachine):
                                     )
                                 ]
                             )
-                        ),TextSendMessage(text="你打敗了"+monster_now[0]+"\n"+"獲得"+monster_now[4]+"經驗值" +upgrade_text+tmp_text)
+                        ),TextSendMessage(text="你打敗了"+monster_now[0]+"\n"+"獲得"+monster_now[4]+"經驗值" +upgrade_text+money_text+tmp_text)
                             
                         ]
                         
